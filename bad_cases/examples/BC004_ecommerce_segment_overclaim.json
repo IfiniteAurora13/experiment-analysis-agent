@@ -1,0 +1,18 @@
+{
+    "case_id": "BC004",
+    "category": "logic",
+    "severity": "high",
+    "input": {
+      "question": "新用户CVR显著提升，是否可以证明新版商品详情页特别适合新用户，因此应该针对新用户全面推广？"
+    },
+    "expected": {
+      "statement": "新用户分群表现可以作为探索性发现，但单次分群结果不足以证明策略对新用户具有确定性的因果效果，应进行独立验证。"
+    },
+    "actual": {
+      "historical_failure": "将新用户分群中的显著提升直接解释为新版商品详情页对新用户有效，并据此提出定向推广建议。"
+    },
+    "root_cause": "分群分析结果缺少探索性发现与确定性结论之间的表达约束。",
+    "fix": "SegmentDiagnosisSkill 输出统一标记为待验证假设，并由 GuardrailEngine 禁止将单次分群显著性直接表述为因果结论或定向推广建议。",
+    "regression_case": "E004",
+    "regression_test": true
+  }

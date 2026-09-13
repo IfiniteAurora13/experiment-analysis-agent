@@ -11,7 +11,7 @@ def test_eval_runner_executes_all_fixture_cases_and_writes_reports(tmp_path):
     results = runner.run_cases(cases)
     json_path, markdown_path = runner.write_reports(results, tmp_path)
 
-    assert len(results) == 3
+    assert len(results) == len(cases)
     assert all(result.passed for result in results)
     assert json_path.exists()
     assert markdown_path.exists()
