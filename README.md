@@ -1,8 +1,3 @@
-给出我完整的可以直接粘贴替换的readme.md的markdown
-
-
-当然。下面这版你可以直接完整复制，覆盖 README.md。我已经把章节编号、Markdown 代码块、Demo、Eval、Bad Case、Trace、Quick Start 全部整理好了，并且只写你目前已经实际实现和验证过的能力。
-
 # Experiment Analysis Agent · ExperimentOS
 
 一个面向 A/B 实验分析的可运行 Agent Workflow。
