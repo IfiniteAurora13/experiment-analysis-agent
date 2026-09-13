@@ -1,0 +1,21 @@
+- name: CTR
+  kind: conversion
+  role: core
+  direction: increase
+  unit: "%"
+  provider: libra
+  entity: experiment_report_metric
+  source_group_name: "Demo Metric Group"
+  source_metric_name: CTR
+  notes: 从 Libra get_report 的 metric row 映射
+
+- name: GMV_per_user
+  kind: continuous
+  role: guardrail
+  direction: increase
+  unit: "CNY"
+  provider: libra
+  entity: experiment_report_metric
+  source_group_name: "Demo Metric Group"
+  source_metric_name: GMV
+  notes: 从 Libra get_report 的 metric row 映射

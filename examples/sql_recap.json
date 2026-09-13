@@ -1,0 +1,23 @@
+{
+  "question": "请帮我复盘这个实验，并给出是否建议发布",
+  "context": {
+    "experiment_id": "exp_home_feed_01",
+    "name": "首页推荐卡片改版",
+    "objective": "提升首页点击率与下游转化",
+    "hypothesis": "更清晰的卡片样式会提升用户点击和下游成交",
+    "control_name": "control",
+    "treatment_name": "treatment",
+    "start_date": "2026-09-01",
+    "end_date": "2026-09-09",
+    "alpha": 0.05,
+    "expected_control_ratio": 0.5,
+    "exposure_definition": "进入首页且看到推荐卡片的用户",
+    "conversion_definition": "曝光后 24 小时内点击推荐卡片"
+  },
+  "data_source": {
+    "kind": "duckdb",
+    "database_path": "examples/demo.duckdb",
+    "metric_specs_path": "metric_specs/basic_metrics.yaml",
+    "segment_specs_path": "metric_specs/basic_segments.yaml"
+  }
+}

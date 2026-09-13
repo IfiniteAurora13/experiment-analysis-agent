@@ -1,0 +1,12 @@
+{
+  "case_id": "BC-identifier",
+  "category": "numeric_accuracy | logic | expression | completeness | metric_definition",
+  "severity": "low | medium | high",
+  "input": {},
+  "expected": {},
+  "actual": {},
+  "root_cause": "What failed and why.",
+  "fix": "Prompt, skill, tool, or workflow correction.",
+  "regression_case": "E001",
+  "regression_test": true
+}

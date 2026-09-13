@@ -1,0 +1,18 @@
+{
+  "id": "E002",
+  "input": {
+    "question": "这个实验是否可信，是否可以发布？",
+    "context": {"objective": "提升转化率", "control_name": "control", "treatment_name": "treatment", "start_date": "2026-09-01", "end_date": "2026-09-09", "expected_control_ratio": 0.5},
+    "metrics": [
+      {"name": "Conversion", "kind": "conversion", "role": "core", "direction": "increase", "control_n": 1000, "treatment_n": 1600, "control_successes": 100, "treatment_successes": 160}
+    ]
+  },
+  "expected": {
+    "metrics": [{"metric_name": "Conversion", "metric_kind": "conversion", "metric_role": "core"}],
+    "numeric": [{"metric_name": "Conversion", "control_value": 0.1, "treatment_value": 0.1, "delta_abs": 0.0, "significant": false}],
+    "quality_issues": ["SRM 风险"],
+    "recommendations": ["暂停业务结论解读"],
+    "require_quality_check": true
+  },
+  "checks": ["metric_definition", "numeric_accuracy", "completeness", "logic", "expression"]
+}

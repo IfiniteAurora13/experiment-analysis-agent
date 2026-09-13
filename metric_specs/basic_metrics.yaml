@@ -1,0 +1,37 @@
+- name: CTR
+  kind: conversion
+  role: core
+  direction: increase
+  unit: "%"
+  sql: |
+    SELECT
+      SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END) AS control_n,
+      SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END) AS treatment_n,
+      SUM(CASE WHEN variant = 'control' THEN clicks ELSE 0 END) AS control_successes,
+      SUM(CASE WHEN variant = 'treatment' THEN clicks ELSE 0 END) AS treatment_successes
+    FROM experiment_daily_metrics
+
+- name: GMV_per_user
+  kind: continuous
+  role: guardrail
+  direction: increase
+  unit: "CNY"
+  sql: |
+    SELECT
+      SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END) AS control_n,
+      SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END) AS treatment_n,
+      SUM(CASE WHEN variant = 'control' THEN gmv_sum ELSE 0 END)
+        / NULLIF(SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END), 0) AS control_value,
+      SUM(CASE WHEN variant = 'treatment' THEN gmv_sum ELSE 0 END)
+        / NULLIF(SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END), 0) AS treatment_value,
+      (
+        SUM(CASE WHEN variant = 'control' THEN gmv_sum_sq ELSE 0 END)
+        - POWER(SUM(CASE WHEN variant = 'control' THEN gmv_sum ELSE 0 END), 2)
+          / NULLIF(SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END), 0)
+      ) / NULLIF(SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END) - 1, 0) AS control_var,
+      (
+        SUM(CASE WHEN variant = 'treatment' THEN gmv_sum_sq ELSE 0 END)
+        - POWER(SUM(CASE WHEN variant = 'treatment' THEN gmv_sum ELSE 0 END), 2)
+          / NULLIF(SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END), 0)
+      ) / NULLIF(SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END) - 1, 0) AS treatment_var
+    FROM experiment_daily_metrics

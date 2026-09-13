@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "data": {
+    "metric_group_name": "Demo Metric Group",
+    "table_rows": [
+      {
+        "metric_name": "CTR",
+        "version_name": "test",
+        "base_version_name": "base",
+        "value_display": "12.00%",
+        "base_value_display": "10.00%",
+        "sample_size": 10000,
+        "base_sample_size": 10000,
+        "p_value_display": "0.0120",
+        "significant": true,
+        "diff_pct_display": "20.00%"
+      },
+      {
+        "metric_name": "GMV",
+        "version_name": "test",
+        "base_version_name": "base",
+        "value_display": "18.0",
+        "base_value_display": "20.0",
+        "sample_size": 10000,
+        "base_sample_size": 10000,
+        "p_value_display": "0.0080",
+        "significant": true,
+        "diff_pct_display": "-10.00%"
+      }
+    ],
+    "query": {
+      "flight_id": 10001,
+      "app_id": 1001,
+      "vregion": "demo-region",
+      "metric_group_id": 9001,
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-09",
+      "data_region": "demo-region",
+      "data_caliber": "default",
+      "merge_type": "total",
+      "confidence_threshold": 0.95,
+      "mult_cmp_corr": "default"
+    }
+  }
+}

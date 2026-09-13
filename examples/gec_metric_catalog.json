@@ -1,0 +1,13 @@
+{
+  "question": "请读取离线指标注册表目录",
+  "context": {
+    "name": "离线指标目录",
+    "objective": "登记已授权的指标来源"
+  },
+  "data_source": {
+    "provider": "catalog",
+    "kind": "catalog",
+    "catalog_query": "demo metric groups",
+    "metric_specs_path": "metric_specs/gec_metric_catalog.yaml"
+  }
+}

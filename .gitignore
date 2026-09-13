@@ -1,0 +1,19 @@
+# Python environments, caches, and packaging output
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# Local demo data and machine-specific files
+examples/demo.duckdb
+.DS_Store
+
+# AgentBox runtime state is host-specific, not project source
+.gdpa-agent-box/
+
+# Generated offline evaluation reports
+evals/reports/latest.json
+evals/reports/latest.md

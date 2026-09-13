@@ -1,0 +1,12 @@
+{
+  "case_id": "BC003",
+  "category": "completeness",
+  "severity": "medium",
+  "input": {"metric": "CTR", "control_value": 0.1, "treatment_value": 0.12},
+  "expected": {"required_fields": ["sample_size", "p_value", "confidence_interval", "statistical_method"]},
+  "actual": {"historical_failure": "只报告 uplift，未说明样本量与统计不确定性。"},
+  "root_cause": "MetricResult 没有统一统计字段。",
+  "fix": "统一 MetricResult schema，并由 CompletenessEvaluator 做回归检查。",
+  "regression_case": "E001",
+  "regression_test": true
+}

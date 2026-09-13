@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "experimentos"
+version = "0.1.0"
+description = "ExperimentOS v1 skeleton for experiment analysis agents"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "ExperimentOS" }]
+dependencies = ["pyyaml>=6.0", "duckdb>=1.0", "scipy>=1.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+experimentos-cli = "experimentos.app.cli:main"
+experimentos-registry = "experimentos.app.registry_cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["experimentos*"]

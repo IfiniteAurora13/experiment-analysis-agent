@@ -1,0 +1,24 @@
+{
+  "id": "E001",
+  "input": {
+    "question": "请复盘这个实验，并给出发布建议",
+    "context": {"objective": "提升点击率且不损害每用户收入", "control_name": "control", "treatment_name": "treatment", "start_date": "2026-09-01", "end_date": "2026-09-09", "alpha": 0.05},
+    "metrics": [
+      {"name": "CTR", "kind": "conversion", "role": "core", "direction": "increase", "control_n": 10000, "treatment_n": 10000, "control_successes": 1000, "treatment_successes": 1200},
+      {"name": "Revenue per user", "kind": "continuous", "role": "guardrail", "direction": "increase", "control_n": 10000, "treatment_n": 10000, "control_value": 12.0, "treatment_value": 11.7, "control_var": 25.0, "treatment_var": 25.0}
+    ]
+  },
+  "expected": {
+    "metrics": [
+      {"metric_name": "CTR", "metric_kind": "conversion", "metric_role": "core", "direction": "increase"},
+      {"metric_name": "Revenue per user", "metric_kind": "continuous", "metric_role": "guardrail", "direction": "increase"}
+    ],
+    "numeric": [
+      {"metric_name": "CTR", "control_value": 0.1, "treatment_value": 0.12, "delta_abs": 0.02, "significant": true},
+      {"metric_name": "Revenue per user", "control_value": 12.0, "treatment_value": 11.7, "delta_abs": -0.3, "significant": true}
+    ],
+    "recommendations": ["不建议发布"],
+    "require_quality_check": true
+  },
+  "checks": ["metric_definition", "numeric_accuracy", "completeness", "logic", "expression"]
+}

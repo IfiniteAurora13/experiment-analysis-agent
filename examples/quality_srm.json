@@ -1,0 +1,25 @@
+{
+  "question": "这个实验是否可信，是否应继续解读发布结论？",
+  "context": {
+    "experiment_id": "demo_srm_001",
+    "name": "SRM quality demo",
+    "objective": "提升注册转化率",
+    "control_name": "control",
+    "treatment_name": "treatment",
+    "start_date": "2026-09-01",
+    "end_date": "2026-09-09",
+    "expected_control_ratio": 0.5
+  },
+  "metrics": [
+    {
+      "name": "Signup conversion",
+      "kind": "conversion",
+      "role": "core",
+      "direction": "increase",
+      "control_n": 1000,
+      "treatment_n": 1600,
+      "control_successes": 100,
+      "treatment_successes": 160
+    }
+  ]
+}

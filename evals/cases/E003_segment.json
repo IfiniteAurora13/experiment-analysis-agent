@@ -1,0 +1,20 @@
+{
+  "id": "E003",
+  "input": {
+    "question": "请诊断不同用户类型的实验表现",
+    "context": {"objective": "提升点击率", "control_name": "control", "treatment_name": "treatment", "start_date": "2026-09-01", "end_date": "2026-09-09"},
+    "metrics": [
+      {"name": "CTR", "kind": "conversion", "role": "core", "direction": "increase", "control_n": 10000, "treatment_n": 10000, "control_successes": 1000, "treatment_successes": 1150}
+    ],
+    "segments": [
+      {"name": "CTR", "kind": "conversion", "role": "core", "direction": "increase", "segment_name": "user_type", "segment_value": "new_user", "control_n": 3000, "treatment_n": 3000, "control_successes": 240, "treatment_successes": 330},
+      {"name": "CTR", "kind": "conversion", "role": "core", "direction": "increase", "segment_name": "user_type", "segment_value": "existing_user", "control_n": 7000, "treatment_n": 7000, "control_successes": 760, "treatment_successes": 820}
+    ]
+  },
+  "expected": {
+    "metrics": [{"metric_name": "CTR", "metric_kind": "conversion", "metric_role": "core"}],
+    "numeric": [{"metric_name": "CTR", "control_value": 0.1, "treatment_value": 0.115, "delta_abs": 0.015, "significant": true}],
+    "require_quality_check": true
+  },
+  "checks": ["metric_definition", "numeric_accuracy", "completeness", "logic", "expression"]
+}

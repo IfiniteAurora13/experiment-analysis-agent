@@ -1,0 +1,10 @@
+- name: demo_group_gmv
+  kind: continuous
+  role: core
+  direction: increase
+  unit: "USD"
+  provider: catalog
+  entity: libra_gallery_metric_group
+  owner: Example Analytics Team
+  source_metric_name: demo_gmv
+  notes: 可选 registry adapter 用于读取已授权指标定义；仓库不存储连接信息、凭据或内部 URL。

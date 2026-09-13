@@ -1,0 +1,19 @@
+- name: demo_group_ctr
+  kind: conversion
+  role: core
+  direction: increase
+  unit: "%"
+  provider: gec-ds-catalog
+  source_group_name: "Demo Metric Group"
+  source_metric_name: "CTR"
+  notes: 通过显式配置的本地 registry adapter 解析 group 与 metric 定义；仓库不包含凭据或内部目录。
+
+- name: demo_group_gmv
+  kind: continuous
+  role: core
+  direction: increase
+  unit: "USD"
+  provider: gec-ds-catalog
+  source_group_name: "Demo Metric Group"
+  source_metric_name: "GMV"
+  notes: 通过显式配置的本地 registry adapter 解析 group 与 metric 定义；仓库不包含凭据或内部目录。

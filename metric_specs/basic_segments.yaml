@@ -1,0 +1,15 @@
+- name: CTR
+  kind: conversion
+  role: core
+  direction: increase
+  unit: "%"
+  segment_name: user_type
+  sql: |
+    SELECT
+      user_type AS segment_value,
+      SUM(CASE WHEN variant = 'control' THEN exposures ELSE 0 END) AS control_n,
+      SUM(CASE WHEN variant = 'treatment' THEN exposures ELSE 0 END) AS treatment_n,
+      SUM(CASE WHEN variant = 'control' THEN clicks ELSE 0 END) AS control_successes,
+      SUM(CASE WHEN variant = 'treatment' THEN clicks ELSE 0 END) AS treatment_successes
+    FROM experiment_segment_metrics
+    GROUP BY 1

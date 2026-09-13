@@ -1,0 +1,25 @@
+{
+  "question": "请基于 Libra report 复盘这个实验，并给出是否建议发布",
+  "context": {
+    "experiment_id": "fixture_flight_001",
+    "name": "离线 fixture 实验复盘",
+    "objective": "提升点击率与下游转化",
+    "control_name": "base",
+    "treatment_name": "test",
+    "start_date": "2026-09-01",
+    "end_date": "2026-09-09",
+    "alpha": 0.05
+  },
+  "data_source": {
+    "provider": "libra",
+    "kind": "libra",
+    "session_id": "",
+    "app_id": 1001,
+    "vregion": "demo-region",
+    "flight_id": 10001,
+    "metric_group_id": 9001,
+    "report_fixture_path": "examples/libra_report_fixture.json",
+    "metric_specs_path": "metric_specs/libra_metrics.yaml",
+    "registry_skill_root": ""
+  }
+}

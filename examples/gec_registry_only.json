@@ -1,0 +1,12 @@
+{
+  "question": "请先帮我把指标注册表理清楚",
+  "context": {
+    "name": "指标注册表",
+    "objective": "明确已授权指标组、owner、source table 与可用于后续实验分析的主键"
+  },
+  "data_source": {
+    "provider": "gec-ds-catalog",
+    "kind": "gec-ds-catalog",
+    "metric_specs_path": "metric_specs/gec_registry.yaml"
+  }
+}

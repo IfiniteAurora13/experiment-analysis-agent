@@ -1,0 +1,67 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ExperimentOS: basic_recap",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "experimentos.app.cli",
+      "args": [
+        "examples/basic_recap.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "name": "ExperimentOS: sql_recap",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "experimentos.app.cli",
+      "args": [
+        "examples/sql_recap.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "ExperimentOS: 初始化 DuckDB demo"
+    },
+    {
+      "name": "ExperimentOS: needs_context",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "experimentos.app.cli",
+      "args": [
+        "examples/needs_context.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "name": "ExperimentOS: Libra fixture",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "experimentos.app.cli",
+      "args": [
+        "examples/libra_recap.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "name": "ExperimentOS: Eval",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "evals.runner",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "ExperimentOS: 创建虚拟环境并安装依赖"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "BC002",
+  "category": "logic",
+  "severity": "high",
+  "input": {"control_n": 1000, "treatment_n": 1600, "expected_ratio": 0.5},
+  "expected": {"recommendation": "暂停业务结论解读"},
+  "actual": {"historical_failure": "核心指标改善时忽略 SRM 风险并建议发布。"},
+  "root_cause": "质量检查没有作为发布建议的前置条件。",
+  "fix": "QualityCheckSkill 在 ExperimentRecapSkill 前执行，GuardrailEngine 对 high SRM 直接阻断建议。",
+  "regression_case": "E002",
+  "regression_test": true
+}

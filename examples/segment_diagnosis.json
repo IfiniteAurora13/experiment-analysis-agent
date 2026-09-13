@@ -1,0 +1,50 @@
+{
+  "question": "请诊断不同用户类型的 CTR 表现",
+  "context": {
+    "experiment_id": "demo_segment_001",
+    "name": "Segment diagnosis demo",
+    "objective": "提升点击率",
+    "control_name": "control",
+    "treatment_name": "treatment",
+    "start_date": "2026-09-01",
+    "end_date": "2026-09-09"
+  },
+  "metrics": [
+    {
+      "name": "CTR",
+      "kind": "conversion",
+      "role": "core",
+      "direction": "increase",
+      "control_n": 10000,
+      "treatment_n": 10000,
+      "control_successes": 1000,
+      "treatment_successes": 1150
+    }
+  ],
+  "segments": [
+    {
+      "name": "CTR",
+      "kind": "conversion",
+      "role": "core",
+      "direction": "increase",
+      "segment_name": "user_type",
+      "segment_value": "new_user",
+      "control_n": 3000,
+      "treatment_n": 3000,
+      "control_successes": 240,
+      "treatment_successes": 330
+    },
+    {
+      "name": "CTR",
+      "kind": "conversion",
+      "role": "core",
+      "direction": "increase",
+      "segment_name": "user_type",
+      "segment_value": "existing_user",
+      "control_n": 7000,
+      "treatment_n": 7000,
+      "control_successes": 760,
+      "treatment_successes": 820
+    }
+  ]
+}

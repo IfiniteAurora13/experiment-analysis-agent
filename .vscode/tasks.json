@@ -1,0 +1,163 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ExperimentOS: 创建虚拟环境并安装依赖",
+      "type": "shell",
+      "command": "python3 -m venv .venv && . .venv/bin/activate && python -m pip install -U pip && python -m pip install -e '.[dev]'",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ExperimentOS: 初始化 DuckDB demo",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli --init-demo-db",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: 运行 basic_recap",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/basic_recap.json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: 运行 sql_recap",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/sql_recap.json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": [
+        "ExperimentOS: 创建虚拟环境并安装依赖",
+        "ExperimentOS: 初始化 DuckDB demo"
+      ]
+    },
+    {
+      "label": "ExperimentOS: 运行 needs_context",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/needs_context.json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: 运行 Libra fixture",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/libra_recap.json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: 运行测试",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m pytest -q tests/test_orchestrator.py",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-lc"
+          ]
+        }
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: Run All Tests",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m pytest -q",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {"executable": "/bin/bash", "args": ["-lc"]}
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: Run Eval",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m evals.runner",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {"executable": "/bin/bash", "args": ["-lc"]}
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: Run Demo",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/basic_recap.json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {"executable": "/bin/bash", "args": ["-lc"]}
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    },
+    {
+      "label": "ExperimentOS: Run Agent",
+      "type": "shell",
+      "command": ". .venv/bin/activate && python -m experimentos.app.cli examples/segment_diagnosis.json --format json",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {"executable": "/bin/bash", "args": ["-lc"]}
+      },
+      "problemMatcher": [],
+      "dependsOn": "ExperimentOS: 创建虚拟环境并安装依赖"
+    }
+  ]
+}
