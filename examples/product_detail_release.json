@@ -1,0 +1,61 @@
+{
+    "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+    "context": {
+      "objective": "提升商品详情页转化率，同时不损害每用户收入",
+      "control_name": "old_detail_page",
+      "treatment_name": "new_detail_page",
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-09",
+      "alpha": 0.05
+    },
+    "metrics": [
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_successes": 2000,
+        "treatment_successes": 2329
+      },
+      {
+        "name": "GMV_per_user",
+        "kind": "continuous",
+        "role": "guardrail",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_value": 12.4,
+        "treatment_value": 12.1,
+        "control_var": 25.0,
+        "treatment_var": 25.0
+      }
+    ],
+    "segments": [
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "segment_name": "user_type",
+        "segment_value": "new_user",
+        "control_n": 6000,
+        "treatment_n": 6050,
+        "control_successes": 480,
+        "treatment_successes": 605
+      },
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "segment_name": "user_type",
+        "segment_value": "returning_user",
+        "control_n": 14000,
+        "treatment_n": 14100,
+        "control_successes": 1520,
+        "treatment_successes": 1582
+      }
+    ]
+  }
