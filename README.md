@@ -30,53 +30,40 @@ ExperimentOS 的目标是将这些分析约束转化为可执行工作流：
 
 ```mermaid
 flowchart TD
-
     Q[User Query] --> R[Intent Router]
-
     R --> P[Planner / Optional LLM Planner]
-
     P --> I[Input Validation & Data Materialization]
-
     I --> S[Skill Registry]
-
     S --> E[Agent Executor]
-
     E --> QS[Quality Check Skill]
     E --> MS[Experiment Recap Skill]
     E --> SS[Segment Diagnosis Skill]
     E --> RS[Release Recommendation Skill]
     E --> DS[Driver Analysis Skill]
-
     QS --> T[Tool Registry]
     MS --> T
     SS --> T
     RS --> T
     DS --> T
-
     T --> ST[Stats / SQL / Fixture Provider / Metric Registry]
-
     ST --> V[Result Validation]
-
     V --> G[Guardrails]
-
     G --> N[Report Renderer / Optional LLM Narrator]
-
     N --> EV[Offline Eval]
-
     EV --> BC[Bad Case Regression]
 ```
 
 工作流状态由 `ExperimentState` 承载，记录：
 
-- request
-- plan
+- `request`
+- `plan`
 - 缺失输入
 - 实验质量问题
 - 指标结果
 - 分群发现
 - 发布建议
-- Workflow Trace
-- Tool Trace
+- `Workflow Trace`
+- `Tool Trace`
 
 Agent Executor 对工具调用设置上限，避免出现无限循环。
 
@@ -141,8 +128,6 @@ python -m evals.runner
 
 新增 Skill 无需修改 Orchestrator，只需实现统一接口并完成注册。
 
----
-
 ### 4.2 Tools
 
 `ToolRegistry` 管理统一的工具 metadata 与受限调用。
@@ -161,7 +146,7 @@ python -m evals.runner
 
 每次工具调用生成：
 
-```text
+```python
 ToolTrace(
     tool_name,
     input,
@@ -173,8 +158,6 @@ ToolTrace(
 
 Trace 只保存摘要信息，不保存原始数据载荷。
 
----
-
 ### 4.3 Statistics and Result Schema
 
 `MetricResult` 为不同数据来源提供统一、可审计的统计结果结构，包含：
@@ -183,16 +166,16 @@ Trace 只保存摘要信息，不保存原始数据载荷。
 - `metric_kind`
 - `metric_role`
 - `direction`
-- control / treatment sample size
-- control / treatment value
-- absolute change
-- relative change
-- p-value
-- confidence interval
-- significance
+- `control / treatment sample size`
+- `control / treatment value`
+- `absolute change`
+- `relative change`
+- `p-value`
+- `confidence interval`
+- `significance`
 - `statistical_method`
 - `statistical_source`
-- interpretation
+- `interpretation`
 
 统计计算由确定性组件完成，LLM 不参与数值计算。
 
@@ -200,34 +183,23 @@ Trace 只保存摘要信息，不保存原始数据载荷。
 
 采用：
 
-```text
-Pooled two-proportion z-test
-+
-Unpooled Wald confidence interval
-```
+- Pooled two-proportion z-test
+- Unpooled Wald confidence interval
 
 #### Continuous Metrics
 
 采用：
 
-```text
-Welch t-test
-+
-Welch–Satterthwaite degrees of freedom
-+
-对应 confidence interval
-```
+- Welch t-test
+- Welch–Satterthwaite degrees of freedom
+- 对应 confidence interval
 
 #### Platform / Fixture Metrics
 
 保留平台侧统计结果，并通过 `statistical_source` 区分：
 
-```text
-computed
-platform_reported
-```
-
----
+- `computed`
+- `platform_reported`
 
 ### 4.4 Guardrails
 
@@ -236,14 +208,12 @@ ExperimentOS 在分析过程中加入显式实验约束：
 - 高严重度 SRM 风险会阻断或降低业务结论强度；
 - 护栏指标显著恶化时不建议发布；
 - 结果校验会检查样本量、p-value、CI 顺序和显著性之间的一致性；
-- 输出区分 `Facts`、`Inferences` 和 `Hypotheses`；
+- 输出区分 Facts、Inferences 和 Hypotheses；
 - 分群结果固定标记为“待验证假设”，不得直接作为因果结论。
 
 核心原则：
 
 > A positive uplift on the core metric does not automatically imply that the experiment should be released.
-
----
 
 ### 4.5 LLM Planner
 
@@ -282,7 +252,7 @@ Validated Plan
 - 未知 Tool；
 - LLM 调用失败；
 
-系统会自动回退到 deterministic `Planner`。
+系统会自动回退到 deterministic Planner。
 
 同时，LLM 不能删除强制的质量检查、统计分析和发布护栏。
 
@@ -301,8 +271,6 @@ Final Execution Plan
 ```
 
 LLM 可以扩展规划，但不能绕过实验分析的安全边界。
-
----
 
 ### 4.6 LLM Narrator
 
@@ -334,17 +302,13 @@ LLM 可以扩展规划，但不能绕过实验分析的安全边界。
 
 实验目标：
 
-> 提升商品详情页转化率，同时不损害每用户收入。
-
----
+提升商品详情页转化率，同时不损害每用户收入。
 
 ### 5.2 Run
 
 ```bash
 python -m experimentos.app.cli examples/product_detail_release.json --trace
 ```
-
----
 
 ### 5.3 Agent Execution Trace
 
@@ -403,20 +367,16 @@ Tool Calls:
 ============================================
 ```
 
----
-
 ### 5.4 Key Results
 
-| Metric | Control | Treatment | Relative Change | Result |
-| --- | ---: | ---: | ---: | --- |
-| CVR | 10.00% | 11.56% | +15.58% | Significant uplift |
-| GMV per user | 12.40 | 12.10 | -2.42% | Significant degradation |
-
----
+| Metric       | Control | Treatment | Relative Change | Result                |
+| ------------ | ------- | --------- | --------------- | --------------------- |
+| CVR          | 10.00%  | 11.56%    | +15.58%         | Significant uplift    |
+| GMV per user | 12.40   | 12.10     | -2.42%          | Significant degradation |
 
 ### 5.5 Release Decision
 
-**不建议发布。**
+不建议发布。
 
 核心指标 CVR 显著提升，但护栏指标 GMV per user 同时出现显著下降，因此当前证据不足以支持直接上线。
 
@@ -430,31 +390,16 @@ Agent 输出：
 - 补充分群复核：在总体结论之外，对重点人群做二次验证。
 ```
 
----
-
 ### 5.6 Segment Diagnosis
 
-新用户：
-
-```text
-CVR 显著提升
-```
-
-老用户：
-
-```text
-当前未形成足够显著证据
-```
+- 新用户：CVR 显著提升
+- 老用户：当前未形成足够显著证据
 
 两项结果均被标记为：
 
-```text
-待验证假设
-```
+**待验证假设**
 
 系统不会将单次分群显著性直接解释为因果关系，也不会仅基于该结果给出定向推广结论。
-
----
 
 ### 5.7 Mock LLM Planner
 
@@ -510,7 +455,6 @@ python -m evals.runner
 
 ```text
 # ExperimentOS Eval Report
-
 - Total Cases: 4
 - Passed Cases: 4
 - Overall Score: 100%
@@ -518,22 +462,20 @@ python -m evals.runner
 
 评测覆盖 5 个维度：
 
-```text
-metric_definition
-numeric_accuracy
-completeness
-logic
-expression
-```
+- `metric_definition`
+- `numeric_accuracy`
+- `completeness`
+- `logic`
+- `expression`
 
 当前 Case：
 
-| Case | Scenario | Focus |
-| --- | --- | --- |
-| E001 | 实验复盘 + 护栏指标 | 发布建议与统计结果 |
-| E002 | SRM | 实验质量约束 |
-| E003 | 分群诊断 | 探索性结果与表达约束 |
-| E004 | 商品详情页改版实验 | 电商场景下的核心指标与护栏决策 |
+| Case | Scenario         | Focus                             |
+| ---- | ---------------- | --------------------------------- |
+| E001 | 实验复盘 + 护栏指标 | 发布建议与统计结果                |
+| E002 | SRM              | 实验质量约束                      |
+| E003 | 分群诊断          | 探索性结果与表达约束              |
+| E004 | 商品详情页改版实验 | 电商场景下的核心指标与护栏决策    |
 
 Eval Case 位于：
 
@@ -594,7 +536,7 @@ Regression Case
 Eval Score
 ```
 
-### Example: BC004
+Example: BC004
 
 ```text
 BC004
@@ -626,32 +568,27 @@ ExperimentOS 同时记录两个层面的执行信息。
 
 记录 Agent 工作流阶段：
 
-```text
-planner
-input_validation
-skill execution
-result_validation
-guardrails
-report_generation
-```
+- `planner`
+- `input_validation`
+- `skill execution`
+- `result_validation`
+- `guardrails`
+- `report_generation`
 
 ### 8.2 Tool Trace
 
 记录工具调用：
 
-```text
-tool_name
-input summary
-output summary
-status
-latency_ms
-```
+- `tool_name`
+- `input summary`
+- `output summary`
+- `status`
+- `latency_ms`
 
 示例：
 
 ```text
 Tool Calls:
-
 [1] check_quality
     status=OK
     latency=0.0ms
@@ -748,11 +685,8 @@ python -m experimentos.app.cli examples/sql_recap.json
 
 GitHub Actions 在 push 和 pull request 时运行：
 
-```text
-pytest
-+
-offline Eval smoke test
-```
+- `pytest`
+- offline Eval smoke test
 
 CI 不访问任何线上或内部业务数据源。
 
@@ -853,34 +787,24 @@ experiment-analysis-agent-lab/
 
 LLM 负责：
 
-```text
-Intent Understanding
-Planning
-Narration
-```
+- Intent Understanding
+- Planning
+- Narration
 
 确定性组件负责：
 
-```text
-Statistical Computation
-Result Validation
-Quality Checks
-Release Guardrails
-```
-
----
+- Statistical Computation
+- Result Validation
+- Quality Checks
+- Release Guardrails
 
 ### 14.2 Flexibility must not bypass constraints
 
 LLM Planner 可以扩展分析计划，但不能删除：
 
-```text
-Quality Check
-Statistical Validation
-Guardrails
-```
-
----
+- Quality Check
+- Statistical Validation
+- Guardrails
 
 ### 14.3 Exploratory findings are not causal conclusions
 
@@ -894,21 +818,17 @@ Significant Segment Uplift
 Causal Effect
 ```
 
----
-
 ### 14.4 Eval is part of the Agent
 
 Agent 的效果不是只看“输出是不是像人写的”。
 
 还需要评估：
 
-```text
-Metric Definition
-Numeric Accuracy
-Completeness
-Statistical Logic
-Expression
-```
+- Metric Definition
+- Numeric Accuracy
+- Completeness
+- Statistical Logic
+- Expression
 
 并通过 Bad Case Regression 持续迭代。
 
@@ -918,38 +838,29 @@ Expression
 
 当前本地验证结果：
 
-```text
-Tests:
-12 passed
-
-Eval:
-4 / 4 cases passed
-
-Overall Eval Score:
-100%
-```
+- Tests: 12 passed
+- Eval: 4 / 4 cases passed
+- Overall Eval Score: 100%
 
 当前已验证的核心能力：
 
-```text
-✅ Intent Router
-✅ Deterministic Planner
-✅ LLM Planner + Schema Validation
-✅ Deterministic Fallback
-✅ Skill Registry
-✅ Tool Registry
-✅ Statistical Engine
-✅ Result Validation
-✅ Guardrails
-✅ Segment Diagnosis
-✅ Release Recommendation
-✅ Workflow Trace
-✅ Tool Trace
-✅ Offline Eval
-✅ Bad Case Regression
-✅ Synthetic / Offline Fixtures
-✅ Mock LLM Planner
-```
+- ✅ Intent Router
+- ✅ Deterministic Planner
+- ✅ LLM Planner + Schema Validation
+- ✅ Deterministic Fallback
+- ✅ Skill Registry
+- ✅ Tool Registry
+- ✅ Statistical Engine
+- ✅ Result Validation
+- ✅ Guardrails
+- ✅ Segment Diagnosis
+- ✅ Release Recommendation
+- ✅ Workflow Trace
+- ✅ Tool Trace
+- ✅ Offline Eval
+- ✅ Bad Case Regression
+- ✅ Synthetic / Offline Fixtures
+- ✅ Mock LLM Planner
 
 ---
 
