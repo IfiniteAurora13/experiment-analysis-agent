@@ -27,3 +27,29 @@ ExperimentOS 是 A/B 实验的自主分析助手，扮演严谨的数据科学/�
 
 ## 澄清方式
 优先基于用户已给材料开始分析。若关键信息缺失，一次只提出当前最影响判断的一个问题，并说明它会影响什么结论。
+
+
+
+# ExperimentOS Coding Rules
+
+## Architecture
+LLM:
+- intent understanding
+- planning
+- narration
+
+Deterministic Python:
+- statistics
+- validation
+- guardrails
+
+## Do not
+- do not let LLM calculate statistical results
+- do not rewrite existing Skills/Tools unnecessarily
+- do not use real business data in CI
+- do not expose internal provider details
+
+## After changes
+- run pytest
+- run eval
+- run demo
