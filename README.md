@@ -664,6 +664,12 @@ python -m experimentos.app.cli --init-demo-db
 python -m experimentos.app.cli examples/sql_recap.json
 ```
 
+### Auto-sync to GitHub
+
+仓库配置了 `post-commit` 钩子：每次本地 commit 后自动把 `main` 推送到 GitHub（后台执行，失败只写日志不阻塞提交）。日志位于 `~/.experimentos-auto-sync.log`。
+
+> 钩子存在于 `.git/hooks/`，不属于版本管理。重新 clone 后如需恢复自动同步，重新创建该钩子即可。
+
 ---
 
 ## 10. VS Code
