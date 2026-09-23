@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from experimentos.models import ExperimentState, WorkflowTrace
 from experimentos.skills.registry import SkillRegistry
-from experimentos.tools.registry import ToolRegistry
+from experimentos.tools.registry import ToolBudgetExhausted, ToolRegistry
 
 
 class AgentExecutor:
@@ -30,11 +30,23 @@ class AgentExecutor:
                 break
             try:
                 result = skill.run(state.request, state, self._tools)
-            except Exception as exc:
+            except ToolBudgetExhausted as exc:
+                # Budget gone mid-skill: stop here instead of letting every
+                # remaining skill fail with the same error.
                 state.workflow_trace.append(
                     WorkflowTrace(stage=f"skill:{skill.metadata.name}", status="error", detail={"error": str(exc)})
                 )
-                raise
+                state.warnings.append(str(exc))
+                break
+            except Exception as exc:
+                # Graceful degradation: record the failure and continue with
+                # the remaining skills so partial results still reach the
+                # validator, guardrails and final report.
+                state.workflow_trace.append(
+                    WorkflowTrace(stage=f"skill:{skill.metadata.name}", status="error", detail={"error": str(exc)})
+                )
+                state.warnings.append(f"skill {skill.metadata.name} 执行失败，已跳过：{exc}")
+                continue
             state.completed_skills.append(result.name)
             state.warnings.extend(result.warnings)
             state.workflow_trace.append(

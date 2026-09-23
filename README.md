@@ -95,7 +95,7 @@ python -m pytest -q
 Expected:
 
 ```text
-12 passed
+17 passed
 ```
 
 ### 3.3 Run the demo

@@ -26,6 +26,11 @@ if TYPE_CHECKING:
     from experimentos.agent.llm_client import LlmClient
 
 
+def derive_tool_budget(planned_tools: list[str], current_budget: int = 5) -> int:
+    """Guarantee the planned tool set fits with headroom for extra calls."""
+    return max(current_budget, len(planned_tools) + 2)
+
+
 class ExperimentOrchestrator:
     """Top-level orchestrator for ExperimentOS.
 
@@ -78,6 +83,9 @@ class ExperimentOrchestrator:
 
         # Data acquisition can supply the metrics required for input validation.
         self._apply_plan(state, self.planner.create_plan(state.task_type, request))
+        # Budget must derive from the post-acquisition plan: the first plan
+        # cannot see segments that only a data source materializes.
+        state.max_tool_calls = derive_tool_budget(state.planned_tools, state.max_tool_calls)
         state.workflow_trace.append(
             WorkflowTrace(
                 stage="planner",
@@ -143,7 +151,15 @@ class ExperimentOrchestrator:
             state.final_report = report
             return report
 
-        self.executor.execute(state)
+        try:
+            self.executor.execute(state)
+        except Exception as exc:
+            # Skills already degrade individually; this safety net keeps the
+            # invariant that run() never propagates skill-layer exceptions.
+            state.warnings.append(f"执行阶段失败：{exc}")
+            state.workflow_trace.append(
+                WorkflowTrace(stage="executor", status="error", detail={"error": str(exc)})
+            )
         validation_warnings = self.result_validator.validate(state.metric_results)
         state.warnings.extend(validation_warnings)
         state.workflow_trace.append(
@@ -161,9 +177,14 @@ class ExperimentOrchestrator:
         state.hypotheses.extend(guardrail_hypotheses)
         state.workflow_trace.append(WorkflowTrace(stage="guardrails", status="ok"))
 
-        summary = self._build_summary(state.task_type, state.quality_issues, state.recommendations)
+        # Computed before the report_generation trace is appended below; the
+        # only possible error stages at this point are skill:* and executor.
+        skill_failed = any(event.status == "error" for event in state.workflow_trace)
+        summary = self._build_summary(
+            state.task_type, state.quality_issues, state.recommendations, had_errors=skill_failed
+        )
         status = "DONE"
-        if state.quality_issues or any(item.label == "不建议发布" for item in state.recommendations):
+        if skill_failed or state.quality_issues or any(item.label == "不建议发布" for item in state.recommendations):
             status = "DONE_WITH_CONCERNS"
 
         report = AnalysisReport(
@@ -192,7 +213,9 @@ class ExperimentOrchestrator:
     def render_markdown(self, report: AnalysisReport) -> str:
         return self.renderer.render_markdown(report)
 
-    def _build_summary(self, task_type: str, quality_issues, recommendations) -> str:
+    def _build_summary(self, task_type: str, quality_issues, recommendations, had_errors: bool = False) -> str:
+        if had_errors:
+            return "已完成分析，但部分 skill 执行失败，当前结论不完整，请结合警告与 trace 核查失败原因"
         if quality_issues:
             return "已完成分析，但结论需要结合实验质量风险谨慎解读"
         if any(item.label == "不建议发布" for item in recommendations):

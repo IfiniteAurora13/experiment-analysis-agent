@@ -47,8 +47,27 @@ class QualityChecker:
     def _check_duration(self, request: ExperimentRequest) -> list[QualityIssue]:
         if not request.context.start_date or not request.context.end_date:
             return []
-        start = date.fromisoformat(request.context.start_date)
-        end = date.fromisoformat(request.context.end_date)
+        try:
+            start = date.fromisoformat(request.context.start_date)
+            end = date.fromisoformat(request.context.end_date)
+        except (ValueError, TypeError):
+            return [
+                QualityIssue(
+                    name="实验起止时间格式异常",
+                    severity="medium",
+                    impact=f"实验起止时间无法解析：{request.context.start_date} ~ {request.context.end_date}。",
+                    recommendation="请提供 ISO 格式（YYYY-MM-DD）的实验起止时间。",
+                )
+            ]
+        if end < start:
+            return [
+                QualityIssue(
+                    name="实验结束时间早于开始时间",
+                    severity="medium",
+                    impact=f"实验开始时间 {start} 晚于结束时间 {end}，时间范围无效。",
+                    recommendation="请核对实验起止时间后再进行时长检查。",
+                )
+            ]
         days = (end - start).days + 1
         if days < 7:
             return [

@@ -1,73 +1,120 @@
-import streamlit as st
+"""Streamlit demo for ExperimentOS.
+
+Runs the real orchestrator against local example / eval-case payloads and
+renders the structured report, execution traces and raw JSON.
+"""
+
+from __future__ import annotations
+
 import json
+from dataclasses import asdict
 from pathlib import Path
+
+import streamlit as st
+
+from experimentos.agent.llm_client import LlmClient, LlmConfig
 from experimentos.agent.orchestrator import ExperimentOrchestrator
+from experimentos.app.cli import DEFAULT_MOCK_PLAN
 from experimentos.models import ExperimentRequest
 
-# 示例文件路径
+ROOT = Path(__file__).resolve().parent.parent.parent
+
 EXAMPLES = {
-    "Product Detail Release": "examples/product_detail_release.json",
-    "Segment Analysis (E003)": "evals/cases/E003_segment.json"
+    "Product Detail Release (example)": ROOT / "examples" / "product_detail_release.json",
+    "Segment Analysis E003 (eval wrapper)": ROOT / "evals" / "cases" / "E003_segment.json",
+    "Needs Context": ROOT / "examples" / "needs_context.json",
 }
 
-def load_example(example_path):
-    """加载 JSON 示例文件"""
-    with open(example_path, "r") as f:
-        return json.load(f)
 
-# 初始化 Orchestrator
-orchestrator = ExperimentOrchestrator()
+def load_request_payload(path: Path) -> dict:
+    """Accept both direct request payloads and eval-case wrappers."""
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if (
+        isinstance(payload, dict)
+        and isinstance(payload.get("input"), dict)
+        and "question" in payload["input"]
+    ):
+        return payload["input"]
+    return payload
 
-# Streamlit 页面布局
+
+@st.cache_resource
+def build_orchestrator(use_mock_llm: bool) -> ExperimentOrchestrator:
+    if not use_mock_llm:
+        return ExperimentOrchestrator()
+    canned = json.dumps(DEFAULT_MOCK_PLAN, ensure_ascii=False)
+    return ExperimentOrchestrator(
+        llm_client=LlmClient(config=LlmConfig(provider="mock"), canned=canned)
+    )
+
+
+st.set_page_config(page_title="ExperimentOS Demo", layout="wide")
 st.title("A/B Experiment Analysis Agent Demo")
 
-# 选择示例文件
-example_name = st.selectbox("选择一个示例", list(EXAMPLES.keys()))
-example_path = EXAMPLES[example_name]
+example_name = st.selectbox("选择一个示例", list(EXAMPLES))
+payload = load_request_payload(EXAMPLES[example_name])
 
-# 加载并展示示例内容
-example_data = load_example(example_path)
+with st.sidebar:
+    use_mock_llm = st.checkbox("使用 mock LLM（离线模式）", value=False)
+    st.caption("LLM 仅用于意图路由 / 规划 / 叙述，统计计算始终由确定性工具完成。")
+
 st.subheader("示例数据")
-st.json(example_data)
+st.json(payload)
 
-# 点击按钮运行分析
 if st.button("运行分析"):
-    st.write("正在运行分析，请稍候...")
     try:
-        # 构造 ExperimentRequest
-        experiment_request = ExperimentRequest(**example_data["input"])
+        request = ExperimentRequest.from_dict(payload)
+    except Exception as exc:
+        st.error(f"输入解析失败：{exc}")
+        st.stop()
 
-        # 调用 Orchestrator 执行分析
-        result = orchestrator.run(experiment_request)
+    orchestrator = build_orchestrator(use_mock_llm)
+    try:
+        report = orchestrator.run(request)
+    except Exception as exc:
+        st.exception(exc)
+        st.stop()
 
-        # 展示 Agent Plan
-        st.subheader("Agent Plan")
-        st.json(result.plan.dict() if result.plan else {})
+    st.subheader("分析状态")
+    st.markdown(
+        f"- 状态：{report.status} | 任务类型：{report.task_type} | "
+        f"已执行 skill：{', '.join(report.selected_skills) or '（无）'}"
+    )
+    for warning in report.warnings:
+        st.warning(warning)
 
-        # 展示 Execution Trace
-        st.subheader("Execution Trace")
-        st.json([trace.dict() for trace in result.traces] if result.traces else [])
+    st.subheader("分析报告")
+    st.markdown(orchestrator.render_markdown(report))
 
-        # 展示 Tool Calls
-        st.subheader("Tool Calls")
-        st.json([tool_call.dict() for tool_call in result.tool_calls] if result.tool_calls else [])
+    with st.expander("Agent Plan"):
+        st.json([asdict(step) for step in report.plan])
 
-        # 展示 Metric Results
-        st.subheader("Metric Results")
-        st.json([metric.dict() for metric in result.metric_results] if result.metric_results else [])
+    with st.expander("Workflow Trace"):
+        st.dataframe(
+            [
+                {
+                    "stage": event.stage,
+                    "status": event.status,
+                    "detail": json.dumps(event.detail, ensure_ascii=False),
+                }
+                for event in report.workflow_trace
+            ]
+        )
 
-        # 展示 Segment Diagnosis
-        st.subheader("Segment Diagnosis")
-        st.json([segment.dict() for segment in result.segment_diagnosis] if result.segment_diagnosis else [])
+    with st.expander("Tool Calls"):
+        st.dataframe(
+            [
+                {
+                    "tool_name": trace.tool_name,
+                    "status": trace.status,
+                    "latency_ms": trace.latency_ms,
+                    "error": trace.error,
+                    "input": json.dumps(trace.input, ensure_ascii=False),
+                    "output": json.dumps(trace.output, ensure_ascii=False),
+                }
+                for trace in report.agent_trace
+            ]
+        )
 
-        # 展示 Release Recommendation
-        st.subheader("Release Recommendation")
-        st.json(result.release_recommendation.dict() if result.release_recommendation else {})
-
-        # 展示 Final AI Summary
-        st.subheader("Final AI Summary")
-        st.json(result.ai_summary.dict() if result.ai_summary else {})
-
-    except Exception as e:
-        st.error(f"分析失败: {e}")
-        st.write("异常详情：", str(e))
+    with st.expander("完整报告 JSON"):
+        st.json(report.to_dict())

@@ -8,6 +8,14 @@ from typing import Any
 from experimentos.models import ExperimentState, ToolTrace
 
 
+class ToolBudgetExhausted(RuntimeError):
+    """Raised when the tool-call budget is exhausted before a tool runs.
+
+    Subclasses RuntimeError so the executor can distinguish budget
+    exhaustion from real skill errors without string matching.
+    """
+
+
 @dataclass(frozen=True)
 class ToolMetadata:
     """A small, inspectable contract for one deterministic capability."""
@@ -42,7 +50,7 @@ class ToolRegistry:
         if name not in self._tools:
             raise KeyError(f"未注册 tool: {name}")
         if len(state.tool_calls) >= state.max_tool_calls:
-            raise RuntimeError(f"已达到最大 tool call 数 {state.max_tool_calls}，停止继续执行。")
+            raise ToolBudgetExhausted(f"已达到最大 tool call 数 {state.max_tool_calls}，停止继续执行。")
 
         _, handler = self._tools[name]
         started_at = perf_counter()

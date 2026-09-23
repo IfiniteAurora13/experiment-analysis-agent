@@ -80,6 +80,18 @@ class GuardrailEngine:
             )
             return recommendations
 
+        # Order matters: the severe-issues check above must stay first so a
+        # high-severity quality issue still yields "暂停业务结论解读" even
+        # when no metric results exist. StatsEngine is all-or-nothing per
+        # call, so an empty list here means the analysis never completed.
+        if not metric_results:
+            return [
+                Recommendation(
+                    label="暂缓发布结论",
+                    reason="指标分析未完成，无法形成可靠的发布结论，请先修复指标输入或补充实验数据。",
+                )
+            ]
+
         harmful_guardrail = [
             metric for metric in guardrails
             if metric.significant and (
