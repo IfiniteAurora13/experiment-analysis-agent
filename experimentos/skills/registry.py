@@ -8,13 +8,45 @@ from experimentos.skills.quality_check import QualityCheckSkill
 from experimentos.skills.release_recommendation import ReleaseRecommendationSkill
 from experimentos.skills.segment_diagnosis import SegmentDiagnosisSkill
 
+# Single source of truth for the task → skill route: each skill's
+# metadata.task_types. The class tuple doubles as the canonical execution
+# order (quality first, release recommendation last).
+_DEFAULT_SKILL_CLASSES = (
+    QualityCheckSkill,
+    ExperimentRecapSkill,
+    SegmentDiagnosisSkill,
+    DriverAnalysisSkill,
+    ReleaseRecommendationSkill,
+)
+
+_TASK_TYPES = sorted({
+    task_type
+    for cls in _DEFAULT_SKILL_CLASSES
+    for task_type in cls.metadata.task_types
+})
 
 DEFAULT_SKILLS_BY_TASK: dict[str, tuple[str, ...]] = {
-    "experiment_recap": ("quality_check", "experiment_recap", "segment_diagnosis", "release_recommendation"),
-    "quality_check": ("quality_check", "experiment_recap", "release_recommendation"),
-    "segment_diagnosis": ("quality_check", "experiment_recap", "segment_diagnosis", "release_recommendation"),
-    "release_recommendation": ("quality_check", "experiment_recap", "segment_diagnosis", "release_recommendation"),
-    "driver_analysis": ("quality_check", "experiment_recap", "driver_analysis", "release_recommendation"),
+    task_type: tuple(
+        cls.metadata.name
+        for cls in _DEFAULT_SKILL_CLASSES
+        if task_type in cls.metadata.task_types
+    )
+    for task_type in _TASK_TYPES
+}
+
+# Task → tool route derives from the selected skills' required_tools, so the
+# two route maps can never drift apart.
+_REQUIRED_TOOLS_BY_SKILL = {
+    cls.metadata.name: cls.metadata.required_tools for cls in _DEFAULT_SKILL_CLASSES
+}
+
+DEFAULT_TOOLS_BY_TASK: dict[str, tuple[str, ...]] = {
+    task_type: tuple(dict.fromkeys(
+        tool
+        for name in DEFAULT_SKILLS_BY_TASK[task_type]
+        for tool in _REQUIRED_TOOLS_BY_SKILL[name]
+    ))
+    for task_type in _TASK_TYPES
 }
 
 
@@ -54,12 +86,6 @@ class SkillRegistry:
 
 def build_default_skill_registry() -> SkillRegistry:
     registry = SkillRegistry()
-    for skill in (
-        QualityCheckSkill(),
-        ExperimentRecapSkill(),
-        SegmentDiagnosisSkill(),
-        DriverAnalysisSkill(),
-        ReleaseRecommendationSkill(),
-    ):
-        registry.register(skill)
+    for skill_class in _DEFAULT_SKILL_CLASSES:
+        registry.register(skill_class())
     return registry

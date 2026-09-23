@@ -4,6 +4,7 @@ import json
 from dataclasses import dataclass
 
 from experimentos.models import AnalysisStep, ExperimentRequest
+from experimentos.skills.registry import DEFAULT_SKILLS_BY_TASK, DEFAULT_TOOLS_BY_TASK
 
 
 TASK_STEPS = {
@@ -38,21 +39,10 @@ TASK_STEPS = {
     ],
 }
 
-DEFAULT_SKILLS: dict[str, list[str]] = {
-    "experiment_recap": ["quality_check", "experiment_recap", "release_recommendation"],
-    "quality_check": ["quality_check", "experiment_recap", "release_recommendation"],
-    "segment_diagnosis": ["quality_check", "experiment_recap", "segment_diagnosis", "release_recommendation"],
-    "release_recommendation": ["quality_check", "experiment_recap", "release_recommendation"],
-    "driver_analysis": ["quality_check", "experiment_recap", "driver_analysis", "release_recommendation"],
-}
-
-DEFAULT_TOOLS: dict[str, list[str]] = {
-    "experiment_recap": ["check_quality", "analyze_metric", "make_recommendation"],
-    "quality_check": ["check_quality", "analyze_metric", "make_recommendation"],
-    "segment_diagnosis": ["check_quality", "analyze_metric", "analyze_segment", "make_recommendation"],
-    "release_recommendation": ["check_quality", "analyze_metric", "make_recommendation"],
-    "driver_analysis": ["check_quality", "analyze_metric", "driver_analysis", "make_recommendation"],
-}
+# The task → skill/tool routes are derived in skills/registry from each
+# skill's metadata (task_types / required_tools) — the single source of truth.
+DEFAULT_SKILLS = {task: list(names) for task, names in DEFAULT_SKILLS_BY_TASK.items()}
+DEFAULT_TOOLS = {task: list(names) for task, names in DEFAULT_TOOLS_BY_TASK.items()}
 
 VALID_SKILLS = frozenset({name for names in DEFAULT_SKILLS.values() for name in names})
 VALID_TOOLS = frozenset({name for names in DEFAULT_TOOLS.values() for name in names} | {"get_experiment_report"})
@@ -97,9 +87,10 @@ class Planner:
         steps, missing = self.build(task_type, request)
         skills = list(DEFAULT_SKILLS.get(task_type, DEFAULT_SKILLS["experiment_recap"]))
         tools = list(DEFAULT_TOOLS.get(task_type, DEFAULT_TOOLS["experiment_recap"]))
-        if request.segments and "segment_diagnosis" not in skills:
-            skills.insert(-1, "segment_diagnosis")
-            tools.insert(-1, "analyze_segment")
+        if not request.segments:
+            # 分群 skill/tool 仅在存在分群数据时保留，让计划与实际执行一致。
+            skills = [name for name in skills if name != "segment_diagnosis"]
+            tools = [name for name in tools if name != "analyze_segment"]
         if request.data_source and "get_experiment_report" not in tools:
             tools.insert(0, "get_experiment_report")
         return StructuredPlan(

@@ -11,6 +11,7 @@ class ExperimentRecapSkill:
         description="对总体核心与护栏指标执行确定性统计分析。",
         task_types=frozenset({
             "experiment_recap",
+            "quality_check",
             "segment_diagnosis",
             "release_recommendation",
             "driver_analysis",

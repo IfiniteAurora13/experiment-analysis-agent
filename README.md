@@ -95,7 +95,7 @@ python -m pytest -q
 Expected:
 
 ```text
-35 passed
+65 passed
 ```
 
 ### 3.3 Run the demo
@@ -128,6 +128,8 @@ python -m evals.runner
 
 新增 Skill 无需修改 Orchestrator，只需实现统一接口并完成注册。
 
+任务 → Skill 的路由由每个 Skill 的 `metadata.task_types` 声明，注册表据此推导任务路由（`DEFAULT_SKILLS_BY_TASK`），Planner 直接复用同一份推导结果——路由只有单一事实来源。
+
 ### 4.2 Tools
 
 `ToolRegistry` 管理统一的工具 metadata 与受限调用。
@@ -157,6 +159,8 @@ ToolTrace(
 ```
 
 Trace 只保存摘要信息，不保存原始数据载荷。
+
+任务 → 工具的路线由所选 Skill 的 `metadata.required_tools` 推导（`DEFAULT_TOOLS_BY_TASK`），与 Skill 路由天然一致。
 
 ### 4.3 Statistics and Result Schema
 
@@ -854,7 +858,7 @@ Agent 的效果不是只看“输出是不是像人写的”。
 
 当前本地验证结果：
 
-- Tests: 35 passed
+- Tests: 65 passed
 - Eval: 4 / 4 cases passed
 - Overall Eval Score: 100%
 
@@ -879,6 +883,8 @@ Agent 的效果不是只看“输出是不是像人写的”。
 - ✅ Mock LLM Planner
 - ✅ BH-FDR 多重比较校正
 - ✅ 分析阈值参数化（ExperimentContext）
+- ✅ 任务路由单一事实来源（metadata.task_types）
+- ✅ 确定性组件单测覆盖（路由/校验/护栏/工具注册表）
 
 ---
 

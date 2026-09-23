@@ -11,6 +11,7 @@ class ReleaseRecommendationSkill:
         description="在质量风险、核心指标和护栏指标均已检查后生成保守建议。",
         task_types=frozenset({
             "experiment_recap",
+            "quality_check",
             "release_recommendation",
             "segment_diagnosis",
             "driver_analysis",
