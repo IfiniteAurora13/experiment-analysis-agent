@@ -95,7 +95,7 @@ python -m pytest -q
 Expected:
 
 ```text
-17 passed
+35 passed
 ```
 
 ### 3.3 Run the demo
@@ -122,7 +122,7 @@ python -m evals.runner
 
 - `quality_check`：SRM、样本量和实验时长风险；
 - `experiment_recap`：总体指标统计检验；
-- `segment_diagnosis`：探索性分群诊断；
+- `segment_diagnosis`：探索性分群诊断，结果经 Benjamini-Hochberg FDR 多重比较校正并标注校正后 p 值；
 - `driver_analysis`：可验证的指标拆解框架；
 - `release_recommendation`：综合质量、核心指标和护栏指标给出发布建议。
 
@@ -200,6 +200,16 @@ Trace 只保存摘要信息，不保存原始数据载荷。
 
 - `computed`
 - `platform_reported`
+
+#### Multiple Comparison Correction
+
+分群诊断在展示前对全部受检分群的 p 值做 Benjamini-Hochberg FDR 校正：
+
+- 校正覆盖过滤与排序之前的**全部分群**，避免先过滤虚增显著性；
+- 证据文本以校正后状态为准，并同时输出原始 p 与校正 p，便于审计；
+- 原始显著但校正后不显著的结果降级为「探索性线索」，不作为显著发现。
+
+分析阈值（SRM α、最小样本量、最短实验天数、分群最小 n、分群发现上限）均由 `ExperimentContext` 参数化，可按业务场景调整。
 
 ### 4.4 Guardrails
 
@@ -844,7 +854,7 @@ Agent 的效果不是只看“输出是不是像人写的”。
 
 当前本地验证结果：
 
-- Tests: 12 passed
+- Tests: 35 passed
 - Eval: 4 / 4 cases passed
 - Overall Eval Score: 100%
 
@@ -867,6 +877,8 @@ Agent 的效果不是只看“输出是不是像人写的”。
 - ✅ Bad Case Regression
 - ✅ Synthetic / Offline Fixtures
 - ✅ Mock LLM Planner
+- ✅ BH-FDR 多重比较校正
+- ✅ 分析阈值参数化（ExperimentContext）
 
 ---
 
@@ -875,7 +887,7 @@ Agent 的效果不是只看“输出是不是像人写的”。
 后续可继续演进：
 
 - 增加更多统计方法；
-- 引入多重比较校正；
+- ~~引入多重比较校正~~（已完成：BH-FDR，见 4.3）；
 - 扩充 Eval Case 与 Bad Case 覆盖率；
 - 为真实、已授权数据源实现独立 Adapter；
 - 增强 Agent Trace 与执行分析；

@@ -268,7 +268,12 @@ class ExperimentOrchestrator:
             self.stats.analyze_metrics,
         )
         tools.register(
-            ToolMetadata("analyze_segment", "执行探索性分群分析。", {"segments": "list[SegmentMetricInput]", "alpha": "float"}, {"findings": "list[Finding]"}),
+            ToolMetadata(
+                "analyze_segment",
+                "执行探索性分群分析，结果经 BH-FDR 多重比较校正。",
+                {"segments": "list[SegmentMetricInput]", "alpha": "float", "context": "ExperimentContext"},
+                {"findings": "list[Finding]"},
+            ),
             self.segments.run,
         )
         tools.register(

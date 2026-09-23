@@ -54,7 +54,11 @@ class ExperimentContext:
     end_date: str = ""
     alpha: float = 0.05
     expected_control_ratio: float = 0.5
-    significance_threshold: float = 0.05
+    segment_min_n: int = 100
+    max_segment_findings: int = 5
+    srm_alpha: float = 0.001
+    min_sample_size: int = 200
+    min_experiment_days: int = 7
     exposure_definition: str = ""
     conversion_definition: str = ""
     dimensions: list[str] = field(default_factory=list)

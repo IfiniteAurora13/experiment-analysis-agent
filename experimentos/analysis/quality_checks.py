@@ -30,7 +30,7 @@ class QualityChecker:
                 (metric.treatment_n - expected_treatment) ** 2 / expected_treatment
             )
             p_value = erfc(sqrt(chi_square / 2.0))
-            if p_value < 0.001:
+            if p_value < request.context.srm_alpha:
                 return [
                     QualityIssue(
                         name="SRM 风险",
@@ -69,7 +69,7 @@ class QualityChecker:
                 )
             ]
         days = (end - start).days + 1
-        if days < 7:
+        if days < request.context.min_experiment_days:
             return [
                 QualityIssue(
                     name="实验时长偏短",
@@ -83,7 +83,7 @@ class QualityChecker:
     def _check_small_sample(self, request: ExperimentRequest) -> list[QualityIssue]:
         low_sample_metrics = [
             metric.name for metric in request.metrics
-            if metric.control_n and metric.treatment_n and min(metric.control_n, metric.treatment_n) < 200
+            if metric.control_n and metric.treatment_n and min(metric.control_n, metric.treatment_n) < request.context.min_sample_size
         ]
         if not low_sample_metrics:
             return []

@@ -22,5 +22,6 @@ class SegmentDiagnosisSkill:
             state,
             segments=request.segments,
             alpha=request.context.alpha,
+            context=request.context,
         )
         return SkillResult(name=self.metadata.name)
