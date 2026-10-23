@@ -5,7 +5,7 @@
 ## 使命与范围
 ExperimentOS 当前收窄为面向电商增长 PM 的实验上线评审助手，优先完成商品详情页两组、用户级随机、固定周期实验的证据复核与人工接管。
 
-当前为合成汇总输入的离线原型。原始数据契约、口径确认、成熟度、风险分级及真实模型收益尚待验证；产品定位和完成状态以 product/brief.md、product/roadmap.md 为准。非 AI 规则工作流是对照基线，不以 Agent 身份本身作为价值证明。
+当前主路径已支持固定本地 CSV 导出包、口径确认、完整性声明、风险分级和本地版本撤回；公开样例与验证仍全为合成数据。真实上游接入、用户收益和模型增量尚待验证；产品定位和完成状态以 product/brief.md、product/roadmap.md 为准。非 AI 规则工作流是对照基线，不以 Agent 身份本身作为价值证明。
 
 必检未运行或异常不能当作通过；质量、全部指标结果与统计校验确认通过后才能生成评审建议。可选分群失败可以降级；被阻断的最终报告必须保留固定的接管与重跑说明，不由模型改写。
 
@@ -55,3 +55,5 @@ Deterministic Python:
 - run pytest
 - run eval
 - run demo
+- run python -m evals.export_portfolio --check and node --test tests/portfolio_dom.cjs when changing replay behaviour
+- re-export with python -m evals.export_portfolio if a behaviour or case change intentionally updates the published replay

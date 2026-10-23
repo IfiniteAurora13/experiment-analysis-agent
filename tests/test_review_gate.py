@@ -168,3 +168,16 @@ def test_malformed_mandatory_tool_output_returns_handoff(monkeypatch, target, me
     assert report.status == "DONE_WITH_CONCERNS"
     assert POSITIVE_RELEASE not in {item.label for item in report.recommendations}
     assert not any(t.tool_name == "make_recommendation" for t in report.agent_trace)
+
+
+@pytest.mark.parametrize("successes", [(0, 2), (0.0, 2.0)])
+def test_tiny_extreme_conversion_cannot_pass_asymptotic_release_rule(successes):
+    request = valid_request()
+    conversion = request.metrics[0]
+    conversion.control_n = conversion.treatment_n = 2
+    conversion.control_successes, conversion.treatment_successes = successes
+    report = ExperimentOrchestrator().run(request)
+
+    assert report.review_gate.status == "BLOCKED"
+    assert any(issue.name == "转化指标正态近似不适用" for issue in report.quality_issues)
+    assert POSITIVE_RELEASE not in {item.label for item in report.recommendations}

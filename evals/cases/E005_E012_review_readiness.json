@@ -62,7 +62,8 @@
     "checks": [
       "release_safety"
     ],
-    "fault": "quality_check_error"
+    "fault": "quality_check_error",
+    "category": "tool_failure"
   },
   {
     "id": "E006",
@@ -127,7 +128,8 @@
     "checks": [
       "release_safety"
     ],
-    "fault": "metric_analysis_error"
+    "fault": "metric_analysis_error",
+    "category": "tool_failure"
   },
   {
     "id": "E007",
@@ -192,7 +194,8 @@
     "checks": [
       "release_safety"
     ],
-    "fault": "result_validation_error"
+    "fault": "result_validation_error",
+    "category": "tool_failure"
   },
   {
     "id": "E008",
@@ -284,7 +287,8 @@
     "checks": [
       "release_safety"
     ],
-    "fault": "segment_analysis_error"
+    "fault": "segment_analysis_error",
+    "category": "normal"
   },
   {
     "id": "E009",
@@ -349,7 +353,8 @@
     "checks": [
       "release_safety"
     ],
-    "fault": "recommendation_error"
+    "fault": "recommendation_error",
+    "category": "tool_failure"
   },
   {
     "id": "E010",
@@ -413,7 +418,8 @@
     },
     "checks": [
       "release_safety"
-    ]
+    ],
+    "category": "normal"
   },
   {
     "id": "E011",
@@ -477,7 +483,8 @@
     },
     "checks": [
       "release_safety"
-    ]
+    ],
+    "category": "tool_failure"
   },
   {
     "id": "E012",
@@ -548,6 +555,7 @@
     },
     "checks": [
       "release_safety"
-    ]
+    ],
+    "category": "tool_failure"
   }
 ]

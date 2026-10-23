@@ -12,6 +12,7 @@ from experimentos.agent.llm_client import LlmClient, LlmConfig
 from experimentos.agent.narrator import ReportRenderer
 from experimentos.agent.orchestrator import ExperimentOrchestrator
 from experimentos.app.cli import DEFAULT_MOCK_PLAN
+from experimentos.app.bundle_app import render_bundle_workspace
 from experimentos.models import ExperimentRequest
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -60,7 +61,12 @@ def inject_theme() -> None:
 
 st.set_page_config(page_title="ExperimentOS · Analysis Workspace", page_icon="◈", layout="wide")
 inject_theme()
-st.markdown('<div class="hero"><small>EXPERIMENT REVIEW / OFFLINE PROTOTYPE</small><h1>ExperimentOS</h1><p>面向电商增长 PM 的实验上线评审助手。当前为合成数据离线原型；必检失败时明确阻断与人工接管。</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="hero"><small>EXPERIMENT REVIEW / LOCAL PROTOTYPE</small><h1>ExperimentOS</h1><p>面向电商增长 PM 的实验上线评审助手：导入数据、确认口径、复核风险，失败时给出接管与恢复条件。</p></div>', unsafe_allow_html=True)
+
+mode = st.sidebar.radio("工作入口", ["数据包评审", "汇总输入实验室（旧版）"])
+if mode == "数据包评审":
+    render_bundle_workspace()
+    st.stop()
 
 with st.sidebar:
     st.markdown("### ◈ Analysis setup")

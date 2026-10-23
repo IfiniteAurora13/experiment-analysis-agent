@@ -18,6 +18,7 @@ from evals.evaluators import (
 from evals.types import CaseResult, EvaluatorResult
 from evals.faults import injected_fault
 from evals.evaluators.release_safety import ReleaseSafetyEvaluator
+from evals.bundle_cases import evaluate_bundle_case
 
 
 EVALUATORS = {
@@ -41,17 +42,37 @@ class EvalRunner:
         self._orchestrator = orchestrator
         self._factory = orchestrator_factory or ExperimentOrchestrator
         self._mode = "custom_orchestrator" if orchestrator is not None or orchestrator_factory is not None else "offline_rule_based"
+        self._case_metadata: dict[str, dict] = {}
+        self._observations: dict[str, dict] = {}
 
     def run_cases(self, cases: Iterable[dict]) -> list[CaseResult]:
         results: list[CaseResult] = []
         for case in cases:
+            self._case_metadata[case["id"]] = {key: case[key] for key in ("title", "category", "severity", "origin", "user_task") if key in case}
+            expected = case.get("expected", {})
+            self._case_metadata[case["id"]]["expected_status"] = (
+                expected.get("review_gate", {}).get("status") or expected.get("status") or
+                " / ".join(expected.get("recommendations", [])) or "未定义状态断言"
+            )
             try:
+                if case.get("kind") == "bundle":
+                    evaluator_results, observation = evaluate_bundle_case(case)
+                    self._observations[case["id"]] = observation
+                    results.append(CaseResult(case_id=case["id"], results=evaluator_results))
+                    continue
                 if self._orchestrator is not None and case.get("fault"):
                     raise ValueError("故障注入需要新实例，请使用 orchestrator_factory。")
                 with injected_fault(case.get("fault")):
                     orchestrator = self._orchestrator or self._factory()
                     report = orchestrator.run(ExperimentRequest.from_dict(case["input"]))
                     evaluated_case = {**case, "rendered_report": orchestrator.render_markdown(report)}
+                    self._observations[case["id"]] = {
+                        "status": report.review_gate.status if expected.get("review_gate") else
+                                  report.status if expected.get("status") else
+                                  report.recommendations[0].label if expected.get("recommendations") and report.recommendations else "未定义状态断言",
+                        "owner": report.review_gate.owner,
+                        "next_action": report.review_gate.next_action,
+                    }
                 # Safety invariants are mandatory even when a case selects other checks.
                 checks = list(dict.fromkeys([*case.get("checks", list(EVALUATORS)), "release_safety"]))
                 evaluator_results = [EVALUATORS[name].evaluate(evaluated_case, report) for name in checks]
@@ -95,7 +116,9 @@ class EvalRunner:
             "overall_score": overall,
             "dimension_scores": scores,
             "dimension_case_counts": {name: len(values) for name, values in dimensions.items() if values},
-            "cases": [item.to_dict() for item in results],
+            "cases": [{**item.to_dict(), **self._case_metadata.get(item.case_id, {}),
+                       **({"observed": self._observations[item.case_id]} if item.case_id in self._observations else {})}
+                      for item in results],
         }
 
     def _markdown(self, summary: dict) -> str:
@@ -103,7 +126,11 @@ class EvalRunner:
         lines.extend(f"- {name}: {score:.0%} ({summary['dimension_case_counts'][name]} cases)" for name, score in summary["dimension_scores"].items())
         lines.extend(["", "## Cases", ""])
         for case in summary["cases"]:
-            lines.append(f"### {case['case_id']} — {'PASS' if case['passed'] else 'FAIL'} ({case['score']:.0%})")
+            lines.append(f"### {case['case_id']} {case.get('title', '')} — {'PASS' if case['passed'] else 'FAIL'} ({case['score']:.0%})")
+            if case.get("category"):
+                lines.append(f"- Category: {case['category']} · Origin: {case.get('origin', 'unspecified')} · Severity: {case.get('severity', 'unspecified')}")
+            if case.get("observed"):
+                lines.append(f"- Observed: {case['observed']['status']} · Owner: {case['observed']['owner']}")
             for result in case["results"]:
                 suffix = "" if not result["reasons"] else f"：{'；'.join(result['reasons'])}"
                 lines.append(f"- {result['name']}: {'PASS' if result['passed'] else 'FAIL'}{suffix}")

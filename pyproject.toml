@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "experimentos"
 version = "0.1.0"
-description = "ExperimentOS v1 skeleton for experiment analysis agents"
+description = "Local experiment review workflow with explicit data contracts, quality gates and human handoff"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "ExperimentOS" }]
