@@ -9,6 +9,7 @@ from experimentos.agent.narrator import LLMNarrator, ReportRenderer
 from experimentos.agent.planner import LLMPlanner, Planner, StructuredPlan
 from experimentos.analysis.quality_checks import QualityChecker
 from experimentos.analysis.result_validation import ResultValidator
+from experimentos.analysis.review_gate import ReviewGateChecker, block_review, blocked_recommendations
 from experimentos.analysis.segmentation import SegmentAnalyzer
 from experimentos.analysis.decomposition import explain_metric_tree
 from experimentos.models import AnalysisReport, ExperimentRequest, ExperimentState, WorkflowTrace
@@ -51,6 +52,7 @@ class ExperimentOrchestrator:
         self.segments = SegmentAnalyzer(self.stats)
         self.guardrails = GuardrailEngine()
         self.result_validator = ResultValidator()
+        self.review_gate_checker = ReviewGateChecker(self.result_validator)
         self.renderer = (
             LLMNarrator(llm_client) if llm_client else ReportRenderer()
         )
@@ -59,7 +61,7 @@ class ExperimentOrchestrator:
         self.catalog = CatalogProvider()
         self.gec_ds: GecDsRegistryProvider | None = None
         self.tools = self._build_tool_registry()
-        self.skills = build_default_skill_registry()
+        self.skills = build_default_skill_registry(self.review_gate_checker)
         self.executor = AgentExecutor(self.skills, self.tools)
 
     def run(self, request: ExperimentRequest) -> AnalysisReport:
@@ -160,22 +162,25 @@ class ExperimentOrchestrator:
             state.workflow_trace.append(
                 WorkflowTrace(stage="executor", status="error", detail={"error": str(exc)})
             )
-        validation_warnings = self.result_validator.validate(state.metric_results)
-        state.warnings.extend(validation_warnings)
-        state.workflow_trace.append(
-            WorkflowTrace(
-                stage="result_validation",
-                status="warning" if validation_warnings else "ok",
-                detail={"warning_count": len(validation_warnings)},
-            )
-        )
+        # The release skill validates evidence before invoking recommendations.
+        # Finalisation also covers a skipped/crashed release skill or exhausted budget.
+        if not any(event.stage == "result_validation" for event in state.workflow_trace):
+            self.review_gate_checker.check(state)
+        if "release_recommendation" not in state.completed_skills or not state.recommendations:
+            block_review(state, "发布建议生成未完成，当前评审卡不能用于推进发布。")
+        if state.review_gate.status == "BLOCKED":
+            state.recommendations = blocked_recommendations(state.review_gate)
         facts, inferences, guardrail_hypotheses = self.guardrails.split_findings(
             state.metric_results, state.quality_issues, state.segment_findings
         )
         state.facts = facts
         state.inferences = inferences
         state.hypotheses.extend(guardrail_hypotheses)
-        state.workflow_trace.append(WorkflowTrace(stage="guardrails", status="ok"))
+        state.workflow_trace.append(WorkflowTrace(
+            stage="guardrails",
+            status="blocked" if state.review_gate.status == "BLOCKED" else "ok",
+            detail={"review_status": state.review_gate.status, "checks": state.review_gate.checks},
+        ))
 
         # Computed before the report_generation trace is appended below; the
         # only possible error stages at this point are skill:* and executor.
@@ -183,14 +188,17 @@ class ExperimentOrchestrator:
         summary = self._build_summary(
             state.task_type, state.quality_issues, state.recommendations, had_errors=skill_failed
         )
+        if state.review_gate.status == "BLOCKED":
+            summary = "评审已阻断：必检或建议生成未完成 / 未通过；当前结论不完整，请人工接管后重跑"
         status = "DONE"
-        if skill_failed or state.quality_issues or any(item.label == "不建议发布" for item in state.recommendations):
+        if state.review_gate.status == "BLOCKED" or skill_failed or state.quality_issues or any(item.label == "不建议发布" for item in state.recommendations):
             status = "DONE_WITH_CONCERNS"
 
         report = AnalysisReport(
             status=status,
             task_type=state.task_type,
             summary=summary,
+            review_gate=state.review_gate,
             plan=state.plan,
             warnings=state.warnings,
             report_scope=state.report_scope,

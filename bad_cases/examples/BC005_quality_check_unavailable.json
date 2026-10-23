@@ -1,0 +1,36 @@
+{
+  "case_id": "BC005",
+  "category": "logic",
+  "severity": "high",
+  "origin": "synthetic_fault_injection",
+  "input": {
+    "fixture": "examples/product_detail_release.json",
+    "override": "GMV_per_user.treatment_value = control_value",
+    "fault": "QualityChecker.run raises RuntimeError"
+  },
+  "expected": {
+    "review_status": "BLOCKED",
+    "quality_status": "UNKNOWN",
+    "forbidden_recommendation": "建议小流量灰度或继续推进发布评审",
+    "handoff_role": "实验分析负责人"
+  },
+  "actual": {
+    "baseline_ref": "121cfc5e6b3fbc7101da8e97500e17fef832d5f5",
+    "recommendation": "建议小流量灰度或继续推进发布评审",
+    "evidence": "bad_cases/evidence/BC005_before.json"
+  },
+  "root_cause": "执行异常后继续；空 quality_issues 被当成质量检查通过，缺少完成性前置条件。",
+  "fix": "必检完成性门禁、结果完整性检查、建议生成前校验、固定阻断模板及人工重跑说明。",
+  "regression_case": "E005",
+  "related_regression_cases": [
+    "E006",
+    "E007",
+    "E008",
+    "E009",
+    "E010",
+    "E011",
+    "E012"
+  ],
+  "regression_test": "tests/test_review_gate.py",
+  "after_evidence": "bad_cases/evidence/BC005_after.json"
+}

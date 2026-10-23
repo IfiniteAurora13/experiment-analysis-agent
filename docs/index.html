@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ExperimentOS — auditable A/B experiment analysis in your browser.">
+  <meta name="description" content="ExperimentOS — offline experiment review prototype and illustrative statistics.">
   <meta name="theme-color" content="#090d1a">
   <title>ExperimentOS · Interactive Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,18 +22,18 @@
   <main id="top">
     <section class="hero shell">
       <div class="eyebrow"><span></span> OPEN-SOURCE EXPERIMENT INTELLIGENCE</div>
-      <h1>Decisions you can<br><em>inspect.</em></h1>
-      <p class="hero-copy">把实验质量、统计检验与发布护栏放进同一条可审计工作流。LLM 负责理解与表达，确定性代码负责计算。</p>
-      <div class="hero-actions"><a class="button primary" href="#lab">打开交互实验室 <b>↓</b></a><a class="button ghost" href="https://github.com/IfiniteAurora13/experiment-analysis-agent#quick-start">本地运行</a></div>
-      <div class="proof"><div><strong>Deterministic</strong><span>统计计算</span></div><div><strong>Guardrailed</strong><span>发布建议</span></div><div><strong>Traceable</strong><span>全链路记录</span></div></div>
+      <h1>Experiment review<br><em>with boundaries.</em></h1>
+      <p class="hero-copy">面向电商增长 PM 的实验上线评审助手。当前页面保留为浏览器统计示意；真实必检状态、失败接管与回归证据请查看 Python 工作流和仓库。</p>
+      <div class="hero-actions"><a class="button primary" href="#lab">打开统计示意 <b>↓</b></a><a class="button ghost" href="https://github.com/IfiniteAurora13/experiment-analysis-agent#快速开始">本地运行</a></div>
+      <div class="proof"><div><strong>Synthetic</strong><span>合成数据</span></div><div><strong>Illustrative</strong><span>统计示意</span></div><div><strong>Offline</strong><span>不执行发布</span></div></div>
     </section>
 
     <section class="lab-section shell" id="lab">
-      <div class="section-heading"><div><span class="kicker">INTERACTIVE LAB</span><h2>调整数据，实时查看决策</h2></div><p>纯浏览器计算，不上传任何数据。该页面演示核心统计与护栏逻辑；完整 Agent 工作流请在本地运行。</p></div>
+      <div class="section-heading"><div><span class="kicker">STATISTICS ILLUSTRATION</span><h2>调整示意数据，查看指标变化</h2></div><p>纯浏览器计算，不上传数据。未执行 SRM、数据质量或模型推理，不提供上线建议。</p></div>
       <div class="lab-grid">
         <aside class="panel controls">
           <div class="panel-title"><span>01</span><div><h3>实验输入</h3><p>Product detail redesign</p></div><button id="reset" class="icon-button" title="恢复默认值">↻</button></div>
-          <label>实验问题<textarea id="question" rows="3">新版商品详情页是否支持全量发布？</textarea></label>
+          <label>固定演示场景<textarea id="question" rows="3" readonly>商品详情页改版的 CVR 与 GMV / User 统计变化（不解析自然语言问题）</textarea></label>
           <div class="control-group">
             <div class="group-label"><span class="dot cyan"></span>核心指标 · CVR</div>
             <div class="field-grid">
@@ -57,21 +57,21 @@
         </aside>
 
         <section class="panel results" aria-live="polite">
-          <div class="result-top"><div><span class="kicker">ANALYSIS REPORT</span><h3 id="decision">不建议发布</h3></div><span id="statusBadge" class="status danger">DONE WITH CONCERNS</span></div>
-          <p id="summary" class="summary">核心指标显著提升，但护栏指标显著恶化。当前证据不足以支持全量上线。</p>
+          <div class="result-top"><div><span class="kicker">ILLUSTRATIVE OUTPUT</span><h3 id="decision">统计示意</h3></div><span id="statusBadge" class="status caution">ILLUSTRATION ONLY</span></div>
+          <p id="summary" class="summary">本页未验证实验质量，不能生成发布结论。</p>
           <div class="metric-cards">
             <article class="metric-card"><div class="metric-head"><span>CVR</span><small>CORE</small></div><strong id="cvrLift">+15.58%</strong><div class="spark"><i id="cvrBarA"></i><i id="cvrBarB"></i></div><div class="metric-foot"><span id="cvrValues">10.00% → 11.56%</span><span id="cvrSig" class="good">显著</span></div></article>
             <article class="metric-card"><div class="metric-head"><span>GMV / User</span><small>GUARDRAIL</small></div><strong id="gmvLift">−2.42%</strong><div class="spark coral"><i id="gmvBarA"></i><i id="gmvBarB"></i></div><div class="metric-foot"><span id="gmvValues">12.40 → 12.10</span><span id="gmvSig" class="bad">显著恶化</span></div></article>
           </div>
           <div class="evidence"><h4>证据与护栏</h4><div id="evidenceList"></div></div>
-          <div class="trace-wrap"><div class="trace-title"><h4>Execution trace</h4><span>6 stages · browser</span></div><div class="trace" id="trace"></div></div>
+          <div class="trace-wrap"><div class="trace-title"><h4>本页实际执行</h4><span>3 steps · browser</span></div><div class="trace" id="trace"></div></div>
           <details><summary>统计详情</summary><pre id="details"></pre></details>
         </section>
       </div>
     </section>
 
     <section class="workflow shell" id="workflow">
-      <div class="section-heading"><div><span class="kicker">HOW IT WORKS</span><h2>让模型灵活，让计算可靠</h2></div></div>
+      <div class="section-heading"><div><span class="kicker">PYTHON WORKFLOW · NOT RUN ON THIS PAGE</span><h2>完整评审流程请在本地运行</h2></div></div>
       <div class="workflow-grid"><article><b>01</b><span>Understand</span><p>识别问题、目标与所需输入</p></article><i>→</i><article><b>02</b><span>Validate</span><p>检查 SRM、样本量与数据质量</p></article><i>→</i><article><b>03</b><span>Compute</span><p>由确定性统计引擎完成检验</p></article><i>→</i><article><b>04</b><span>Decide</span><p>应用护栏并生成可审计建议</p></article></div>
     </section>
   </main>

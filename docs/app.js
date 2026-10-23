@@ -15,22 +15,30 @@ function analyze(){
     const cN=n("cN"),tN=n("tN"),cS=n("cSuccess"),tS=n("tSuccess"),alpha=n("alpha");
     const cG=n("cGmv"),tG=n("tGmv"),cV=n("cVar"),tV=n("tVar");
     const invalid=[cN,tN,cS,tS,cG,tG,cV,tV].some(v=>!Number.isFinite(v))||cN<=0||tN<=0||cS<0||tS<0||cS>cN||tS>tN||cV<=0||tV<=0;
-    if(invalid){$("summary").textContent="请检查输入：样本量需大于 0，转化数不能超过样本量，方差需为正数。";run.classList.remove("running");run.querySelector("b").textContent="→";return;}
+    if(invalid){
+      $("decision").textContent="输入无效";$("statusBadge").textContent="BLOCKED";$("statusBadge").className="status danger";
+      $("summary").textContent="请检查输入：样本量需大于 0，转化数不能超过样本量，方差需为正数。上一次结果已撤回。";
+      ["cvrLift","cvrValues","cvrSig","gmvLift","gmvValues","gmvSig"].forEach(id=>$(id).textContent="—");
+      ["cvrBarA","cvrBarB","gmvBarA","gmvBarB"].forEach(id=>$(id).style.height="0%");
+      $("evidenceList").textContent="当前输入未通过校验。";$("details").textContent="{}";
+      $("trace").innerHTML='<div class="trace-step"><span>输入校验失败，后续未执行</span></div>';
+      run.classList.remove("running");run.querySelector("b").textContent="→";return;
+    }
     const cp=cS/cN,tp=tS/tN,pooled=(cS+tS)/(cN+tN),se=Math.sqrt(pooled*(1-pooled)*(1/cN+1/tN));
     const z=se?(tp-cp)/se:0,cvrP=normalP(z),cvrLift=cp?(tp-cp)/cp:0,cvrSig=cvrP<alpha;
     const gSe=Math.sqrt(cV/cN+tV/tN),gZ=gSe?(tG-cG)/gSe:0,gmvP=normalP(gZ),gmvLift=cG?(tG-cG)/cG:0,gmvSig=gmvP<alpha;
     const guardrailBad=gmvSig&&gmvLift<0,coreGood=cvrSig&&cvrLift>0;
     let decision,status,kind,summary;
-    if(guardrailBad){decision="不建议发布";status="DONE WITH CONCERNS";kind="danger";summary="核心指标"+(coreGood?"显著提升":"尚未形成充分证据")+"，但护栏指标显著恶化。当前证据不足以支持全量上线。";}
-    else if(coreGood){decision="建议灰度发布";status="READY WITH GUARDRAILS";kind="safe";summary="核心指标显著提升，且未发现护栏指标显著恶化。建议在持续监控下逐步放量。";}
-    else{decision="继续观察";status="INCONCLUSIVE";kind="caution";summary="核心指标尚未形成显著正向证据。建议延长实验或补充样本后再做发布决策。";}
+    if(guardrailBad){decision="护栏恶化示例";status="ILLUSTRATION ONLY";kind="danger";summary="示意数据中护栏显著下降；本页未验证实验质量，不能形成完整发布结论。";}
+    else if(coreGood){decision="核心指标提升示例";status="ILLUSTRATION ONLY";kind="caution";summary="示意数据中核心指标显著提升；护栏未显著恶化不等于安全。请使用 Python 工作流完成质量检查和人工评审。";}
+    else{decision="证据不足示例";status="ILLUSTRATION ONLY";kind="caution";summary="示意数据中未形成显著正向证据。请按预先约定的实验周期评审，不应延长实验直到显著。";}
     $("decision").textContent=decision;$("summary").textContent=summary;$("statusBadge").textContent=status;$("statusBadge").className=`status ${kind}`;
     $("cvrLift").textContent=pct(cvrLift);$("cvrValues").textContent=`${(cp*100).toFixed(2)}% → ${(tp*100).toFixed(2)}%`;$("cvrSig").textContent=cvrSig?"显著":"不显著";$("cvrSig").className=cvrSig?(cvrLift>=0?"good":"bad"):"neutral";
     $("gmvLift").textContent=pct(gmvLift);$("gmvValues").textContent=`${cG.toFixed(2)} → ${tG.toFixed(2)}`;$("gmvSig").textContent=gmvSig?(gmvLift<0?"显著恶化":"显著改善"):"不显著";$("gmvSig").className=gmvSig?(gmvLift<0?"bad":"good"):"neutral";
     setBar("cvrBarA",cp,Math.max(cp,tp));setBar("cvrBarB",tp,Math.max(cp,tp));setBar("gmvBarA",cG,Math.max(cG,tG));setBar("gmvBarB",tG,Math.max(cG,tG));
-    $("evidenceList").innerHTML=item("✓",`CVR 的双侧两比例 z 检验 p = ${cvrP.toFixed(4)}，${cvrSig?"达到":"未达到"} α = ${alpha.toFixed(2)} 的显著性标准。`)+item(guardrailBad?"!":"✓",`GMV / User 变化 ${pct(gmvLift)}，近似双侧检验 p = ${gmvP.toFixed(4)}。`)+item("→",guardrailBad?"护栏显著恶化优先于核心指标 uplift，阻断直接发布。":"未触发护栏阻断；发布仍需结合业务成本与长期指标。")+item("i","分群发现仅作为待验证假设，不解释为因果结论。");
+    $("evidenceList").innerHTML=item("✓",`CVR 的双侧两比例 z 检验 p = ${cvrP.toFixed(4)}，${cvrSig?"达到":"未达到"} α = ${alpha.toFixed(2)} 的显著性标准。`)+item(guardrailBad?"!":"i",`GMV / User 变化 ${pct(gmvLift)}，大样本近似双侧检验 p = ${gmvP.toFixed(4)}。`)+item("!","质量检查、SRM、数据成熟度和分群分析均未在本页执行；本页不生成发布建议。");
     $("details").textContent=JSON.stringify({alpha,conversion:{method:"pooled two-proportion z-test",control:cp,treatment:tp,z_score:z,p_value:cvrP,relative_change:cvrLift,significant:cvrSig},guardrail:{method:"large-sample Welch approximation",control:cG,treatment:tG,z_score:gZ,p_value:gmvP,relative_change:gmvLift,significant:gmvSig},decision},null,2);
-    $("trace").innerHTML=["plan","validate","quality_check","analyze_metric","guardrails","report"].map(x=>`<div class="trace-step done"><span>✓ ${x}</span></div>`).join("");
+    $("trace").innerHTML=["输入校验","浏览器统计近似","示意结果展示"].map(x=>`<div class="trace-step done"><span>✓ ${x}</span></div>`).join("");
     run.classList.remove("running");run.querySelector("b").textContent="→";
   },280);
 }

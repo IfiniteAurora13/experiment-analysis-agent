@@ -21,6 +21,13 @@ class ReportRenderer:
         lines.append("")
         lines.append(f"- 状态：{report.status}")
         lines.append(f"- 任务类型：{report.task_type}")
+        lines.append(f"- 复核状态：{report.review_gate.status}（READY 仅表示必检已完成，不代表批准上线）")
+        for name, status in report.review_gate.checks.items():
+            lines.append(f"- 必检 {name}: {status}")
+        lines.append(f"- 接管角色：{report.review_gate.owner}")
+        lines.append(f"- 下一步：{report.review_gate.next_action}")
+        for blocker in report.review_gate.blockers:
+            lines.append(f"- 阻断原因：{blocker}")
 
         if report.warnings:
             lines.append("")
@@ -48,9 +55,11 @@ class ReportRenderer:
         self._append_registry_block(lines, report.registry_entries)
         self._append_finding_block(lines, "事实", report.facts)
         self._append_quality_block(lines, report.quality_issues)
-        self._append_metric_block(lines, report.metric_results)
-        self._append_finding_block(lines, "合理推断", report.inferences)
-        self._append_finding_block(lines, "待验证假设", report.hypotheses)
+        blocked = report.review_gate.status == "BLOCKED"
+        self._append_metric_block(lines, report.metric_results, diagnostic_only=blocked)
+        if not blocked:
+            self._append_finding_block(lines, "合理推断", report.inferences)
+            self._append_finding_block(lines, "待验证假设", report.hypotheses)
         self._append_recommendation_block(lines, report.recommendations)
         return "\n".join(lines)
 
@@ -74,11 +83,11 @@ class ReportRenderer:
                 f"- {item.name}（{item.severity}）：{item.impact}。建议：{item.recommendation}"
             )
 
-    def _append_metric_block(self, lines: list[str], metrics: list[MetricResult]) -> None:
+    def _append_metric_block(self, lines: list[str], metrics: list[MetricResult], diagnostic_only: bool = False) -> None:
         if not metrics:
             return
         lines.append("")
-        lines.append("## 核心证据")
+        lines.append("## 计算输出（仅用于排障，不用于业务结论）" if diagnostic_only else "## 核心证据")
         lines.append("")
         for item in metrics:
             delta_rel = f"{item.delta_rel * 100:.2f}%" if item.delta_rel is not None else "NA"
@@ -89,10 +98,11 @@ class ReportRenderer:
             )
             p_value = f"{item.p_value:.4f}" if item.p_value is not None else "NA"
             source = item.source_summary or item.statistical_source
+            interpretation = "证据未通过完整复核，暂停效果解读。" if diagnostic_only else item.interpretation
             lines.append(
                 f"- {item.name}：对照={item.control_value:.4f}（n={item.control_n}），实验={item.treatment_value:.4f}（n={item.treatment_n}），"
                 f"绝对变化={item.delta_abs:.4f}，相对变化={delta_rel}，CI={ci}，p={p_value}，"
-                f"统计方法={item.statistical_method}，统计来源={source}，结论={item.interpretation}"
+                f"统计方法={item.statistical_method}，统计来源={source}，结论={interpretation}"
             )
 
     def _append_recommendation_block(self, lines: list[str], items: list[Recommendation]) -> None:
@@ -125,7 +135,8 @@ class LLMNarrator(ReportRenderer):
     """LLM-powered narrator that wraps structured data into natural language.
 
     Falls back to template rendering when the LLM is unavailable.
-    Statistical facts are always preserved verbatim from the code.
+    Blocked reviews always use deterministic rendering. READY-state LLM
+    narration still requires a separate end-to-end fidelity evaluation.
     """
 
     def __init__(self, llm_client, prompt_path: str | None = None) -> None:
@@ -136,6 +147,8 @@ class LLMNarrator(ReportRenderer):
         self._system_prompt: str | None = None
 
     def render_markdown(self, report: AnalysisReport) -> str:
+        if report.review_gate.status == "BLOCKED":
+            return super().render_markdown(report)
         try:
             return self._llm_narrate(report)
         except Exception:

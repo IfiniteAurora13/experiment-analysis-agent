@@ -1,0 +1,553 @@
+[
+  {
+    "id": "E005",
+    "title": "质量检查调用失败",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "UNKNOWN",
+          "metric_analysis": "PASS",
+          "result_validation": "PASS"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ],
+    "fault": "quality_check_error"
+  },
+  {
+    "id": "E006",
+    "title": "统计计算调用失败",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "UNKNOWN",
+          "result_validation": "UNKNOWN"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ],
+    "fault": "metric_analysis_error"
+  },
+  {
+    "id": "E007",
+    "title": "结果校验调用失败",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "PASS",
+          "result_validation": "UNKNOWN"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ],
+    "fault": "result_validation_error"
+  },
+  {
+    "id": "E008",
+    "title": "可选分群失败保留总体建议",
+    "origin": "synthetic_fault_injection",
+    "severity": "normal_control",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "segments": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "segment_name": "user_type",
+          "segment_value": "new_user",
+          "control_n": 6000,
+          "treatment_n": 6050,
+          "control_successes": 480,
+          "treatment_successes": 605
+        },
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "segment_name": "user_type",
+          "segment_value": "returning_user",
+          "control_n": 14000,
+          "treatment_n": 14100,
+          "control_successes": 1520,
+          "treatment_successes": 1582
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "READY",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "PASS",
+          "result_validation": "PASS"
+        }
+      },
+      "recommendations": [
+        "建议小流量灰度或继续推进发布评审"
+      ],
+      "rendered_required": [
+        "复核状态：READY",
+        "接管角色"
+      ],
+      "segment_findings_count": 0
+    },
+    "checks": [
+      "release_safety"
+    ],
+    "fault": "segment_analysis_error"
+  },
+  {
+    "id": "E009",
+    "title": "建议生成调用失败",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "PASS",
+          "result_validation": "PASS"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ],
+    "fault": "recommendation_error"
+  },
+  {
+    "id": "E010",
+    "title": "正常证据允许进入人工评审",
+    "origin": "synthetic_fault_injection",
+    "severity": "normal_control",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE",
+      "review_gate": {
+        "status": "READY",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "PASS",
+          "result_validation": "PASS"
+        }
+      },
+      "recommendations": [
+        "建议小流量灰度或继续推进发布评审"
+      ],
+      "rendered_required": [
+        "复核状态：READY",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ]
+  },
+  {
+    "id": "E011",
+    "title": "护栏结果被静默遗漏",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "unsupported_kind",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "FAIL",
+          "result_validation": "UNKNOWN"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ]
+  },
+  {
+    "id": "E012",
+    "title": "平台统计返回非法p值",
+    "origin": "synthetic_fault_injection",
+    "severity": "critical",
+    "user_task": "增长 PM 准备商品详情页改版的人工上线评审卡",
+    "input": {
+      "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+      "context": {
+        "objective": "提升商品详情页转化率，同时不损害每用户收入",
+        "control_name": "old_detail_page",
+        "treatment_name": "new_detail_page",
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-09",
+        "alpha": 0.05
+      },
+      "metrics": [
+        {
+          "name": "CVR",
+          "kind": "conversion",
+          "role": "core",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_successes": 2000,
+          "treatment_successes": 2329,
+          "statistical_source": "libra_platform",
+          "control_value": 0.1,
+          "treatment_value": 0.115583,
+          "platform_p_value": 1.5,
+          "platform_significant": true,
+          "platform_ci_low": 0.01,
+          "platform_ci_high": 0.02
+        },
+        {
+          "name": "GMV_per_user",
+          "kind": "continuous",
+          "role": "guardrail",
+          "direction": "increase",
+          "control_n": 20000,
+          "treatment_n": 20150,
+          "control_value": 12.4,
+          "treatment_value": 12.4,
+          "control_var": 25,
+          "treatment_var": 25
+        }
+      ],
+      "task_type": "release_recommendation"
+    },
+    "expected": {
+      "status": "DONE_WITH_CONCERNS",
+      "review_gate": {
+        "status": "BLOCKED",
+        "checks": {
+          "quality_check": "PASS",
+          "metric_analysis": "PASS",
+          "result_validation": "FAIL"
+        }
+      },
+      "recommendations": [
+        "暂缓发布结论"
+      ],
+      "rendered_required": [
+        "复核状态：BLOCKED",
+        "接管角色"
+      ]
+    },
+    "checks": [
+      "release_safety"
+    ]
+  }
+]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from experimentos.analysis.review_gate import ReviewGateChecker
 from experimentos.models import ExperimentRequest, ExperimentState
 from experimentos.skills.base import Skill
 from experimentos.skills.driver_analysis import DriverAnalysisSkill
@@ -84,8 +85,13 @@ class SkillRegistry:
         return selected
 
 
-def build_default_skill_registry() -> SkillRegistry:
+def build_default_skill_registry(review_gate_checker: ReviewGateChecker | None = None) -> SkillRegistry:
     registry = SkillRegistry()
     for skill_class in _DEFAULT_SKILL_CLASSES:
-        registry.register(skill_class())
+        skill = (
+            skill_class(review_gate_checker)
+            if skill_class is ReleaseRecommendationSkill
+            else skill_class()
+        )
+        registry.register(skill)
     return registry
