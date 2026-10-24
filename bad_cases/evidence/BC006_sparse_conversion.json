@@ -1,0 +1,535 @@
+{
+  "case_id": "BC006",
+  "origin": "synthetic_controlled_ablation",
+  "input": {
+    "question": "请复核小样本实验是否支持推进发布评审。",
+    "task_type": "release_recommendation",
+    "context": {
+      "objective": "提升支付转化且不损害每用户收入",
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-15"
+    },
+    "metrics": [
+      {
+        "name": "paid_user_cvr",
+        "kind": "conversion",
+        "role": "core",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_successes": 0,
+        "treatment_successes": 2
+      },
+      {
+        "name": "paid_gmv_per_user",
+        "kind": "continuous",
+        "role": "guardrail",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_value": 0,
+        "treatment_value": 0,
+        "control_var": 0,
+        "treatment_var": 0
+      }
+    ]
+  },
+  "ablation": "before disables only the new sparse-conversion applicability check",
+  "before": {
+    "status": "DONE_WITH_CONCERNS",
+    "task_type": "release_recommendation",
+    "summary": "已完成分析，但结论需要结合实验质量风险谨慎解读",
+    "review_gate": {
+      "status": "READY",
+      "checks": {
+        "quality_check": "PASS",
+        "metric_analysis": "PASS",
+        "result_validation": "PASS"
+      },
+      "blockers": [],
+      "owner": "实验分析负责人",
+      "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+    },
+    "plan": [
+      {
+        "name": "确认输入",
+        "purpose": "确认核心指标、护栏指标和发布标准"
+      },
+      {
+        "name": "质量检查",
+        "purpose": "若实验质量异常则降低建议强度"
+      },
+      {
+        "name": "指标判断",
+        "purpose": "综合核心指标、护栏指标和风险"
+      },
+      {
+        "name": "发布建议",
+        "purpose": "给出不发布 / 灰度 / 可发布建议"
+      }
+    ],
+    "missing_inputs": [],
+    "warnings": [],
+    "report_scope": {},
+    "registry_entries": [],
+    "quality_issues": [
+      {
+        "name": "样本量偏小",
+        "severity": "medium",
+        "impact": "以下指标的组内样本量偏小：paid_user_cvr, paid_gmv_per_user。",
+        "recommendation": "谨慎解释不显著结果，必要时补样本或补功效分析。"
+      }
+    ],
+    "metric_results": [
+      {
+        "metric_name": "paid_user_cvr",
+        "metric_kind": "conversion",
+        "metric_role": "core",
+        "direction": "increase",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_value": 0.0,
+        "treatment_value": 1.0,
+        "delta_abs": 1.0,
+        "delta_rel": null,
+        "p_value": 0.045500263896358396,
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "significant": true,
+        "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+        "interpretation": "实验组相对对照组显著提升。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      },
+      {
+        "metric_name": "paid_gmv_per_user",
+        "metric_kind": "continuous",
+        "metric_role": "guardrail",
+        "direction": "increase",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_value": 0,
+        "treatment_value": 0,
+        "delta_abs": 0,
+        "delta_rel": null,
+        "p_value": 1.0,
+        "ci_low": 0,
+        "ci_high": 0,
+        "significant": false,
+        "statistical_method": "welch_t_test; df=inf",
+        "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      }
+    ],
+    "segment_findings": [],
+    "facts": [
+      {
+        "label": "paid_user_cvr 指标结果",
+        "evidence": "paid_user_cvr 对照 0.0000，实验 1.0000，绝对变化 1.0000，p=0.0455",
+        "strength": "事实"
+      },
+      {
+        "label": "paid_gmv_per_user 指标结果",
+        "evidence": "paid_gmv_per_user 对照 0.0000，实验 0.0000，绝对变化 0.0000，p=1.0000",
+        "strength": "事实"
+      }
+    ],
+    "inferences": [
+      {
+        "label": "paid_user_cvr 方向判断",
+        "evidence": "实验组相对对照组显著提升。",
+        "strength": "合理推断"
+      },
+      {
+        "label": "质量风险：样本量偏小",
+        "evidence": "以下指标的组内样本量偏小：paid_user_cvr, paid_gmv_per_user。",
+        "strength": "合理推断"
+      }
+    ],
+    "hypotheses": [],
+    "recommendations": [
+      {
+        "label": "建议小流量灰度或继续推进发布评审",
+        "reason": "核心指标显著向好，且未见明显护栏风险。"
+      },
+      {
+        "label": "补充分群复核",
+        "reason": "在总体结论之外，对重点人群做二次验证，避免探索性发现被误当作确定结论。"
+      }
+    ],
+    "selected_skills": [
+      "quality_check",
+      "experiment_recap",
+      "release_recommendation"
+    ],
+    "agent_trace": [
+      {
+        "tool_name": "check_quality",
+        "input": {
+          "request": {
+            "type": "ExperimentRequest"
+          }
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 1
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.02,
+        "error": ""
+      },
+      {
+        "tool_name": "analyze_metric",
+        "input": {
+          "metrics": {
+            "type": "list",
+            "count": 2
+          },
+          "alpha": 0.05
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.15,
+        "error": ""
+      },
+      {
+        "tool_name": "make_recommendation",
+        "input": {
+          "metric_results": {
+            "type": "list",
+            "count": 2
+          },
+          "quality_issues": {
+            "type": "list",
+            "count": 1
+          }
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.0,
+        "error": ""
+      }
+    ],
+    "workflow_trace": [
+      {
+        "stage": "planner",
+        "status": "ok",
+        "detail": {
+          "skills": [
+            "quality_check",
+            "experiment_recap",
+            "release_recommendation"
+          ],
+          "tools": [
+            "check_quality",
+            "analyze_metric",
+            "make_recommendation"
+          ]
+        }
+      },
+      {
+        "stage": "input_validation",
+        "status": "ok",
+        "detail": {
+          "missing_inputs": []
+        }
+      },
+      {
+        "stage": "skill:quality_check",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "skill:experiment_recap",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "result_validation",
+        "status": "ok",
+        "detail": {
+          "check_status": "PASS",
+          "warning_count": 0
+        }
+      },
+      {
+        "stage": "skill:release_recommendation",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "guardrails",
+        "status": "ok",
+        "detail": {
+          "review_status": "READY",
+          "checks": {
+            "quality_check": "PASS",
+            "metric_analysis": "PASS",
+            "result_validation": "PASS"
+          }
+        }
+      },
+      {
+        "stage": "report_generation",
+        "status": "ok",
+        "detail": {}
+      }
+    ]
+  },
+  "after": {
+    "status": "DONE_WITH_CONCERNS",
+    "task_type": "release_recommendation",
+    "summary": "评审已阻断：必检或建议生成未完成 / 未通过；当前结论不完整，请人工接管后重跑",
+    "review_gate": {
+      "status": "BLOCKED",
+      "checks": {
+        "quality_check": "FAIL",
+        "metric_analysis": "PASS",
+        "result_validation": "PASS"
+      },
+      "blockers": [
+        "质量检查未通过：转化指标正态近似不适用。以下指标有组内支付或未支付人数少于 5：paid_user_cvr。当前 z-test / Wald 区间不作为发布证据。"
+      ],
+      "owner": "实验分析负责人",
+      "next_action": "由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。"
+    },
+    "plan": [
+      {
+        "name": "确认输入",
+        "purpose": "确认核心指标、护栏指标和发布标准"
+      },
+      {
+        "name": "质量检查",
+        "purpose": "若实验质量异常则降低建议强度"
+      },
+      {
+        "name": "指标判断",
+        "purpose": "综合核心指标、护栏指标和风险"
+      },
+      {
+        "name": "发布建议",
+        "purpose": "给出不发布 / 灰度 / 可发布建议"
+      }
+    ],
+    "missing_inputs": [],
+    "warnings": [],
+    "report_scope": {},
+    "registry_entries": [],
+    "quality_issues": [
+      {
+        "name": "样本量偏小",
+        "severity": "medium",
+        "impact": "以下指标的组内样本量偏小：paid_user_cvr, paid_gmv_per_user。",
+        "recommendation": "谨慎解释不显著结果，必要时补样本或补功效分析。"
+      },
+      {
+        "name": "转化指标正态近似不适用",
+        "severity": "high",
+        "impact": "以下指标有组内支付或未支付人数少于 5：paid_user_cvr。当前 z-test / Wald 区间不作为发布证据。",
+        "recommendation": "交实验分析负责人选择适用的统计方法或制定新实验计划；不延长实验直到显著。"
+      }
+    ],
+    "metric_results": [
+      {
+        "metric_name": "paid_user_cvr",
+        "metric_kind": "conversion",
+        "metric_role": "core",
+        "direction": "increase",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_value": 0.0,
+        "treatment_value": 1.0,
+        "delta_abs": 1.0,
+        "delta_rel": null,
+        "p_value": 0.045500263896358396,
+        "ci_low": 1.0,
+        "ci_high": 1.0,
+        "significant": true,
+        "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+        "interpretation": "实验组相对对照组显著提升。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      },
+      {
+        "metric_name": "paid_gmv_per_user",
+        "metric_kind": "continuous",
+        "metric_role": "guardrail",
+        "direction": "increase",
+        "control_n": 2,
+        "treatment_n": 2,
+        "control_value": 0,
+        "treatment_value": 0,
+        "delta_abs": 0,
+        "delta_rel": null,
+        "p_value": 1.0,
+        "ci_low": 0,
+        "ci_high": 0,
+        "significant": false,
+        "statistical_method": "welch_t_test; df=inf",
+        "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      }
+    ],
+    "segment_findings": [],
+    "facts": [
+      {
+        "label": "paid_user_cvr 指标结果",
+        "evidence": "paid_user_cvr 对照 0.0000，实验 1.0000，绝对变化 1.0000，p=0.0455",
+        "strength": "事实"
+      },
+      {
+        "label": "paid_gmv_per_user 指标结果",
+        "evidence": "paid_gmv_per_user 对照 0.0000，实验 0.0000，绝对变化 0.0000，p=1.0000",
+        "strength": "事实"
+      }
+    ],
+    "inferences": [
+      {
+        "label": "paid_user_cvr 方向判断",
+        "evidence": "实验组相对对照组显著提升。",
+        "strength": "合理推断"
+      },
+      {
+        "label": "质量风险：样本量偏小",
+        "evidence": "以下指标的组内样本量偏小：paid_user_cvr, paid_gmv_per_user。",
+        "strength": "合理推断"
+      },
+      {
+        "label": "质量风险：转化指标正态近似不适用",
+        "evidence": "以下指标有组内支付或未支付人数少于 5：paid_user_cvr。当前 z-test / Wald 区间不作为发布证据。",
+        "strength": "合理推断"
+      }
+    ],
+    "hypotheses": [],
+    "recommendations": [
+      {
+        "label": "暂停业务结论解读",
+        "reason": "质量检查未通过：转化指标正态近似不适用。以下指标有组内支付或未支付人数少于 5：paid_user_cvr。当前 z-test / Wald 区间不作为发布证据。 接管角色：实验分析负责人。下一步：由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。"
+      }
+    ],
+    "selected_skills": [
+      "quality_check",
+      "experiment_recap",
+      "release_recommendation"
+    ],
+    "agent_trace": [
+      {
+        "tool_name": "check_quality",
+        "input": {
+          "request": {
+            "type": "ExperimentRequest"
+          }
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.01,
+        "error": ""
+      },
+      {
+        "tool_name": "analyze_metric",
+        "input": {
+          "metrics": {
+            "type": "list",
+            "count": 2
+          },
+          "alpha": 0.05
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.06,
+        "error": ""
+      }
+    ],
+    "workflow_trace": [
+      {
+        "stage": "planner",
+        "status": "ok",
+        "detail": {
+          "skills": [
+            "quality_check",
+            "experiment_recap",
+            "release_recommendation"
+          ],
+          "tools": [
+            "check_quality",
+            "analyze_metric",
+            "make_recommendation"
+          ]
+        }
+      },
+      {
+        "stage": "input_validation",
+        "status": "ok",
+        "detail": {
+          "missing_inputs": []
+        }
+      },
+      {
+        "stage": "skill:quality_check",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "skill:experiment_recap",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "result_validation",
+        "status": "ok",
+        "detail": {
+          "check_status": "PASS",
+          "warning_count": 0
+        }
+      },
+      {
+        "stage": "skill:release_recommendation",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "guardrails",
+        "status": "blocked",
+        "detail": {
+          "review_status": "BLOCKED",
+          "checks": {
+            "quality_check": "FAIL",
+            "metric_analysis": "PASS",
+            "result_validation": "PASS"
+          }
+        }
+      },
+      {
+        "stage": "report_generation",
+        "status": "ok",
+        "detail": {}
+      }
+    ]
+  }
+}

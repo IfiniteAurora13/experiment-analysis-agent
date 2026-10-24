@@ -1,0 +1,341 @@
+{
+  "case_id": "BC005",
+  "origin": "synthetic_fault_injection",
+  "version_label": "portfolio-step1",
+  "input": {
+    "question": "请分析商品详情页改版实验是否支持上线，并进一步诊断新用户和老用户的表现差异。",
+    "context": {
+      "objective": "提升商品详情页转化率，同时不损害每用户收入",
+      "control_name": "old_detail_page",
+      "treatment_name": "new_detail_page",
+      "start_date": "2026-09-01",
+      "end_date": "2026-09-09",
+      "alpha": 0.05
+    },
+    "metrics": [
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_successes": 2000,
+        "treatment_successes": 2329
+      },
+      {
+        "name": "GMV_per_user",
+        "kind": "continuous",
+        "role": "guardrail",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_value": 12.4,
+        "treatment_value": 12.4,
+        "control_var": 25.0,
+        "treatment_var": 25.0
+      }
+    ],
+    "segments": [
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "segment_name": "user_type",
+        "segment_value": "new_user",
+        "control_n": 6000,
+        "treatment_n": 6050,
+        "control_successes": 480,
+        "treatment_successes": 605
+      },
+      {
+        "name": "CVR",
+        "kind": "conversion",
+        "role": "core",
+        "direction": "increase",
+        "segment_name": "user_type",
+        "segment_value": "returning_user",
+        "control_n": 14000,
+        "treatment_n": 14100,
+        "control_successes": 1520,
+        "treatment_successes": 1582
+      }
+    ]
+  },
+  "fault": "QualityChecker.run raises RuntimeError",
+  "report": {
+    "status": "DONE_WITH_CONCERNS",
+    "task_type": "release_recommendation",
+    "summary": "评审已阻断：必检或建议生成未完成 / 未通过；当前结论不完整，请人工接管后重跑",
+    "review_gate": {
+      "status": "BLOCKED",
+      "checks": {
+        "quality_check": "UNKNOWN",
+        "metric_analysis": "PASS",
+        "result_validation": "PASS"
+      },
+      "blockers": [
+        "质量检查未完成，不能把没有质量问题记录当作检查通过。"
+      ],
+      "owner": "实验分析负责人",
+      "next_action": "由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。"
+    },
+    "plan": [
+      {
+        "name": "确认输入",
+        "purpose": "确认核心指标、护栏指标和发布标准"
+      },
+      {
+        "name": "质量检查",
+        "purpose": "若实验质量异常则降低建议强度"
+      },
+      {
+        "name": "指标判断",
+        "purpose": "综合核心指标、护栏指标和风险"
+      },
+      {
+        "name": "发布建议",
+        "purpose": "给出不发布 / 灰度 / 可发布建议"
+      }
+    ],
+    "missing_inputs": [],
+    "warnings": [
+      "skill quality_check 执行失败，已跳过：offline quality check unavailable"
+    ],
+    "report_scope": {},
+    "registry_entries": [],
+    "quality_issues": [],
+    "metric_results": [
+      {
+        "metric_name": "CVR",
+        "metric_kind": "conversion",
+        "metric_role": "core",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_value": 0.1,
+        "treatment_value": 0.11558312655086848,
+        "delta_abs": 0.015583126550868479,
+        "delta_rel": 0.15583126550868479,
+        "p_value": 4.811046791032377e-07,
+        "ci_low": 0.009518903323977784,
+        "ci_high": 0.021647349777759173,
+        "significant": true,
+        "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+        "interpretation": "实验组相对对照组显著提升。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      },
+      {
+        "metric_name": "GMV_per_user",
+        "metric_kind": "continuous",
+        "metric_role": "guardrail",
+        "direction": "increase",
+        "control_n": 20000,
+        "treatment_n": 20150,
+        "control_value": 12.4,
+        "treatment_value": 12.4,
+        "delta_abs": 0.0,
+        "delta_rel": 0.0,
+        "p_value": 1.0,
+        "ci_low": -0.09781859957682702,
+        "ci_high": 0.09781859957682702,
+        "significant": false,
+        "statistical_method": "welch_t_test; df=40145.76",
+        "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+        "statistical_source": "computed",
+        "source_summary": "",
+        "notes": ""
+      }
+    ],
+    "segment_findings": [
+      {
+        "label": "CVR 分群发现",
+        "evidence": "user_type=new_user，实验组相对对照组显著提升。；p=0.0001，BH-FDR 校正 p=0.0003，校正后显著",
+        "strength": "待验证假设"
+      },
+      {
+        "label": "CVR 分群发现",
+        "evidence": "user_type=returning_user，统计上未达到显著，当前更适合表述为未形成足够证据。；p=0.3320，BH-FDR 校正后不显著",
+        "strength": "待验证假设"
+      }
+    ],
+    "facts": [
+      {
+        "label": "CVR 指标结果",
+        "evidence": "CVR 对照 0.1000，实验 0.1156，绝对变化 0.0156，p=0.0000",
+        "strength": "事实"
+      },
+      {
+        "label": "GMV_per_user 指标结果",
+        "evidence": "GMV_per_user 对照 12.4000，实验 12.4000，绝对变化 0.0000，p=1.0000",
+        "strength": "事实"
+      }
+    ],
+    "inferences": [
+      {
+        "label": "CVR 方向判断",
+        "evidence": "实验组相对对照组显著提升。",
+        "strength": "合理推断"
+      }
+    ],
+    "hypotheses": [
+      {
+        "label": "CVR 分群发现",
+        "evidence": "user_type=new_user，实验组相对对照组显著提升。；p=0.0001，BH-FDR 校正 p=0.0003，校正后显著。该发现来自分群扫描，需独立验证。",
+        "strength": "待验证假设"
+      },
+      {
+        "label": "CVR 分群发现",
+        "evidence": "user_type=returning_user，统计上未达到显著，当前更适合表述为未形成足够证据。；p=0.3320，BH-FDR 校正后不显著。该发现来自分群扫描，需独立验证。",
+        "strength": "待验证假设"
+      }
+    ],
+    "recommendations": [
+      {
+        "label": "暂缓发布结论",
+        "reason": "质量检查未完成，不能把没有质量问题记录当作检查通过。 接管角色：实验分析负责人。下一步：由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。"
+      }
+    ],
+    "selected_skills": [
+      "quality_check",
+      "experiment_recap",
+      "segment_diagnosis",
+      "release_recommendation"
+    ],
+    "agent_trace": [
+      {
+        "tool_name": "check_quality",
+        "input": {
+          "request": {
+            "type": "ExperimentRequest"
+          }
+        },
+        "output": {
+          "error_type": "RuntimeError"
+        },
+        "status": "error",
+        "latency_ms": 0.01,
+        "error": "RuntimeError"
+      },
+      {
+        "tool_name": "analyze_metric",
+        "input": {
+          "metrics": {
+            "type": "list",
+            "count": 2
+          },
+          "alpha": 0.05
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.22,
+        "error": ""
+      },
+      {
+        "tool_name": "analyze_segment",
+        "input": {
+          "segments": {
+            "type": "list",
+            "count": 2
+          },
+          "alpha": 0.05,
+          "context": {
+            "type": "ExperimentContext"
+          }
+        },
+        "output": {
+          "summary": {
+            "type": "list",
+            "count": 2
+          }
+        },
+        "status": "ok",
+        "latency_ms": 0.09,
+        "error": ""
+      }
+    ],
+    "workflow_trace": [
+      {
+        "stage": "planner",
+        "status": "ok",
+        "detail": {
+          "skills": [
+            "quality_check",
+            "experiment_recap",
+            "segment_diagnosis",
+            "release_recommendation"
+          ],
+          "tools": [
+            "check_quality",
+            "analyze_metric",
+            "analyze_segment",
+            "make_recommendation"
+          ]
+        }
+      },
+      {
+        "stage": "input_validation",
+        "status": "ok",
+        "detail": {
+          "missing_inputs": []
+        }
+      },
+      {
+        "stage": "skill:quality_check",
+        "status": "error",
+        "detail": {
+          "error": "offline quality check unavailable"
+        }
+      },
+      {
+        "stage": "skill:experiment_recap",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "skill:segment_diagnosis",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "result_validation",
+        "status": "ok",
+        "detail": {
+          "check_status": "PASS",
+          "warning_count": 0
+        }
+      },
+      {
+        "stage": "skill:release_recommendation",
+        "status": "ok",
+        "detail": {}
+      },
+      {
+        "stage": "guardrails",
+        "status": "blocked",
+        "detail": {
+          "review_status": "BLOCKED",
+          "checks": {
+            "quality_check": "UNKNOWN",
+            "metric_analysis": "PASS",
+            "result_validation": "PASS"
+          }
+        }
+      },
+      {
+        "stage": "report_generation",
+        "status": "ok",
+        "detail": {}
+      }
+    ]
+  },
+  "rendered_report": "# 评审已阻断：必检或建议生成未完成 / 未通过；当前结论不完整，请人工接管后重跑\n\n- 状态：DONE_WITH_CONCERNS\n- 任务类型：release_recommendation\n- 复核状态：BLOCKED（READY 仅表示必检已完成，不代表批准上线）\n- 必检 quality_check: UNKNOWN\n- 必检 metric_analysis: PASS\n- 必检 result_validation: PASS\n- 接管角色：实验分析负责人\n- 下一步：由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。\n- 阻断原因：质量检查未完成，不能把没有质量问题记录当作检查通过。\n\n## 警告\n\n- skill quality_check 执行失败，已跳过：offline quality check unavailable\n\n## 事实\n\n- CVR 指标结果：CVR 对照 0.1000，实验 0.1156，绝对变化 0.0156，p=0.0000\n- GMV_per_user 指标结果：GMV_per_user 对照 12.4000，实验 12.4000，绝对变化 0.0000，p=1.0000\n\n## 计算输出（仅用于排障，不用于业务结论）\n\n- CVR：对照=0.1000（n=20000），实验=0.1156（n=20150），绝对变化=0.0156，相对变化=15.58%，CI=[0.0095, 0.0216]，p=0.0000，统计方法=two_proportion_z_test_pooled; wald_ci_unpooled，统计来源=computed，结论=证据未通过完整复核，暂停效果解读。\n- GMV_per_user：对照=12.4000（n=20000），实验=12.4000（n=20150），绝对变化=0.0000，相对变化=0.00%，CI=[-0.0978, 0.0978]，p=1.0000，统计方法=welch_t_test; df=40145.76，统计来源=computed，结论=证据未通过完整复核，暂停效果解读。\n\n## 建议\n\n- 暂缓发布结论：质量检查未完成，不能把没有质量问题记录当作检查通过。 接管角色：实验分析负责人。下一步：由实验分析负责人修复失败项或补齐缺失证据，重跑必检后重新生成评审卡。"
+}

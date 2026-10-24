@@ -1,0 +1,1283 @@
+[
+  {
+    "id": "C001",
+    "kind": "bundle",
+    "title": "正常数据先等待人工确认",
+    "category": "confirmation",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": false
+    },
+    "expected": {
+      "status": "NEEDS_CONFIRMATION",
+      "owner": "数据负责人"
+    }
+  },
+  {
+    "id": "C002",
+    "kind": "bundle",
+    "title": "正常完成，不需要模型也能准备评审卡",
+    "category": "normal",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "numeric": [
+        {
+          "metric": "paid_user_cvr",
+          "field": "control_n",
+          "value": 2000
+        },
+        {
+          "metric": "paid_user_cvr",
+          "field": "control_value",
+          "value": 0.1
+        },
+        {
+          "metric": "paid_user_cvr",
+          "field": "treatment_value",
+          "value": 0.15
+        },
+        {
+          "metric": "paid_gmv_per_user",
+          "field": "treatment_value",
+          "value": 0.1005
+        }
+      ]
+    }
+  },
+  {
+    "id": "C003",
+    "kind": "bundle",
+    "title": "完全相同重复去重且留痕",
+    "category": "normal",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "duplicates",
+      "confirm": true
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "counts": {
+        "duplicate_orders": 1,
+        "duplicate_assignments": 1,
+        "included_orders": 500
+      }
+    }
+  },
+  {
+    "id": "C004",
+    "kind": "bundle",
+    "title": "跨组用户不能静默分配",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "cross_group",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "CROSS_GROUP_USER"
+      ]
+    }
+  },
+  {
+    "id": "C005",
+    "kind": "bundle",
+    "title": "冲突重复订单不能猜保留版本",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "order_conflict",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "ORDER_CONFLICT"
+      ]
+    }
+  },
+  {
+    "id": "C006",
+    "kind": "bundle",
+    "title": "分母缺失必须补充",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "missing_definition",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "MISSING_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C007",
+    "kind": "bundle",
+    "title": "没有水位不能把无记录当零",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "missing_watermark",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "MISSING_WATERMARK"
+      ]
+    }
+  },
+  {
+    "id": "C008",
+    "kind": "bundle",
+    "title": "窗口未成熟应等待完整数据重导",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "immature",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "DATA_NOT_MATURE"
+      ]
+    }
+  },
+  {
+    "id": "C009",
+    "kind": "bundle",
+    "title": "关联不到用户的订单阻断",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "orphan_order",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "ORPHAN_ORDER"
+      ]
+    }
+  },
+  {
+    "id": "C010",
+    "kind": "bundle",
+    "title": "迟到且已入库的订单正确计入",
+    "category": "normal",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "late_arrival",
+      "confirm": true
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "counts": {
+        "late_arriving_orders": 1,
+        "included_orders": 501
+      },
+      "numeric": [
+        {
+          "metric": "paid_user_cvr",
+          "field": "control_value",
+          "value": 0.1005
+        },
+        {
+          "metric": "paid_gmv_per_user",
+          "field": "control_value",
+          "value": 0.1005
+        }
+      ]
+    }
+  },
+  {
+    "id": "C011",
+    "kind": "bundle",
+    "title": "恰好在观察终点的订单排除",
+    "category": "boundary",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "outside_window",
+      "confirm": true
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "counts": {
+        "excluded_orders": 1,
+        "included_orders": 500
+      }
+    }
+  },
+  {
+    "id": "C012",
+    "kind": "bundle",
+    "title": "快照后入库记录不能混入",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "mixed_snapshot",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "SNAPSHOT_MISMATCH"
+      ]
+    }
+  },
+  {
+    "id": "C013",
+    "kind": "bundle",
+    "title": "人工确认不能豁免 SRM",
+    "category": "quality_gate",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "srm",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "实验分析负责人"
+    }
+  },
+  {
+    "id": "C014",
+    "kind": "bundle",
+    "title": "主指标向好但护栏越界",
+    "category": "risk_policy",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "guardrail_harm",
+      "confirm": true
+    },
+    "expected": {
+      "status": "DO_NOT_SHIP",
+      "owner": "业务负责人"
+    }
+  },
+  {
+    "id": "C015",
+    "kind": "bundle",
+    "title": "护栏不显著也可能证据不足",
+    "category": "risk_policy",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "guardrail_uncertain",
+      "confirm": true
+    },
+    "expected": {
+      "status": "INCONCLUSIVE",
+      "owner": "业务负责人"
+    }
+  },
+  {
+    "id": "C016",
+    "kind": "bundle",
+    "title": "学习意图不转成发布批准",
+    "category": "risk_policy",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "learning",
+      "confirm": true
+    },
+    "expected": {
+      "status": "LEARNING_ONLY",
+      "owner": "业务负责人"
+    }
+  },
+  {
+    "id": "C017",
+    "kind": "bundle",
+    "title": "事后阈值不可覆盖当前实验",
+    "category": "risk_policy",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "posthoc_policy",
+      "confirm": true
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "业务负责人",
+      "issue_codes": [
+        "POSTHOC_POLICY"
+      ]
+    }
+  },
+  {
+    "id": "C018",
+    "kind": "bundle",
+    "title": "数据快照变化使旧确认失效",
+    "category": "versioning",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "lifecycle": "changed_after_confirmation"
+    },
+    "expected": {
+      "status": "NEEDS_CONFIRMATION",
+      "owner": "数据负责人"
+    }
+  },
+  {
+    "id": "C019",
+    "kind": "bundle",
+    "title": "撤回后必须重新确认",
+    "category": "versioning",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "lifecycle": "withdrawn"
+    },
+    "expected": {
+      "status": "NEEDS_CONFIRMATION",
+      "owner": "数据负责人"
+    }
+  },
+  {
+    "id": "C020",
+    "kind": "bundle",
+    "title": "会话随机不能冒充用户随机",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "randomization_unit"
+          ],
+          "value": "session"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C021",
+    "kind": "bundle",
+    "title": "混合币种不自动换算",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "currency",
+          "value": "USD"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "CURRENCY_MISMATCH"
+      ]
+    }
+  },
+  {
+    "id": "C022",
+    "kind": "bundle",
+    "title": "NaN 金额不能进入统计",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "paid_amount",
+          "value": "NaN"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_AMOUNT"
+      ]
+    }
+  },
+  {
+    "id": "C023",
+    "kind": "bundle",
+    "title": "文件缺失不当成空数据",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "remove_file"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "MISSING_FILE"
+      ]
+    }
+  },
+  {
+    "id": "C024",
+    "kind": "bundle",
+    "title": "金额列缺失不能替换为其他列",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "remove_column",
+          "column": "paid_amount"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "MISSING_COLUMN"
+      ]
+    }
+  },
+  {
+    "id": "C025",
+    "kind": "bundle",
+    "title": "重复表头不能歧义映射",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "duplicate_header"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "DUPLICATE_HEADER"
+      ]
+    }
+  },
+  {
+    "id": "C026",
+    "kind": "bundle",
+    "title": "非法编码返回可恢复错误",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "invalid_utf8"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_CSV"
+      ]
+    }
+  },
+  {
+    "id": "C027",
+    "kind": "bundle",
+    "title": "坏 JSON 返回可恢复错误",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "raw",
+          "value": "{broken"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_JSON"
+      ]
+    }
+  },
+  {
+    "id": "C028",
+    "kind": "bundle",
+    "title": "同组但入组时间冲突也需修复",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "assignments.csv",
+          "op": "append_conflicting_assignment"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "ASSIGNMENT_CONFLICT"
+      ]
+    }
+  },
+  {
+    "id": "C029",
+    "kind": "bundle",
+    "title": "空入组不能计算",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "assignments.csv",
+          "op": "empty_rows"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INSUFFICIENT_USERS"
+      ]
+    }
+  },
+  {
+    "id": "C030",
+    "kind": "bundle",
+    "title": "无时区时间不能猜测",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "assignments.csv",
+          "op": "set_csv",
+          "column": "assigned_at",
+          "value": "2026-09-01T08:00:00"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_TIME"
+      ]
+    }
+  },
+  {
+    "id": "C031",
+    "kind": "bundle",
+    "title": "无效 IANA 时区必须修复",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "timezone"
+          ],
+          "value": "not/a/timezone"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_TIMEZONE"
+      ]
+    }
+  },
+  {
+    "id": "C032",
+    "kind": "bundle",
+    "title": "完整水位下零事件仍不适用当前检验",
+    "category": "statistical_applicability",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "empty_rows"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "实验分析负责人",
+      "counts": {
+        "included_orders": 0
+      },
+      "numeric": [
+        {
+          "metric": "paid_user_cvr",
+          "field": "control_value",
+          "value": 0
+        },
+        {
+          "metric": "paid_gmv_per_user",
+          "field": "treatment_value",
+          "value": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "C033",
+    "kind": "bundle",
+    "title": "预设策略缺失交给业务负责人",
+    "category": "risk_policy",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "policy"
+          ],
+          "value": {}
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "业务负责人",
+      "issue_codes": [
+        "MISSING_POLICY"
+      ]
+    }
+  },
+  {
+    "id": "C034",
+    "kind": "bundle",
+    "title": "非法分流比例不能跳过 SRM",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "expected_control_ratio"
+          ],
+          "value": 0
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_ALLOCATION"
+      ]
+    }
+  },
+  {
+    "id": "C035",
+    "kind": "bundle",
+    "title": "不能混入其他实验",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "assignments.csv",
+          "op": "set_csv",
+          "column": "experiment_id",
+          "value": "other-experiment"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "WRONG_EXPERIMENT"
+      ]
+    }
+  },
+  {
+    "id": "C036",
+    "kind": "bundle",
+    "title": "未知组别不自动映射",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "assignments.csv",
+          "op": "set_csv",
+          "column": "variant",
+          "value": "variant_C"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_VARIANT"
+      ]
+    }
+  },
+  {
+    "id": "C037",
+    "kind": "bundle",
+    "title": "负金额退款属于不支持口径",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "paid_amount",
+          "value": "-1"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_AMOUNT"
+      ]
+    }
+  },
+  {
+    "id": "C038",
+    "kind": "bundle",
+    "title": "倒置入组区间必须阻断",
+    "category": "boundary",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "enrollment_end"
+          ],
+          "value": "2026-08-31T00:00:00+08:00"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_PERIOD"
+      ]
+    }
+  },
+  {
+    "id": "C039",
+    "kind": "bundle",
+    "title": "缺失金额不填零",
+    "category": "data_quality",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "paid_amount",
+          "value": ""
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "INVALID_ROW"
+      ]
+    }
+  },
+  {
+    "id": "C040",
+    "kind": "bundle",
+    "title": "允许损失必须为非负有限数",
+    "category": "risk_policy",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "policy",
+            "max_gmv_loss_per_user"
+          ],
+          "value": "-0.1"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "业务负责人",
+      "issue_codes": [
+        "INVALID_NUMBER"
+      ]
+    }
+  },
+  {
+    "id": "C041",
+    "kind": "bundle",
+    "title": "未知契约版本不默认兼容",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "schema_version"
+          ],
+          "value": 2
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C042",
+    "kind": "bundle",
+    "title": "入组之前支付按规则排除",
+    "category": "boundary",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "paid_at",
+          "value": "2026-09-01T07:59:00+08:00"
+        }
+      ]
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "counts": {
+        "excluded_orders": 1,
+        "included_orders": 499
+      }
+    }
+  },
+  {
+    "id": "C043",
+    "kind": "bundle",
+    "title": "恰好入组时支付按规则计入",
+    "category": "boundary",
+    "severity": "normal_control",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "orders.csv",
+          "op": "set_csv",
+          "column": "paid_at",
+          "value": "2026-09-01T08:00:00+08:00"
+        }
+      ]
+    },
+    "expected": {
+      "status": "REVIEW_READY",
+      "owner": "业务负责人",
+      "counts": {
+        "included_orders": 500
+      }
+    }
+  },
+  {
+    "id": "C044",
+    "kind": "bundle",
+    "title": "布尔值不能冒充观察天数",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "observation_days"
+          ],
+          "value": true
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C045",
+    "kind": "bundle",
+    "title": "未支持的显著性水平不能静默忽略",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "alpha"
+          ],
+          "value": 0.1
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C046",
+    "kind": "bundle",
+    "title": "序贯意图不能使用固定周期结果",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "analysis_mode"
+          ],
+          "value": "sequential"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  },
+  {
+    "id": "C047",
+    "kind": "bundle",
+    "title": "错误策略字段类型应结构化报错",
+    "category": "schema",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "policy",
+            "intent"
+          ],
+          "value": []
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "业务负责人",
+      "issue_codes": [
+        "UNSUPPORTED_POLICY"
+      ]
+    }
+  },
+  {
+    "id": "C048",
+    "kind": "bundle",
+    "title": "美元契约不套用人民币定义",
+    "category": "definition",
+    "severity": "critical",
+    "origin": "synthetic_bundle_replay",
+    "split": "regression",
+    "user_task": "增长 PM 从原始 CSV 准备商品详情页上线评审卡，确认缺失证据、接管角色和恢复条件",
+    "input": {
+      "scenario": "clean",
+      "confirm": true,
+      "mutations": [
+        {
+          "file": "contract.json",
+          "op": "set_json",
+          "path": [
+            "currency"
+          ],
+          "value": "USD"
+        }
+      ]
+    },
+    "expected": {
+      "status": "BLOCKED",
+      "owner": "数据负责人",
+      "issue_codes": [
+        "UNSUPPORTED_DEFINITION"
+      ]
+    }
+  }
+]

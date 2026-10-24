@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
-from math import erfc, sqrt
+from math import erfc, isfinite, sqrt
 
 from experimentos.models import ExperimentRequest, QualityIssue
 
@@ -12,6 +12,35 @@ class QualityChecker:
         issues.extend(self._check_srm(request))
         issues.extend(self._check_duration(request))
         issues.extend(self._check_small_sample(request))
+        issues.extend(self._check_sparse_conversion(request))
+        return issues
+
+    def _check_sparse_conversion(self, request: ExperimentRequest) -> list[QualityIssue]:
+        unsupported = []
+        invalid = []
+        for metric in request.metrics:
+            if metric.kind != "conversion" or metric.statistical_source != "computed":
+                continue
+            values = (metric.control_n, metric.treatment_n, metric.control_successes, metric.treatment_successes)
+            if any(value is None for value in values):
+                continue
+            if not all(isinstance(value, (int, float)) and not isinstance(value, bool) and isfinite(value) and int(value) == value for value in values):
+                invalid.append(metric.name)
+                continue
+            nc, nt, kc, kt = map(int, values)
+            if not (nc > 0 and nt > 0 and 0 <= kc <= nc and 0 <= kt <= nt):
+                invalid.append(metric.name)
+            elif min(kc, nc - kc, kt, nt - kt) < 5:
+                unsupported.append(metric.name)
+        issues = []
+        if invalid:
+            issues.append(QualityIssue("转化计数无效", "high", f"计数必须是有效整数且支付人数不超过入组人数：{', '.join(invalid)}。", "核对数据类型与统计单位后重跑。"))
+        if unsupported:
+            issues.append(QualityIssue(
+                name="转化指标正态近似不适用", severity="high",
+                impact=f"以下指标有组内支付或未支付人数少于 5：{', '.join(unsupported)}。当前 z-test / Wald 区间不作为发布证据。",
+                recommendation="交实验分析负责人选择适用的统计方法或制定新实验计划；不延长实验直到显著。",
+            ))
         return issues
 
     def _check_srm(self, request: ExperimentRequest) -> list[QualityIssue]:

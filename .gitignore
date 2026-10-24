@@ -9,6 +9,8 @@ dist/
 
 # Local demo data and machine-specific files
 examples/demo.duckdb
+examples/generated_bundle/
+.review_state/
 .DS_Store
 
 # AgentBox runtime state is host-specific, not project source

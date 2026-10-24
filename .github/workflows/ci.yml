@@ -18,3 +18,7 @@ jobs:
         run: python -m pytest -q
       - name: Offline eval smoke test
         run: python -m evals.runner --no-write
+      - name: Published replay matches Python behaviour
+        run: python -m evals.export_portfolio --check
+      - name: Portfolio page state transitions
+        run: node --test tests/portfolio_dom.cjs

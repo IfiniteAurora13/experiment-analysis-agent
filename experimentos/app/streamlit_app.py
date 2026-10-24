@@ -9,8 +9,10 @@ from pathlib import Path
 import streamlit as st
 
 from experimentos.agent.llm_client import LlmClient, LlmConfig
+from experimentos.agent.narrator import ReportRenderer
 from experimentos.agent.orchestrator import ExperimentOrchestrator
 from experimentos.app.cli import DEFAULT_MOCK_PLAN
+from experimentos.app.bundle_app import render_bundle_workspace
 from experimentos.models import ExperimentRequest
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -35,7 +37,10 @@ def build_orchestrator(use_mock_llm: bool) -> ExperimentOrchestrator:
     if not use_mock_llm:
         return ExperimentOrchestrator()
     canned = json.dumps(DEFAULT_MOCK_PLAN, ensure_ascii=False)
-    return ExperimentOrchestrator(llm_client=LlmClient(config=LlmConfig(provider="mock"), canned=canned))
+    orchestrator = ExperimentOrchestrator(llm_client=LlmClient(config=LlmConfig(provider="mock"), canned=canned))
+    # The canned response is a plan, not a narrative report.
+    orchestrator.renderer = ReportRenderer()
+    return orchestrator
 
 
 def inject_theme() -> None:
@@ -56,7 +61,12 @@ def inject_theme() -> None:
 
 st.set_page_config(page_title="ExperimentOS · Analysis Workspace", page_icon="◈", layout="wide")
 inject_theme()
-st.markdown('<div class="hero"><small>EXPERIMENT INTELLIGENCE / WORKSPACE</small><h1>ExperimentOS</h1><p>可审计的 A/B 实验分析工作台。模型负责理解，确定性组件负责统计、校验与护栏。</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="hero"><small>EXPERIMENT REVIEW / LOCAL PROTOTYPE</small><h1>ExperimentOS</h1><p>面向电商增长 PM 的实验上线评审助手：导入数据、确认口径、复核风险，失败时给出接管与恢复条件。</p></div>', unsafe_allow_html=True)
+
+mode = st.sidebar.radio("工作入口", ["数据包评审", "汇总输入实验室（旧版）"])
+if mode == "数据包评审":
+    render_bundle_workspace()
+    st.stop()
 
 with st.sidebar:
     st.markdown("### ◈ Analysis setup")
@@ -65,7 +75,7 @@ with st.sidebar:
     st.caption("离线模式；不会发送真实数据。统计计算始终由确定性工具完成。")
     st.divider()
     st.markdown("**Safety boundary**")
-    st.caption("✓ Quality checks  ·  ✓ Statistical validation  ·  ✓ Release guardrails")
+    st.caption("运行后显示质量检查、统计计算与结果校验的实际状态；未运行不代表通过。")
 
 payload = load_request_payload(EXAMPLES[example_name])
 input_tab, json_tab = st.tabs(["表单概览", "JSON 输入"])
@@ -103,6 +113,10 @@ if run:
     head, badge = st.columns([4, 1])
     head.subheader(report.summary)
     badge.markdown(f'<span class="status">{report.status}</span>', unsafe_allow_html=True)
+    if report.review_gate.status == "BLOCKED":
+        st.error(f"评审已阻断。接管角色：{report.review_gate.owner}。{report.review_gate.next_action}")
+    else:
+        st.info("必检已完成，可复核评审建议；仍需业务负责人确认，不代表批准上线。")
     for warning in report.warnings:
         st.warning(warning)
 

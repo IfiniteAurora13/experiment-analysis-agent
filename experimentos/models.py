@@ -188,10 +188,26 @@ class Recommendation:
 
 
 @dataclass
+class ReviewGate:
+    """Readiness of mandatory evidence checks, never an approval to ship."""
+
+    status: str = "BLOCKED"
+    checks: dict[str, str] = field(default_factory=lambda: {
+        "quality_check": "UNKNOWN",
+        "metric_analysis": "UNKNOWN",
+        "result_validation": "UNKNOWN",
+    })
+    blockers: list[str] = field(default_factory=list)
+    owner: str = "实验分析负责人"
+    next_action: str = "补齐输入后重跑必检，再重新生成评审卡。"
+
+
+@dataclass
 class AnalysisReport:
     status: str
     task_type: str
     summary: str
+    review_gate: ReviewGate = field(default_factory=ReviewGate)
     plan: list[AnalysisStep] = field(default_factory=list)
     missing_inputs: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
@@ -302,6 +318,7 @@ class ExperimentState:
     recommendations: list[Recommendation] = field(default_factory=list)
     selected_skills: list[str] = field(default_factory=list)
     completed_skills: list[str] = field(default_factory=list)
+    review_gate: ReviewGate = field(default_factory=ReviewGate)
     tool_calls: list[ToolTrace] = field(default_factory=list)
     workflow_trace: list[WorkflowTrace] = field(default_factory=list)
     max_tool_calls: int = 5

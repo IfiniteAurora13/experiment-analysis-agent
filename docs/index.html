@@ -3,78 +3,100 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ExperimentOS — auditable A/B experiment analysis in your browser.">
-  <meta name="theme-color" content="#090d1a">
-  <title>ExperimentOS · Interactive Lab</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="电商实验上线评审助手：查看从原始数据检查、口径确认到风险评审的真实 Python 离线回放。">
+  <title>ExperimentOS · 实验上线评审助手</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="data/replays.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="aurora aurora-one"></div><div class="aurora aurora-two"></div>
-  <header class="nav shell">
-    <a class="brand" href="#top" aria-label="ExperimentOS home"><span class="brand-mark">E</span><span>Experiment<span>OS</span></span></a>
-    <nav><a href="#lab">Lab</a><a href="#workflow">Workflow</a><a href="https://github.com/IfiniteAurora13/experiment-analysis-agent">GitHub ↗</a></nav>
+  <header class="site-header">
+    <a class="brand" href="#top"><span class="brand-symbol" aria-hidden="true">E</span>ExperimentOS<span class="brand-divider">/</span><span class="brand-sub">实验评审</span></a>
+    <nav aria-label="主导航"><a href="#workspace">任务回放</a><a href="#evaluation">评测证据</a><a href="#decisions">产品取舍</a><a class="nav-github" href="https://github.com/IfiniteAurora13/experiment-analysis-agent/pull/1" target="_blank" rel="noopener">查看项目 ↗</a></nav>
   </header>
 
   <main id="top">
     <section class="hero shell">
-      <div class="eyebrow"><span></span> OPEN-SOURCE EXPERIMENT INTELLIGENCE</div>
-      <h1>Decisions you can<br><em>inspect.</em></h1>
-      <p class="hero-copy">把实验质量、统计检验与发布护栏放进同一条可审计工作流。LLM 负责理解与表达，确定性代码负责计算。</p>
-      <div class="hero-actions"><a class="button primary" href="#lab">打开交互实验室 <b>↓</b></a><a class="button ghost" href="https://github.com/IfiniteAurora13/experiment-analysis-agent#quick-start">本地运行</a></div>
-      <div class="proof"><div><strong>Deterministic</strong><span>统计计算</span></div><div><strong>Guardrailed</strong><span>发布建议</span></div><div><strong>Traceable</strong><span>全链路记录</span></div></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> 给电商增长 PM 的实验评审助手</p>
+        <h1>结果出来以后，<br>下一步该怎么做？</h1>
+        <p class="hero-description">把原始数据、指标口径和业务护栏放到一张评审卡上。证据不完整时明确停下，修复以后接着走。</p>
+        <div class="hero-actions"><a class="button primary" href="#workspace">体验一次完整评审 <span>↓</span></a><a class="button secondary" href="#evaluation">查看评测证据 ↗</a></div>
+        <p class="hero-footnote">合成数据 · 真实 Python 运行回放 · 不执行上线</p>
+      </div>
+      <aside class="hero-note" aria-label="一次评审的交付">
+        <div class="note-top"><span class="tiny-label">ONE TASK, ONE REVIEW CARD</span><span class="small-chip">范围明确</span></div>
+        <h2>商品详情页改版<br>是否支持进入发布评审？</h2>
+        <ol class="mini-process"><li><span>01</span><div>检查数据<small>分流、重复、缺失与成熟度</small></div></li><li><span>02</span><div>确认口径<small>分母、7 天窗口与完整性声明</small></div></li><li><span>03</span><div>评审风险<small>收益、允许损失与人工接管</small></div></li></ol>
+        <div class="note-bottom"><span>一个主指标 + 一个护栏</span><span>人工确认最后一步 ↗</span></div>
+      </aside>
     </section>
 
-    <section class="lab-section shell" id="lab">
-      <div class="section-heading"><div><span class="kicker">INTERACTIVE LAB</span><h2>调整数据，实时查看决策</h2></div><p>纯浏览器计算，不上传任何数据。该页面演示核心统计与护栏逻辑；完整 Agent 工作流请在本地运行。</p></div>
-      <div class="lab-grid">
-        <aside class="panel controls">
-          <div class="panel-title"><span>01</span><div><h3>实验输入</h3><p>Product detail redesign</p></div><button id="reset" class="icon-button" title="恢复默认值">↻</button></div>
-          <label>实验问题<textarea id="question" rows="3">新版商品详情页是否支持全量发布？</textarea></label>
-          <div class="control-group">
-            <div class="group-label"><span class="dot cyan"></span>核心指标 · CVR</div>
-            <div class="field-grid">
-              <label>对照组样本<input id="cN" type="number" min="1" value="20000"></label>
-              <label>实验组样本<input id="tN" type="number" min="1" value="20150"></label>
-              <label>对照组转化<input id="cSuccess" type="number" min="0" value="2000"></label>
-              <label>实验组转化<input id="tSuccess" type="number" min="0" value="2329"></label>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="group-label"><span class="dot coral"></span>护栏指标 · GMV / User</div>
-            <div class="field-grid">
-              <label>对照组均值<input id="cGmv" type="number" step="0.01" value="12.40"></label>
-              <label>实验组均值<input id="tGmv" type="number" step="0.01" value="12.10"></label>
-              <label>对照组方差<input id="cVar" type="number" min="0.01" step="0.1" value="25"></label>
-              <label>实验组方差<input id="tVar" type="number" min="0.01" step="0.1" value="25"></label>
-            </div>
-          </div>
-          <label>显著性水平 <span id="alphaValue">0.05</span><input id="alpha" type="range" min="0.01" max="0.10" step="0.01" value="0.05"></label>
-          <button id="run" class="run-button"><span>运行确定性分析</span><b>→</b></button>
+    <section class="proof-strip shell" aria-label="项目证据概览">
+      <div><strong>4</strong><span>份输入文件<small>固定数据契约</small></span></div>
+      <div><strong>3</strong><span>项内部必检<small>未完成不能当通过</small></span></div>
+      <div><strong id="proofCases">—</strong><span>个回归场景<small>逐类公开分母</small></span></div>
+      <div class="proof-baseline"><span class="tiny-label">NON-AI BASELINE</span><p>先证明规则流程可用，<br>再验证 Agent 的额外价值。</p></div>
+    </section>
+
+    <section class="workspace-section shell" id="workspace">
+      <div class="section-heading"><div><p class="eyebrow">THE REVIEW WORKSPACE</p><h2>选一个任务，走完整个闭环</h2></div><p>这里展示已保存的 Python 执行结果。<br>真实 CSV 导入与本地署名，请使用仓库中的工作台。</p></div>
+      <div class="workspace-layout">
+        <aside class="task-panel panel">
+          <div class="panel-heading"><span class="step-index">01</span><h3>实验任务</h3></div>
+          <label for="scenario">选择一种情况</label>
+          <select id="scenario"></select>
+          <p id="scenarioDescription" class="muted"></p>
+          <div class="file-heading"><span>固定导出包</span><span class="small-chip">CSV + JSON</span></div>
+          <div class="file-list"><div><span class="file-icon">C</span><span>assignments.csv<small>用户入组与组别</small></span></div><div><span class="file-icon">C</span><span>orders.csv<small>支付事件与入库时间</small></span></div><div><span class="file-icon json">J</span><span>contract.json<small>口径与预设风险策略</small></span></div><div><span class="file-icon json">J</span><span>manifest.json<small>快照与完整性水位</small></span></div></div>
+          <div class="task-boundary"><h4>这次只回答一件事</h4><p>现有证据是否支持进入人工发布评审？<br>不会代替负责人执行上线。</p></div>
+          <button class="text-button" id="resetTask" type="button">↻ 重置当前回放</button>
         </aside>
 
-        <section class="panel results" aria-live="polite">
-          <div class="result-top"><div><span class="kicker">ANALYSIS REPORT</span><h3 id="decision">不建议发布</h3></div><span id="statusBadge" class="status danger">DONE WITH CONCERNS</span></div>
-          <p id="summary" class="summary">核心指标显著提升，但护栏指标显著恶化。当前证据不足以支持全量上线。</p>
-          <div class="metric-cards">
-            <article class="metric-card"><div class="metric-head"><span>CVR</span><small>CORE</small></div><strong id="cvrLift">+15.58%</strong><div class="spark"><i id="cvrBarA"></i><i id="cvrBarB"></i></div><div class="metric-foot"><span id="cvrValues">10.00% → 11.56%</span><span id="cvrSig" class="good">显著</span></div></article>
-            <article class="metric-card"><div class="metric-head"><span>GMV / User</span><small>GUARDRAIL</small></div><strong id="gmvLift">−2.42%</strong><div class="spark coral"><i id="gmvBarA"></i><i id="gmvBarB"></i></div><div class="metric-foot"><span id="gmvValues">12.40 → 12.10</span><span id="gmvSig" class="bad">显著恶化</span></div></article>
+        <section class="review-panel panel" aria-live="polite" aria-atomic="false">
+          <div class="review-top"><div><span class="tiny-label">PRODUCT DETAIL / A–B REVIEW</span><h3>商品详情页改版评审卡</h3></div><span class="status-pill" id="statusPill">等待载入</span></div>
+          <div class="phase-row" id="phaseRow"><span>1 检查数据</span><i>→</i><span>2 确认口径</span><i>→</i><span>3 复核建议</span></div>
+          <div class="repair-note" id="repairNote" hidden>已切换到修复后的数据包。旧版本已失效，请重新确认口径。</div>
+          <div class="decision-block"><span id="decisionKicker" class="tiny-label">CURRENT NEXT STEP</span><h2 id="decisionTitle">正在载入回放…</h2><p id="decisionReason"></p></div>
+          <div class="data-summary"><div><small>唯一入组用户</small><strong id="assignedCount">—</strong></div><div><small>窗口内订单</small><strong id="orderCount">—</strong></div><div><small>数据处理</small><strong id="cleaningCount">—</strong></div></div>
+          <div id="issueList" class="issue-list"></div>
+
+          <div id="confirmationBox" class="confirmation-box">
+            <div class="box-title"><span class="step-index">02</span><h4>先确认，才解释</h4><span class="small-chip">回放操作</span></div>
+            <dl class="definition-grid"><div><dt>主指标分母</dt><dd>全部唯一入组用户</dd></div><div><dt>观察窗口</dt><dd>每人入组后 168 小时</dd></div><div><dt>支付金额</dt><dd>CNY 支付 GMV，未扣退款</dd></div><div><dt>订单完整性水位</dt><dd id="watermark">—</dd></div></dl>
+            <p class="definition-warning">无记录计零依赖上游完整性声明，系统不能自行证明声明真实。</p>
+            <label class="acknowledgement"><input type="checkbox" id="acknowledge"><span>我已阅读这次口径和水位，查看确认后的评审回放</span></label>
+            <button id="confirmButton" class="button primary" type="button" disabled>确认口径 · 查看评审回放 <span>→</span></button>
           </div>
-          <div class="evidence"><h4>证据与护栏</h4><div id="evidenceList"></div></div>
-          <div class="trace-wrap"><div class="trace-title"><h4>Execution trace</h4><span>6 stages · browser</span></div><div class="trace" id="trace"></div></div>
-          <details><summary>统计详情</summary><pre id="details"></pre></details>
+
+          <div class="metric-grid" id="metricGrid" hidden>
+            <article class="metric-card"><div class="metric-label">主指标 · 支付用户转化率<span id="coreTag" class="metric-tag"></span></div><strong id="coreValue">—</strong><p id="coreComparison"></p><div class="interval-text" id="coreInterval"></div></article>
+            <article class="metric-card"><div class="metric-label">护栏 · 支付 GMV / 用户<span id="gmvTag" class="metric-tag"></span></div><strong id="gmvValue">—</strong><p id="gmvComparison"></p><div class="interval-text" id="gmvInterval"></div></article>
+          </div>
+          <div id="policyBox" class="policy-box" hidden><span class="policy-symbol">↳</span><div><h4>按预先约定的边界判断</h4><p id="policyDescription"></p></div></div>
+          <div class="handoff"><span class="avatar" id="ownerAvatar">人</span><div><small>下一位接管人</small><strong id="ownerName"></strong><p id="nextAction"></p></div></div>
+          <div class="review-actions"><button id="repairButton" class="button primary" type="button" hidden>切换修复包，重新检查 →</button><button id="downloadReport" class="button secondary" type="button">下载当前评审卡 ↗</button><button id="downloadCard" class="text-button" type="button">完整记录 JSON</button></div>
+          <details class="evidence-details"><summary>展开检查状态与版本记录 <span>+</span></summary><div id="checkList" class="check-list"></div><div class="version-line">输入版本 <code id="snapshotLabel"></code></div><ol id="historyList" class="history-list"></ol><p class="muted">以上为导出时的真实运行记录。页面不上传文件、不实时统计，也不保存你的确认。</p></details>
         </section>
       </div>
     </section>
 
-    <section class="workflow shell" id="workflow">
-      <div class="section-heading"><div><span class="kicker">HOW IT WORKS</span><h2>让模型灵活，让计算可靠</h2></div></div>
-      <div class="workflow-grid"><article><b>01</b><span>Understand</span><p>识别问题、目标与所需输入</p></article><i>→</i><article><b>02</b><span>Validate</span><p>检查 SRM、样本量与数据质量</p></article><i>→</i><article><b>03</b><span>Compute</span><p>由确定性统计引擎完成检验</p></article><i>→</i><article><b>04</b><span>Decide</span><p>应用护栏并生成可审计建议</p></article></div>
+    <section class="evaluation-section shell" id="evaluation">
+      <div class="section-heading"><div><p class="eyebrow">EVIDENCE, NOT A SINGLE SCORE</p><h2>失败也要能被逐例复核</h2></div><p>通过只代表这些案例中的行为符合预期。<br>不等于线上错误率为零，也不代表真实模型评测。</p></div>
+      <div class="eval-overview"><div class="eval-primary"><span class="tiny-label">OFFLINE REGRESSION</span><strong id="evalTotal">— / —</strong><p>逐例检查完成，包含正常路径与失败路径</p></div><div class="eval-scope"><h3>这组结果覆盖什么？</h3><p>原始 CSV、确认与版本失效、必检异常、护栏决策、最终模板文案。</p><div class="scope-tags"><span>合成数据</span><span>规则基线</span><span>回归集</span><span>无真实模型调用</span></div></div></div>
+      <div class="category-grid" id="categoryGrid"></div>
+      <div class="case-toolbar"><h3>案例索引</h3><label for="categoryFilter">按失败类型筛选 <select id="categoryFilter"><option value="all">全部类型</option></select></label></div>
+      <div class="case-table-wrap"><table><thead><tr><th>案例与任务</th><th>分类</th><th>预期 → 实际</th><th>结果</th></tr></thead><tbody id="caseRows"></tbody></table></div>
+      <div class="eval-footer"><p id="caseCount"></p><button class="text-button" id="downloadEval" type="button">下载完整评测记录（JSON） ↗</button></div>
+      <div class="known-limits"><strong>已知空白</strong><p>尚无独立冻结验收集、真实模型保真度结果或目标用户收益对照。用户研究和 Agent 增量验证仍是下一阶段必须补的证据。</p></div>
+    </section>
+
+    <section class="tradeoff-section shell" id="decisions">
+      <div class="section-heading"><div><p class="eyebrow">PRODUCT CHOICES</p><h2>范围收窄，证据做深</h2></div></div>
+      <div class="choice-grid"><article><span>01 / USER</span><h3>聚焦一类评审任务</h3><p>电商增长 PM、商品详情页、固定周期。明确分母和窗口，优先解决口径核对与返工。</p></article><article><span>02 / CONTROL</span><h3>让失败有下一步</h3><p>必检未完成就暂停；缺数据找数据负责人，风险取舍交业务负责人，更新后重新确认。</p></article><article><span>03 / BASELINE</span><h3>允许规则方案胜出</h3><p>先用同一套统计与规则建立基线。只有跨材料核对和补证流程带来收益，才值得增加 Agent。</p></article></div>
+      <div class="not-building"><span class="small-chip">暂停投入</span><p>CUPED、贝叶斯、序贯检验、多 Agent、任意 SQL、自动上线。当前不以算法清单和模型调用次数证明产品价值。</p></div>
     </section>
   </main>
-  <footer class="shell"><div class="brand"><span class="brand-mark">E</span><span>ExperimentOS</span></div><p>Built for trustworthy experiment decisions.</p><a href="https://github.com/IfiniteAurora13/experiment-analysis-agent">Source on GitHub ↗</a></footer>
+  <footer class="shell"><a class="brand" href="#top"><span class="brand-symbol">E</span>ExperimentOS</a><p>理解可以灵活，决策必须有证据。</p><a href="https://github.com/IfiniteAurora13/experiment-analysis-agent/pull/1" target="_blank" rel="noopener">源码、测试与设计记录 ↗</a></footer>
 </body>
 </html>

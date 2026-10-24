@@ -1,0 +1,312 @@
+{
+  "evaluation_mode": "offline_rule_based",
+  "dataset_split": "regression_only_no_holdout",
+  "total_cases": 12,
+  "passed_cases": 12,
+  "overall_score": 1.0,
+  "dimension_scores": {
+    "metric_definition": 1.0,
+    "numeric_accuracy": 1.0,
+    "completeness": 1.0,
+    "logic": 1.0,
+    "expression": 1.0,
+    "release_safety": 1.0
+  },
+  "dimension_case_counts": {
+    "metric_definition": 4,
+    "numeric_accuracy": 4,
+    "completeness": 4,
+    "logic": 4,
+    "expression": 4,
+    "release_safety": 12
+  },
+  "cases": [
+    {
+      "case_id": "E001",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "metric_definition",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "numeric_accuracy",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "completeness",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "logic",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "expression",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E002",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "metric_definition",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "numeric_accuracy",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "completeness",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "logic",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "expression",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E003",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "metric_definition",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "numeric_accuracy",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "completeness",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "logic",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "expression",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E004",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "metric_definition",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "numeric_accuracy",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "completeness",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "logic",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "expression",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        },
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E005",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E006",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E007",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E008",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E009",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E010",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E011",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "case_id": "E012",
+      "passed": true,
+      "score": 1.0,
+      "results": [
+        {
+          "name": "release_safety",
+          "passed": true,
+          "score": 1.0,
+          "reasons": []
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "python": "3.12.15",
+    "unit_tests_passed": 82,
+    "baseline_existing_tests_passed": 65,
+    "demo_checks": [
+      "CLI",
+      "quality-failure replay",
+      "Streamlit AppTest: default, SRM, Mock",
+      "browser DOM checks"
+    ]
+  }
+}
