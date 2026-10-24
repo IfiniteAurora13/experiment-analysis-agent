@@ -2,9 +2,9 @@
 
 帮助增长 PM 把商品详情页 A/B 实验的原始数据整理成**可复核、可接管、可撤回的本地评审卡**。用户级随机、固定周期，一个主指标加一个护栏。
 
-[任务回放与评测页面](https://ifiniteaurora13.github.io/experiment-analysis-agent/) · [当前改动 PR](https://github.com/IfiniteAurora13/experiment-analysis-agent/pull/1) · [评审卡样例](evals/reports/sample_review_card.md) · [数据契约](product/data_contract.md)
+[任务回放与评测页面](https://ifiniteaurora13.github.io/experiment-analysis-agent/) · [本轮交付（已合并）](https://github.com/IfiniteAurora13/experiment-analysis-agent/pull/1) · [评审卡样例](evals/reports/sample_review_card.md) · [数据契约](product/data_contract.md)
 
-> 当前改动位于 PR 分支；GitHub Pages 须在合并部署后更新。本地可直接打开 docs/index.html。页面是 Python 真实运行结果的交互回放；实际 CSV 导入使用本地工作台。
+> 当前主分支已包含数据包评审闭环。页面是 Python 真实运行结果的交互回放；实际 CSV 导入使用本地工作台。本地也可直接打开 docs/index.html。
 
 ## 1. 谁在什么时刻使用
 
@@ -66,7 +66,7 @@
 
 暂停 CUPED、贝叶斯、序贯检验、多 Agent、任意 SQL、更多 Provider 和自动上线。公式拆解只作为说明，不宣传自动归因。
 
-[产品简报](product/brief.md) · [分阶段路线与未完成项](product/roadmap.md) · [求职叙事与证据边界](product/portfolio_story.md)
+[产品简报](product/brief.md) · [分阶段路线与未完成项](product/roadmap.md) · [Agent 闭环下一步清单](product/agent_closed_loop_plan.md) · [求职叙事与证据边界](product/portfolio_story.md)
 
 ## 本地运行
 
