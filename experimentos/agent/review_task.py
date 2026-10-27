@@ -116,11 +116,16 @@ class ReviewAgent:
             raise ValueError("最多四份文本材料，每份不超过 10000 字。")
         version = digest({"snapshot": snapshot_id(files), "question": question, "documents": documents, "assessor": self.assessor_key, "prompt": PROMPT_VERSION, "engine": ENGINE_VERSION})
         if self.state.get("version") != version:
+            material_versions = self.state.setdefault("material_versions", {})
+            previous_version = self.state.get("version")
+            if previous_version:
+                material_versions[previous_version] = {"claims": copy.deepcopy(self.state.get("claims")), "mode": self.state.get("mode", "not_run"), "model_attempted": self.state.get("model_attempted", False)}
+            previous_material = material_versions.get(version, {"claims": None, "mode": "not_run", "model_attempted": False})
             inspection = self.workspace.inspect(files)
             current = self.workspace.state["current"]
             if self.state.get("version") and current.get("confirmation"):
                 self.workspace.withdraw(snapshot=inspection.snapshot_id, by="系统：材料版本更新", reason="问题、材料或分析模式变化，需要重新确认。")
-            self.state.update(version=version, question=question, documents=documents, claims=None, resolved={}, pending=None, cache=None, last_view=None, mode="not_run", model_attempted=False)
+            self.state.update(version=version, question=question, documents=documents, resolved={}, pending=None, cache=None, last_view=None, **previous_material)
             self.event("inspect_bundle", "ok" if inspection.valid else "blocked", snapshot=inspection.snapshot_id, version=version)
             self.save()
         return version

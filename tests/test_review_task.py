@@ -173,6 +173,17 @@ def test_interrupted_model_call_is_not_repeated_after_restart(tmp_path):
     assert view["pending"]["field"] == "denominator"
 
 
+def test_returning_to_an_old_input_reuses_claims_but_never_human_confirmation():
+    model = Model()
+    agent = ReviewAgent(assessor=model, assessor_key="test-model")
+    finish(agent)
+    run(agent, documents={"实验说明": DEMO_BRIEF, "指标字典": DEMO_DICTIONARY + "\n新版本说明。"})
+    after = run(agent)
+    assert len(model.calls) == 2
+    assert after["status"] == "WAITING_FOR_CLARIFICATION"
+    assert after["card"]["report"] is None
+
+
 def test_multiple_conflicts_are_asked_one_at_a_time():
     agent = ReviewAgent()
     docs = {"指标字典": "指标分母为曝光用户，观察窗口为 14 天。"}
