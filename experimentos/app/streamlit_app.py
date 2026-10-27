@@ -44,24 +44,20 @@ def build_orchestrator(use_mock_llm: bool) -> ExperimentOrchestrator:
 
 
 def inject_theme() -> None:
-    st.markdown("""
-    <style>
-      .stApp{background:radial-gradient(circle at 8% 0%,#17264a 0,transparent 30%),#090d18;color:#f5f7fb}
-      [data-testid="stHeader"]{background:transparent}.block-container{max-width:1240px;padding-top:2rem}
-      h1,h2,h3{letter-spacing:-.035em}.hero{padding:1.2rem 0 1.8rem}.hero small{color:#5eead4;letter-spacing:.18em;font-weight:700}
-      .hero h1{font-size:3.4rem;margin:.55rem 0}.hero p{color:#9ca7bc;font-size:1.05rem;max-width:720px}
-      [data-testid="stSidebar"]{background:#0d1322;border-right:1px solid #20283a}
-      [data-testid="stMetric"]{background:#111827;border:1px solid #253047;padding:1rem;border-radius:14px}
-      [data-testid="stMetricValue"]{font-size:1.65rem}.stButton>button{border:0;border-radius:10px;background:linear-gradient(110deg,#5eead4,#70a7ff);color:#071019;font-weight:800}
-      div[data-testid="stExpander"]{border:1px solid #253047;border-radius:12px;background:#0e1525}
-      .status{display:inline-flex;padding:.35rem .65rem;border-radius:99px;background:#182337;color:#b9c6dc;font:600 .72rem monospace}
-      .trust{border-left:2px solid #5eead4;padding:.55rem 1rem;color:#9ca7bc;background:#0e1726;border-radius:0 8px 8px 0}
+    st.markdown("""<style>
+    .stApp{background:#f6f7f9;color:#182133}.block-container{max-width:1040px;padding-top:1.8rem}
+    [data-testid="stHeader"]{background:#f6f7f9}[data-testid="stSidebar"]{background:#fff}
+    h1,h2,h3{letter-spacing:-.03em}.hero h1{font-size:2rem;margin:0}.hero p{color:#627084;font-size:1rem}
+    .hero small{color:#3b5bdb;font-size:.75rem;font-weight:700;letter-spacing:.09em}
+    [data-testid="stMetric"]{background:#fff;border:1px solid #e2e6ec;padding:1rem;border-radius:12px}
+    .stButton>button[kind="primary"]{background:#365ee8;border-color:#365ee8}
+    div[data-testid="stExpander"]{background:#fff;border-color:#e2e6ec}
     </style>""", unsafe_allow_html=True)
 
 
 st.set_page_config(page_title="ExperimentOS · Analysis Workspace", page_icon="◈", layout="wide")
 inject_theme()
-st.markdown('<div class="hero"><small>EXPERIMENT REVIEW / LOCAL PROTOTYPE</small><h1>ExperimentOS</h1><p>面向电商增长 PM 的实验上线评审助手：导入数据、确认口径、复核风险，失败时给出接管与恢复条件。</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="hero"><small>EXPERIMENT REVIEW</small><h1>ExperimentOS</h1><p>从口径核对到一张有证据的实验评审卡。</p></div>', unsafe_allow_html=True)
 
 mode = st.sidebar.radio("工作入口", ["数据包评审", "汇总输入实验室（旧版）"])
 if mode == "数据包评审":

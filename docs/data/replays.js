@@ -71,7 +71,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.238081+00:00",
+            "at": "2026-10-27T14:10:49.808170+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           }
         ],
@@ -204,7 +204,3016 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.246943+00:00",
+              "at": "2026-10-27T14:10:49.817120+00:00",
+              "scope": "definitions_and_declared_completeness"
+            },
+            "predeclared_policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "registry_entries": [],
+          "quality_issues": [],
+          "metric_results": [
+            {
+              "metric_name": "paid_user_cvr",
+              "metric_kind": "conversion",
+              "metric_role": "core",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.15,
+              "delta_abs": 0.04999999999999999,
+              "delta_rel": 0.4999999999999999,
+              "p_value": 1.7449962508738146e-06,
+              "ci_low": 0.029560855038664492,
+              "ci_high": 0.07043914496133549,
+              "significant": true,
+              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+              "interpretation": "实验组相对对照组显著提升。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            },
+            {
+              "metric_name": "paid_gmv_per_user",
+              "metric_kind": "continuous",
+              "metric_role": "guardrail",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.1005,
+              "delta_abs": 0.0005000000000000004,
+              "delta_rel": 0.0050000000000000044,
+              "p_value": 0.953544503361986,
+              "ci_low": -0.016326154309639837,
+              "ci_high": 0.017326154309639838,
+              "significant": false,
+              "statistical_method": "welch_t_test; df=3809.35",
+              "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            }
+          ],
+          "segment_findings": [],
+          "facts": [
+            {
+              "label": "paid_user_cvr 指标结果",
+              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+              "strength": "事实"
+            },
+            {
+              "label": "paid_gmv_per_user 指标结果",
+              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
+              "strength": "事实"
+            }
+          ],
+          "inferences": [
+            {
+              "label": "paid_user_cvr 方向判断",
+              "evidence": "实验组相对对照组显著提升。",
+              "strength": "合理推断"
+            }
+          ],
+          "hypotheses": [],
+          "recommendations": [
+            {
+              "label": "可进入人工发布评审",
+              "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+            }
+          ],
+          "selected_skills": [
+            "quality_check",
+            "experiment_recap",
+            "release_recommendation"
+          ],
+          "agent_trace": [
+            {
+              "tool_name": "check_quality",
+              "input": {
+                "request": {
+                  "type": "ExperimentRequest"
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.01,
+              "error": ""
+            },
+            {
+              "tool_name": "analyze_metric",
+              "input": {
+                "metrics": {
+                  "type": "list",
+                  "count": 2
+                },
+                "alpha": 0.05
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.18,
+              "error": ""
+            },
+            {
+              "tool_name": "make_recommendation",
+              "input": {
+                "metric_results": {
+                  "type": "list",
+                  "count": 2
+                },
+                "quality_issues": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.0,
+              "error": ""
+            }
+          ],
+          "workflow_trace": [
+            {
+              "stage": "planner",
+              "status": "ok",
+              "detail": {
+                "skills": [
+                  "quality_check",
+                  "experiment_recap",
+                  "release_recommendation"
+                ],
+                "tools": [
+                  "check_quality",
+                  "analyze_metric",
+                  "make_recommendation"
+                ]
+              }
+            },
+            {
+              "stage": "input_validation",
+              "status": "ok",
+              "detail": {
+                "missing_inputs": []
+              }
+            },
+            {
+              "stage": "skill:quality_check",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "skill:experiment_recap",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "result_validation",
+              "status": "ok",
+              "detail": {
+                "check_status": "PASS",
+                "warning_count": 0
+              }
+            },
+            {
+              "stage": "skill:release_recommendation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "guardrails",
+              "status": "ok",
+              "detail": {
+                "review_status": "READY",
+                "checks": {
+                  "quality_check": "PASS",
+                  "metric_analysis": "PASS",
+                  "result_validation": "PASS"
+                }
+              }
+            },
+            {
+              "stage": "report_generation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "risk_policy",
+              "status": "REVIEW_READY",
+              "detail": {
+                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                "intent": "conversion_guarded"
+              }
+            }
+          ]
+        },
+        "confirmation": {
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "by": "合成回放：数据负责人",
+          "at": "2026-10-27T14:10:49.817120+00:00",
+          "scope": "definitions_and_declared_completeness"
+        },
+        "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.808170+00:00",
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+          },
+          {
+            "event": "definitions_confirmed",
+            "at": "2026-10-27T14:10:49.817120+00:00",
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：数据负责人",
+            "scope": "definitions_and_declared_completeness"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "recovery": null
+    },
+    {
+      "id": "immature",
+      "name": "等待数据 → 修复重跑",
+      "description": "水位未覆盖完整窗口时暂停；替换完整数据包后重新确认。",
+      "inspection": {
+        "status": "BLOCKED",
+        "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
+        "inspection": {
+          "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
+          "valid": false,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-12T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00"
+          },
+          "issues": [
+            {
+              "code": "DATA_NOT_MATURE",
+              "message": "上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。",
+              "next_action": "等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。",
+              "blocking": true,
+              "owner": "数据负责人"
+            }
+          ]
+        },
+        "decision": {
+          "status": "BLOCKED",
+          "label": "数据包需要修复",
+          "reason": "上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。"
+        },
+        "owner": "数据负责人",
+        "next_action": "等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "6b3eac5ca1cf994bc7888c9af884630039926642bac5d93d1a594839141c7d11",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.830616+00:00",
+            "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 数据包需要修复\n\n上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-12T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- 上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。 接管：数据负责人。等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。\n\n版本：c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98 · 评审卡：6b3eac5ca1cf994bc7888c9af884630039926642bac5d93d1a594839141c7d11 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": null,
+      "recovery": {
+        "inspection": {
+          "status": "NEEDS_CONFIRMATION",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "status": "NEEDS_CONFIRMATION",
+            "label": "请先确认口径与水位",
+            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+          },
+          "owner": "数据负责人",
+          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+          "report": null,
+          "confirmation": null,
+          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.830616+00:00",
+              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.843579+00:00",
+              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.843581+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        },
+        "confirmed": {
+          "status": "REVIEW_READY",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "core_ci": [
+              0.029560855038664492,
+              0.07043914496133549
+            ],
+            "gmv_ci": [
+              -0.016326154309639837,
+              0.017326154309639838
+            ],
+            "allowed_gmv_loss": 0.02,
+            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+            "status": "REVIEW_READY",
+            "label": "可进入人工发布评审",
+            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+          },
+          "owner": "业务负责人",
+          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+          "report": {
+            "status": "DONE",
+            "task_type": "release_recommendation",
+            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+            "review_gate": {
+              "status": "READY",
+              "checks": {
+                "quality_check": "PASS",
+                "metric_analysis": "PASS",
+                "result_validation": "PASS"
+              },
+              "blockers": [],
+              "owner": "实验分析负责人",
+              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+            },
+            "plan": [
+              {
+                "name": "确认输入",
+                "purpose": "确认核心指标、护栏指标和发布标准"
+              },
+              {
+                "name": "质量检查",
+                "purpose": "若实验质量异常则降低建议强度"
+              },
+              {
+                "name": "指标判断",
+                "purpose": "综合核心指标、护栏指标和风险"
+              },
+              {
+                "name": "发布建议",
+                "purpose": "给出不发布 / 灰度 / 可发布建议"
+              }
+            ],
+            "missing_inputs": [],
+            "warnings": [],
+            "report_scope": {
+              "source": "csv_bundle",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "input_counts": {
+                "required_complete_through": "2026-09-15T00:00:00+08:00",
+                "raw_assignments": 4000,
+                "raw_orders": 500,
+                "assigned_users": 4000,
+                "control_users": 2000,
+                "treatment_users": 2000,
+                "unique_orders": 500,
+                "included_orders": 500,
+                "duplicate_orders": 0,
+                "duplicate_assignments": 0,
+                "excluded_orders": 0,
+                "late_arriving_orders": 0
+              },
+              "definition_confirmation": {
+                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+                "by": "合成回放：修复负责人",
+                "at": "2026-10-27T14:10:49.852441+00:00",
+                "scope": "definitions_and_declared_completeness"
+              },
+              "predeclared_policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "registry_entries": [],
+            "quality_issues": [],
+            "metric_results": [
+              {
+                "metric_name": "paid_user_cvr",
+                "metric_kind": "conversion",
+                "metric_role": "core",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.15,
+                "delta_abs": 0.04999999999999999,
+                "delta_rel": 0.4999999999999999,
+                "p_value": 1.7449962508738146e-06,
+                "ci_low": 0.029560855038664492,
+                "ci_high": 0.07043914496133549,
+                "significant": true,
+                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+                "interpretation": "实验组相对对照组显著提升。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              },
+              {
+                "metric_name": "paid_gmv_per_user",
+                "metric_kind": "continuous",
+                "metric_role": "guardrail",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.1005,
+                "delta_abs": 0.0005000000000000004,
+                "delta_rel": 0.0050000000000000044,
+                "p_value": 0.953544503361986,
+                "ci_low": -0.016326154309639837,
+                "ci_high": 0.017326154309639838,
+                "significant": false,
+                "statistical_method": "welch_t_test; df=3809.35",
+                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              }
+            ],
+            "segment_findings": [],
+            "facts": [
+              {
+                "label": "paid_user_cvr 指标结果",
+                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+                "strength": "事实"
+              },
+              {
+                "label": "paid_gmv_per_user 指标结果",
+                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
+                "strength": "事实"
+              }
+            ],
+            "inferences": [
+              {
+                "label": "paid_user_cvr 方向判断",
+                "evidence": "实验组相对对照组显著提升。",
+                "strength": "合理推断"
+              }
+            ],
+            "hypotheses": [],
+            "recommendations": [
+              {
+                "label": "可进入人工发布评审",
+                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+              }
+            ],
+            "selected_skills": [
+              "quality_check",
+              "experiment_recap",
+              "release_recommendation"
+            ],
+            "agent_trace": [
+              {
+                "tool_name": "check_quality",
+                "input": {
+                  "request": {
+                    "type": "ExperimentRequest"
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.01,
+                "error": ""
+              },
+              {
+                "tool_name": "analyze_metric",
+                "input": {
+                  "metrics": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "alpha": 0.05
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.18,
+                "error": ""
+              },
+              {
+                "tool_name": "make_recommendation",
+                "input": {
+                  "metric_results": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "quality_issues": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.0,
+                "error": ""
+              }
+            ],
+            "workflow_trace": [
+              {
+                "stage": "planner",
+                "status": "ok",
+                "detail": {
+                  "skills": [
+                    "quality_check",
+                    "experiment_recap",
+                    "release_recommendation"
+                  ],
+                  "tools": [
+                    "check_quality",
+                    "analyze_metric",
+                    "make_recommendation"
+                  ]
+                }
+              },
+              {
+                "stage": "input_validation",
+                "status": "ok",
+                "detail": {
+                  "missing_inputs": []
+                }
+              },
+              {
+                "stage": "skill:quality_check",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "skill:experiment_recap",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "result_validation",
+                "status": "ok",
+                "detail": {
+                  "check_status": "PASS",
+                  "warning_count": 0
+                }
+              },
+              {
+                "stage": "skill:release_recommendation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "guardrails",
+                "status": "ok",
+                "detail": {
+                  "review_status": "READY",
+                  "checks": {
+                    "quality_check": "PASS",
+                    "metric_analysis": "PASS",
+                    "result_validation": "PASS"
+                  }
+                }
+              },
+              {
+                "stage": "report_generation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "risk_policy",
+                "status": "REVIEW_READY",
+                "detail": {
+                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                  "intent": "conversion_guarded"
+                }
+              }
+            ]
+          },
+          "confirmation": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：修复负责人",
+            "at": "2026-10-27T14:10:49.852441+00:00",
+            "scope": "definitions_and_declared_completeness"
+          },
+          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.830616+00:00",
+              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.843579+00:00",
+              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.843581+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "definitions_confirmed",
+              "at": "2026-10-27T14:10:49.852441+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "by": "合成回放：修复负责人",
+              "scope": "definitions_and_declared_completeness"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        }
+      }
+    },
+    {
+      "id": "cross_group",
+      "name": "跨组用户 → 人工接管",
+      "description": "随机化单位被污染时不猜测分组；修复关联链路后重跑。",
+      "inspection": {
+        "status": "BLOCKED",
+        "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
+        "inspection": {
+          "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
+          "valid": false,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4001,
+            "raw_orders": 500
+          },
+          "issues": [
+            {
+              "code": "CROSS_GROUP_USER",
+              "message": "assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。",
+              "next_action": "修复数据包后重新导入并确认口径。",
+              "blocking": true,
+              "owner": "数据负责人"
+            }
+          ]
+        },
+        "decision": {
+          "status": "BLOCKED",
+          "label": "数据包需要修复",
+          "reason": "assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。"
+        },
+        "owner": "数据负责人",
+        "next_action": "修复数据包后重新导入并确认口径。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "6cb334f9b270b162a78c9e68f0880da3e60b63d0d1c9635fd172ec8648b15a7c",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.872446+00:00",
+            "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 数据包需要修复\n\nassignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。\n\n**接管角色：** 数据负责人\n\n**下一步：** 修复数据包后重新导入并确认口径。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。 接管：数据负责人。修复数据包后重新导入并确认口径。\n\n版本：05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6 · 评审卡：6cb334f9b270b162a78c9e68f0880da3e60b63d0d1c9635fd172ec8648b15a7c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": null,
+      "recovery": {
+        "inspection": {
+          "status": "NEEDS_CONFIRMATION",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "status": "NEEDS_CONFIRMATION",
+            "label": "请先确认口径与水位",
+            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+          },
+          "owner": "数据负责人",
+          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+          "report": null,
+          "confirmation": null,
+          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.872446+00:00",
+              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.885502+00:00",
+              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.885504+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        },
+        "confirmed": {
+          "status": "REVIEW_READY",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "core_ci": [
+              0.029560855038664492,
+              0.07043914496133549
+            ],
+            "gmv_ci": [
+              -0.016326154309639837,
+              0.017326154309639838
+            ],
+            "allowed_gmv_loss": 0.02,
+            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+            "status": "REVIEW_READY",
+            "label": "可进入人工发布评审",
+            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+          },
+          "owner": "业务负责人",
+          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+          "report": {
+            "status": "DONE",
+            "task_type": "release_recommendation",
+            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+            "review_gate": {
+              "status": "READY",
+              "checks": {
+                "quality_check": "PASS",
+                "metric_analysis": "PASS",
+                "result_validation": "PASS"
+              },
+              "blockers": [],
+              "owner": "实验分析负责人",
+              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+            },
+            "plan": [
+              {
+                "name": "确认输入",
+                "purpose": "确认核心指标、护栏指标和发布标准"
+              },
+              {
+                "name": "质量检查",
+                "purpose": "若实验质量异常则降低建议强度"
+              },
+              {
+                "name": "指标判断",
+                "purpose": "综合核心指标、护栏指标和风险"
+              },
+              {
+                "name": "发布建议",
+                "purpose": "给出不发布 / 灰度 / 可发布建议"
+              }
+            ],
+            "missing_inputs": [],
+            "warnings": [],
+            "report_scope": {
+              "source": "csv_bundle",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "input_counts": {
+                "required_complete_through": "2026-09-15T00:00:00+08:00",
+                "raw_assignments": 4000,
+                "raw_orders": 500,
+                "assigned_users": 4000,
+                "control_users": 2000,
+                "treatment_users": 2000,
+                "unique_orders": 500,
+                "included_orders": 500,
+                "duplicate_orders": 0,
+                "duplicate_assignments": 0,
+                "excluded_orders": 0,
+                "late_arriving_orders": 0
+              },
+              "definition_confirmation": {
+                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+                "by": "合成回放：修复负责人",
+                "at": "2026-10-27T14:10:49.894519+00:00",
+                "scope": "definitions_and_declared_completeness"
+              },
+              "predeclared_policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "registry_entries": [],
+            "quality_issues": [],
+            "metric_results": [
+              {
+                "metric_name": "paid_user_cvr",
+                "metric_kind": "conversion",
+                "metric_role": "core",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.15,
+                "delta_abs": 0.04999999999999999,
+                "delta_rel": 0.4999999999999999,
+                "p_value": 1.7449962508738146e-06,
+                "ci_low": 0.029560855038664492,
+                "ci_high": 0.07043914496133549,
+                "significant": true,
+                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+                "interpretation": "实验组相对对照组显著提升。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              },
+              {
+                "metric_name": "paid_gmv_per_user",
+                "metric_kind": "continuous",
+                "metric_role": "guardrail",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.1005,
+                "delta_abs": 0.0005000000000000004,
+                "delta_rel": 0.0050000000000000044,
+                "p_value": 0.953544503361986,
+                "ci_low": -0.016326154309639837,
+                "ci_high": 0.017326154309639838,
+                "significant": false,
+                "statistical_method": "welch_t_test; df=3809.35",
+                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              }
+            ],
+            "segment_findings": [],
+            "facts": [
+              {
+                "label": "paid_user_cvr 指标结果",
+                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+                "strength": "事实"
+              },
+              {
+                "label": "paid_gmv_per_user 指标结果",
+                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
+                "strength": "事实"
+              }
+            ],
+            "inferences": [
+              {
+                "label": "paid_user_cvr 方向判断",
+                "evidence": "实验组相对对照组显著提升。",
+                "strength": "合理推断"
+              }
+            ],
+            "hypotheses": [],
+            "recommendations": [
+              {
+                "label": "可进入人工发布评审",
+                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+              }
+            ],
+            "selected_skills": [
+              "quality_check",
+              "experiment_recap",
+              "release_recommendation"
+            ],
+            "agent_trace": [
+              {
+                "tool_name": "check_quality",
+                "input": {
+                  "request": {
+                    "type": "ExperimentRequest"
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.01,
+                "error": ""
+              },
+              {
+                "tool_name": "analyze_metric",
+                "input": {
+                  "metrics": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "alpha": 0.05
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.14,
+                "error": ""
+              },
+              {
+                "tool_name": "make_recommendation",
+                "input": {
+                  "metric_results": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "quality_issues": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.0,
+                "error": ""
+              }
+            ],
+            "workflow_trace": [
+              {
+                "stage": "planner",
+                "status": "ok",
+                "detail": {
+                  "skills": [
+                    "quality_check",
+                    "experiment_recap",
+                    "release_recommendation"
+                  ],
+                  "tools": [
+                    "check_quality",
+                    "analyze_metric",
+                    "make_recommendation"
+                  ]
+                }
+              },
+              {
+                "stage": "input_validation",
+                "status": "ok",
+                "detail": {
+                  "missing_inputs": []
+                }
+              },
+              {
+                "stage": "skill:quality_check",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "skill:experiment_recap",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "result_validation",
+                "status": "ok",
+                "detail": {
+                  "check_status": "PASS",
+                  "warning_count": 0
+                }
+              },
+              {
+                "stage": "skill:release_recommendation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "guardrails",
+                "status": "ok",
+                "detail": {
+                  "review_status": "READY",
+                  "checks": {
+                    "quality_check": "PASS",
+                    "metric_analysis": "PASS",
+                    "result_validation": "PASS"
+                  }
+                }
+              },
+              {
+                "stage": "report_generation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "risk_policy",
+                "status": "REVIEW_READY",
+                "detail": {
+                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                  "intent": "conversion_guarded"
+                }
+              }
+            ]
+          },
+          "confirmation": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：修复负责人",
+            "at": "2026-10-27T14:10:49.894519+00:00",
+            "scope": "definitions_and_declared_completeness"
+          },
+          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.872446+00:00",
+              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.885502+00:00",
+              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.885504+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "definitions_confirmed",
+              "at": "2026-10-27T14:10:49.894519+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "by": "合成回放：修复负责人",
+              "scope": "definitions_and_declared_completeness"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        }
+      }
+    },
+    {
+      "id": "missing_definition",
+      "name": "分母歧义 → 补充定义",
+      "description": "缺少指标分母时停下，不把曝光次数当作入组人数。",
+      "inspection": {
+        "status": "BLOCKED",
+        "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
+        "inspection": {
+          "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
+          "valid": false,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {},
+          "issues": [
+            {
+              "code": "MISSING_DEFINITION",
+              "message": "口径尚不完整：denominator。",
+              "next_action": "请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。",
+              "blocking": true,
+              "owner": "数据负责人"
+            }
+          ]
+        },
+        "decision": {
+          "status": "BLOCKED",
+          "label": "数据包需要修复",
+          "reason": "口径尚不完整：denominator。"
+        },
+        "owner": "数据负责人",
+        "next_action": "请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "3c796ec659af8281637264852bcf7ad555d253ffc01b186a547194d9ff0a8a38",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.907899+00:00",
+            "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 数据包需要修复\n\n口径尚不完整：denominator。\n\n**接管角色：** 数据负责人\n\n**下一步：** 请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- 口径尚不完整：denominator。 接管：数据负责人。请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。\n\n版本：9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd · 评审卡：3c796ec659af8281637264852bcf7ad555d253ffc01b186a547194d9ff0a8a38 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": null,
+      "recovery": {
+        "inspection": {
+          "status": "NEEDS_CONFIRMATION",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "status": "NEEDS_CONFIRMATION",
+            "label": "请先确认口径与水位",
+            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+          },
+          "owner": "数据负责人",
+          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+          "report": null,
+          "confirmation": null,
+          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.907899+00:00",
+              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.920743+00:00",
+              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.920745+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        },
+        "confirmed": {
+          "status": "REVIEW_READY",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "core_ci": [
+              0.029560855038664492,
+              0.07043914496133549
+            ],
+            "gmv_ci": [
+              -0.016326154309639837,
+              0.017326154309639838
+            ],
+            "allowed_gmv_loss": 0.02,
+            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+            "status": "REVIEW_READY",
+            "label": "可进入人工发布评审",
+            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+          },
+          "owner": "业务负责人",
+          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+          "report": {
+            "status": "DONE",
+            "task_type": "release_recommendation",
+            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+            "review_gate": {
+              "status": "READY",
+              "checks": {
+                "quality_check": "PASS",
+                "metric_analysis": "PASS",
+                "result_validation": "PASS"
+              },
+              "blockers": [],
+              "owner": "实验分析负责人",
+              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+            },
+            "plan": [
+              {
+                "name": "确认输入",
+                "purpose": "确认核心指标、护栏指标和发布标准"
+              },
+              {
+                "name": "质量检查",
+                "purpose": "若实验质量异常则降低建议强度"
+              },
+              {
+                "name": "指标判断",
+                "purpose": "综合核心指标、护栏指标和风险"
+              },
+              {
+                "name": "发布建议",
+                "purpose": "给出不发布 / 灰度 / 可发布建议"
+              }
+            ],
+            "missing_inputs": [],
+            "warnings": [],
+            "report_scope": {
+              "source": "csv_bundle",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "input_counts": {
+                "required_complete_through": "2026-09-15T00:00:00+08:00",
+                "raw_assignments": 4000,
+                "raw_orders": 500,
+                "assigned_users": 4000,
+                "control_users": 2000,
+                "treatment_users": 2000,
+                "unique_orders": 500,
+                "included_orders": 500,
+                "duplicate_orders": 0,
+                "duplicate_assignments": 0,
+                "excluded_orders": 0,
+                "late_arriving_orders": 0
+              },
+              "definition_confirmation": {
+                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+                "by": "合成回放：修复负责人",
+                "at": "2026-10-27T14:10:49.929481+00:00",
+                "scope": "definitions_and_declared_completeness"
+              },
+              "predeclared_policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "registry_entries": [],
+            "quality_issues": [],
+            "metric_results": [
+              {
+                "metric_name": "paid_user_cvr",
+                "metric_kind": "conversion",
+                "metric_role": "core",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.15,
+                "delta_abs": 0.04999999999999999,
+                "delta_rel": 0.4999999999999999,
+                "p_value": 1.7449962508738146e-06,
+                "ci_low": 0.029560855038664492,
+                "ci_high": 0.07043914496133549,
+                "significant": true,
+                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+                "interpretation": "实验组相对对照组显著提升。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              },
+              {
+                "metric_name": "paid_gmv_per_user",
+                "metric_kind": "continuous",
+                "metric_role": "guardrail",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.1005,
+                "delta_abs": 0.0005000000000000004,
+                "delta_rel": 0.0050000000000000044,
+                "p_value": 0.953544503361986,
+                "ci_low": -0.016326154309639837,
+                "ci_high": 0.017326154309639838,
+                "significant": false,
+                "statistical_method": "welch_t_test; df=3809.35",
+                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              }
+            ],
+            "segment_findings": [],
+            "facts": [
+              {
+                "label": "paid_user_cvr 指标结果",
+                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+                "strength": "事实"
+              },
+              {
+                "label": "paid_gmv_per_user 指标结果",
+                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
+                "strength": "事实"
+              }
+            ],
+            "inferences": [
+              {
+                "label": "paid_user_cvr 方向判断",
+                "evidence": "实验组相对对照组显著提升。",
+                "strength": "合理推断"
+              }
+            ],
+            "hypotheses": [],
+            "recommendations": [
+              {
+                "label": "可进入人工发布评审",
+                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+              }
+            ],
+            "selected_skills": [
+              "quality_check",
+              "experiment_recap",
+              "release_recommendation"
+            ],
+            "agent_trace": [
+              {
+                "tool_name": "check_quality",
+                "input": {
+                  "request": {
+                    "type": "ExperimentRequest"
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.01,
+                "error": ""
+              },
+              {
+                "tool_name": "analyze_metric",
+                "input": {
+                  "metrics": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "alpha": 0.05
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.15,
+                "error": ""
+              },
+              {
+                "tool_name": "make_recommendation",
+                "input": {
+                  "metric_results": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "quality_issues": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.0,
+                "error": ""
+              }
+            ],
+            "workflow_trace": [
+              {
+                "stage": "planner",
+                "status": "ok",
+                "detail": {
+                  "skills": [
+                    "quality_check",
+                    "experiment_recap",
+                    "release_recommendation"
+                  ],
+                  "tools": [
+                    "check_quality",
+                    "analyze_metric",
+                    "make_recommendation"
+                  ]
+                }
+              },
+              {
+                "stage": "input_validation",
+                "status": "ok",
+                "detail": {
+                  "missing_inputs": []
+                }
+              },
+              {
+                "stage": "skill:quality_check",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "skill:experiment_recap",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "result_validation",
+                "status": "ok",
+                "detail": {
+                  "check_status": "PASS",
+                  "warning_count": 0
+                }
+              },
+              {
+                "stage": "skill:release_recommendation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "guardrails",
+                "status": "ok",
+                "detail": {
+                  "review_status": "READY",
+                  "checks": {
+                    "quality_check": "PASS",
+                    "metric_analysis": "PASS",
+                    "result_validation": "PASS"
+                  }
+                }
+              },
+              {
+                "stage": "report_generation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "risk_policy",
+                "status": "REVIEW_READY",
+                "detail": {
+                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                  "intent": "conversion_guarded"
+                }
+              }
+            ]
+          },
+          "confirmation": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：修复负责人",
+            "at": "2026-10-27T14:10:49.929481+00:00",
+            "scope": "definitions_and_declared_completeness"
+          },
+          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.907899+00:00",
+              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
+            },
+            {
+              "event": "superseded",
+              "at": "2026-10-27T14:10:49.920743+00:00",
+              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
+              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:49.920745+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "definitions_confirmed",
+              "at": "2026-10-27T14:10:49.929481+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "by": "合成回放：修复负责人",
+              "scope": "definitions_and_declared_completeness"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1",
+          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+        }
+      }
+    },
+    {
+      "id": "guardrail_harm",
+      "name": "收益与护栏冲突",
+      "description": "主指标提升，也不能越过事先约定的支付 GMV 损失边界。",
+      "inspection": {
+        "status": "NEEDS_CONFIRMATION",
+        "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+        "inspection": {
+          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "status": "NEEDS_CONFIRMATION",
+          "label": "请先确认口径与水位",
+          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+        },
+        "owner": "数据负责人",
+        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "f567f80e17acf010137548811099aba45e2163e69050f0e539f023c348de2349",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.951659+00:00",
+            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093 · 评审卡：f567f80e17acf010137548811099aba45e2163e69050f0e539f023c348de2349 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": {
+        "status": "DO_NOT_SHIP",
+        "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+        "inspection": {
+          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "core_ci": [
+            0.029560855038664492,
+            0.07043914496133549
+          ],
+          "gmv_ci": [
+            -0.05457169269846474,
+            -0.02542830730153526
+          ],
+          "allowed_gmv_loss": 0.02,
+          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+          "status": "DO_NOT_SHIP",
+          "label": "不支持推进发布",
+          "reason": "主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。"
+        },
+        "owner": "业务负责人",
+        "next_action": "停止推进当前方案，修订设计后建立新实验，不通过修改阈值覆盖当前结果。",
+        "report": {
+          "status": "DONE_WITH_CONCERNS",
+          "task_type": "release_recommendation",
+          "summary": "不支持推进发布：主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。",
+          "review_gate": {
+            "status": "READY",
+            "checks": {
+              "quality_check": "PASS",
+              "metric_analysis": "PASS",
+              "result_validation": "PASS"
+            },
+            "blockers": [],
+            "owner": "实验分析负责人",
+            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+          },
+          "plan": [
+            {
+              "name": "确认输入",
+              "purpose": "确认核心指标、护栏指标和发布标准"
+            },
+            {
+              "name": "质量检查",
+              "purpose": "若实验质量异常则降低建议强度"
+            },
+            {
+              "name": "指标判断",
+              "purpose": "综合核心指标、护栏指标和风险"
+            },
+            {
+              "name": "发布建议",
+              "purpose": "给出不发布 / 灰度 / 可发布建议"
+            }
+          ],
+          "missing_inputs": [],
+          "warnings": [],
+          "report_scope": {
+            "source": "csv_bundle",
+            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+            "input_counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "definition_confirmation": {
+              "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+              "by": "合成回放：数据负责人",
+              "at": "2026-10-27T14:10:49.960639+00:00",
+              "scope": "definitions_and_declared_completeness"
+            },
+            "predeclared_policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "registry_entries": [],
+          "quality_issues": [],
+          "metric_results": [
+            {
+              "metric_name": "paid_user_cvr",
+              "metric_kind": "conversion",
+              "metric_role": "core",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.15,
+              "delta_abs": 0.04999999999999999,
+              "delta_rel": 0.4999999999999999,
+              "p_value": 1.7449962508738146e-06,
+              "ci_low": 0.029560855038664492,
+              "ci_high": 0.07043914496133549,
+              "significant": true,
+              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+              "interpretation": "实验组相对对照组显著提升。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            },
+            {
+              "metric_name": "paid_gmv_per_user",
+              "metric_kind": "continuous",
+              "metric_role": "guardrail",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.060000000000000005,
+              "delta_abs": -0.04,
+              "delta_rel": -0.39999999999999997,
+              "p_value": 7.941528750250561e-08,
+              "ci_low": -0.05457169269846474,
+              "ci_high": -0.02542830730153526,
+              "significant": true,
+              "statistical_method": "welch_t_test; df=2860.93",
+              "interpretation": "实验组出现显著变化，但方向不符合预期。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            }
+          ],
+          "segment_findings": [],
+          "facts": [
+            {
+              "label": "paid_user_cvr 指标结果",
+              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+              "strength": "事实"
+            },
+            {
+              "label": "paid_gmv_per_user 指标结果",
+              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.0600，绝对变化 -0.0400，p=0.0000",
+              "strength": "事实"
+            }
+          ],
+          "inferences": [
+            {
+              "label": "paid_user_cvr 方向判断",
+              "evidence": "实验组相对对照组显著提升。",
+              "strength": "合理推断"
+            },
+            {
+              "label": "paid_gmv_per_user 方向判断",
+              "evidence": "实验组出现显著变化，但方向不符合预期。",
+              "strength": "合理推断"
+            }
+          ],
+          "hypotheses": [],
+          "recommendations": [
+            {
+              "label": "不支持推进发布",
+              "reason": "主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。"
+            }
+          ],
+          "selected_skills": [
+            "quality_check",
+            "experiment_recap",
+            "release_recommendation"
+          ],
+          "agent_trace": [
+            {
+              "tool_name": "check_quality",
+              "input": {
+                "request": {
+                  "type": "ExperimentRequest"
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.01,
+              "error": ""
+            },
+            {
+              "tool_name": "analyze_metric",
+              "input": {
+                "metrics": {
+                  "type": "list",
+                  "count": 2
+                },
+                "alpha": 0.05
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.16,
+              "error": ""
+            },
+            {
+              "tool_name": "make_recommendation",
+              "input": {
+                "metric_results": {
+                  "type": "list",
+                  "count": 2
+                },
+                "quality_issues": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.0,
+              "error": ""
+            }
+          ],
+          "workflow_trace": [
+            {
+              "stage": "planner",
+              "status": "ok",
+              "detail": {
+                "skills": [
+                  "quality_check",
+                  "experiment_recap",
+                  "release_recommendation"
+                ],
+                "tools": [
+                  "check_quality",
+                  "analyze_metric",
+                  "make_recommendation"
+                ]
+              }
+            },
+            {
+              "stage": "input_validation",
+              "status": "ok",
+              "detail": {
+                "missing_inputs": []
+              }
+            },
+            {
+              "stage": "skill:quality_check",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "skill:experiment_recap",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "result_validation",
+              "status": "ok",
+              "detail": {
+                "check_status": "PASS",
+                "warning_count": 0
+              }
+            },
+            {
+              "stage": "skill:release_recommendation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "guardrails",
+              "status": "ok",
+              "detail": {
+                "review_status": "READY",
+                "checks": {
+                  "quality_check": "PASS",
+                  "metric_analysis": "PASS",
+                  "result_validation": "PASS"
+                }
+              }
+            },
+            {
+              "stage": "report_generation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "risk_policy",
+              "status": "DO_NOT_SHIP",
+              "detail": {
+                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                "intent": "conversion_guarded"
+              }
+            }
+          ]
+        },
+        "confirmation": {
+          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+          "by": "合成回放：数据负责人",
+          "at": "2026-10-27T14:10:49.960639+00:00",
+          "scope": "definitions_and_declared_completeness"
+        },
+        "card_id": "1c4135a30fd0253e13e5481ff060af446875ac7cca65c7766815ba62890aabae",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.951659+00:00",
+            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
+          },
+          {
+            "event": "definitions_confirmed",
+            "at": "2026-10-27T14:10:49.960639+00:00",
+            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
+            "by": "合成回放：数据负责人",
+            "scope": "definitions_and_declared_completeness"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 不支持推进发布\n\n主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。\n\n**接管角色：** 业务负责人\n\n**下一步：** 停止推进当前方案，修订设计后建立新实验，不通过修改阈值覆盖当前结果。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.0600 | ¥-0.0400 | [-0.0546, -0.0254] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093 · 评审卡：1c4135a30fd0253e13e5481ff060af446875ac7cca65c7766815ba62890aabae · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "recovery": null
+    },
+    {
+      "id": "guardrail_uncertain",
+      "name": "护栏证据不足",
+      "description": "没有显著恶化，不等于已经证明损失可接受。",
+      "inspection": {
+        "status": "NEEDS_CONFIRMATION",
+        "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+        "inspection": {
+          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "status": "NEEDS_CONFIRMATION",
+          "label": "请先确认口径与水位",
+          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+        },
+        "owner": "数据负责人",
+        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "b16281b642d0aefe2b8ddeee3d774b25bff83998237e57e8a4f66c38e443a803",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.982718+00:00",
+            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c · 评审卡：b16281b642d0aefe2b8ddeee3d774b25bff83998237e57e8a4f66c38e443a803 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": {
+        "status": "INCONCLUSIVE",
+        "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+        "inspection": {
+          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T12:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "core_ci": [
+            0.029560855038664492,
+            0.07043914496133549
+          ],
+          "gmv_ci": [
+            -0.03322396070377115,
+            -0.0017760392962288506
+          ],
+          "allowed_gmv_loss": 0.02,
+          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+          "status": "INCONCLUSIVE",
+          "label": "护栏证据不足",
+          "reason": "尚不能排除超出允许损失；未显著恶化不等于安全。"
+        },
+        "owner": "业务负责人",
+        "next_action": "记录证据不足，按预设计划结束本次判断；如需新实验，重新制定样本与风险计划。",
+        "report": {
+          "status": "DONE_WITH_CONCERNS",
+          "task_type": "release_recommendation",
+          "summary": "护栏证据不足：尚不能排除超出允许损失；未显著恶化不等于安全。",
+          "review_gate": {
+            "status": "READY",
+            "checks": {
+              "quality_check": "PASS",
+              "metric_analysis": "PASS",
+              "result_validation": "PASS"
+            },
+            "blockers": [],
+            "owner": "实验分析负责人",
+            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+          },
+          "plan": [
+            {
+              "name": "确认输入",
+              "purpose": "确认核心指标、护栏指标和发布标准"
+            },
+            {
+              "name": "质量检查",
+              "purpose": "若实验质量异常则降低建议强度"
+            },
+            {
+              "name": "指标判断",
+              "purpose": "综合核心指标、护栏指标和风险"
+            },
+            {
+              "name": "发布建议",
+              "purpose": "给出不发布 / 灰度 / 可发布建议"
+            }
+          ],
+          "missing_inputs": [],
+          "warnings": [],
+          "report_scope": {
+            "source": "csv_bundle",
+            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+            "input_counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "definition_confirmation": {
+              "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+              "by": "合成回放：数据负责人",
+              "at": "2026-10-27T14:10:49.991714+00:00",
+              "scope": "definitions_and_declared_completeness"
+            },
+            "predeclared_policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "registry_entries": [],
+          "quality_issues": [],
+          "metric_results": [
+            {
+              "metric_name": "paid_user_cvr",
+              "metric_kind": "conversion",
+              "metric_role": "core",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.15,
+              "delta_abs": 0.04999999999999999,
+              "delta_rel": 0.4999999999999999,
+              "p_value": 1.7449962508738146e-06,
+              "ci_low": 0.029560855038664492,
+              "ci_high": 0.07043914496133549,
+              "significant": true,
+              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+              "interpretation": "实验组相对对照组显著提升。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            },
+            {
+              "metric_name": "paid_gmv_per_user",
+              "metric_kind": "continuous",
+              "metric_role": "guardrail",
+              "direction": "increase",
+              "control_n": 2000,
+              "treatment_n": 2000,
+              "control_value": 0.1,
+              "treatment_value": 0.0825,
+              "delta_abs": -0.0175,
+              "delta_rel": -0.17500000000000002,
+              "p_value": 0.029168690136794212,
+              "ci_low": -0.03322396070377115,
+              "ci_high": -0.0017760392962288506,
+              "significant": true,
+              "statistical_method": "welch_t_test; df=3446.48",
+              "interpretation": "实验组出现显著变化，但方向不符合预期。",
+              "statistical_source": "computed",
+              "source_summary": "",
+              "notes": ""
+            }
+          ],
+          "segment_findings": [],
+          "facts": [
+            {
+              "label": "paid_user_cvr 指标结果",
+              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+              "strength": "事实"
+            },
+            {
+              "label": "paid_gmv_per_user 指标结果",
+              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.0825，绝对变化 -0.0175，p=0.0292",
+              "strength": "事实"
+            }
+          ],
+          "inferences": [
+            {
+              "label": "paid_user_cvr 方向判断",
+              "evidence": "实验组相对对照组显著提升。",
+              "strength": "合理推断"
+            },
+            {
+              "label": "paid_gmv_per_user 方向判断",
+              "evidence": "实验组出现显著变化，但方向不符合预期。",
+              "strength": "合理推断"
+            }
+          ],
+          "hypotheses": [],
+          "recommendations": [
+            {
+              "label": "护栏证据不足",
+              "reason": "尚不能排除超出允许损失；未显著恶化不等于安全。"
+            }
+          ],
+          "selected_skills": [
+            "quality_check",
+            "experiment_recap",
+            "release_recommendation"
+          ],
+          "agent_trace": [
+            {
+              "tool_name": "check_quality",
+              "input": {
+                "request": {
+                  "type": "ExperimentRequest"
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.01,
+              "error": ""
+            },
+            {
+              "tool_name": "analyze_metric",
+              "input": {
+                "metrics": {
+                  "type": "list",
+                  "count": 2
+                },
+                "alpha": 0.05
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.14,
+              "error": ""
+            },
+            {
+              "tool_name": "make_recommendation",
+              "input": {
+                "metric_results": {
+                  "type": "list",
+                  "count": 2
+                },
+                "quality_issues": {
+                  "type": "list",
+                  "count": 0
+                }
+              },
+              "output": {
+                "summary": {
+                  "type": "list",
+                  "count": 2
+                }
+              },
+              "status": "ok",
+              "latency_ms": 0.0,
+              "error": ""
+            }
+          ],
+          "workflow_trace": [
+            {
+              "stage": "planner",
+              "status": "ok",
+              "detail": {
+                "skills": [
+                  "quality_check",
+                  "experiment_recap",
+                  "release_recommendation"
+                ],
+                "tools": [
+                  "check_quality",
+                  "analyze_metric",
+                  "make_recommendation"
+                ]
+              }
+            },
+            {
+              "stage": "input_validation",
+              "status": "ok",
+              "detail": {
+                "missing_inputs": []
+              }
+            },
+            {
+              "stage": "skill:quality_check",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "skill:experiment_recap",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "result_validation",
+              "status": "ok",
+              "detail": {
+                "check_status": "PASS",
+                "warning_count": 0
+              }
+            },
+            {
+              "stage": "skill:release_recommendation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "guardrails",
+              "status": "ok",
+              "detail": {
+                "review_status": "READY",
+                "checks": {
+                  "quality_check": "PASS",
+                  "metric_analysis": "PASS",
+                  "result_validation": "PASS"
+                }
+              }
+            },
+            {
+              "stage": "report_generation",
+              "status": "ok",
+              "detail": {}
+            },
+            {
+              "stage": "risk_policy",
+              "status": "INCONCLUSIVE",
+              "detail": {
+                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                "intent": "conversion_guarded"
+              }
+            }
+          ]
+        },
+        "confirmation": {
+          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+          "by": "合成回放：数据负责人",
+          "at": "2026-10-27T14:10:49.991714+00:00",
+          "scope": "definitions_and_declared_completeness"
+        },
+        "card_id": "dc086121979548c2266f8a99bca47acbfcdbc3b0fc0f42acfc2bfe580e58d4d5",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:49.982718+00:00",
+            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
+          },
+          {
+            "event": "definitions_confirmed",
+            "at": "2026-10-27T14:10:49.991714+00:00",
+            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
+            "by": "合成回放：数据负责人",
+            "scope": "definitions_and_declared_completeness"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 护栏证据不足\n\n尚不能排除超出允许损失；未显著恶化不等于安全。\n\n**接管角色：** 业务负责人\n\n**下一步：** 记录证据不足，按预设计划结束本次判断；如需新实验，重新制定样本与风险计划。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.0825 | ¥-0.0175 | [-0.0332, -0.0018] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c · 评审卡：dc086121979548c2266f8a99bca47acbfcdbc3b0fc0f42acfc2bfe580e58d4d5 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "recovery": null
+    },
+    {
+      "id": "stale_confirmation",
+      "name": "旧确认自动失效",
+      "description": "数据快照更新后，上一版评审卡及确认不再沿用。",
+      "inspection": {
+        "status": "NEEDS_CONFIRMATION",
+        "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+        "inspection": {
+          "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T13:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "status": "NEEDS_CONFIRMATION",
+          "label": "请先确认口径与水位",
+          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+        },
+        "owner": "数据负责人",
+        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+        "report": null,
+        "confirmation": null,
+        "card_id": "e6cf845e72a0276ecf58245c4838652bce951dd934ecb5fb5b8a3afe3982b391",
+        "history": [
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:50.013767+00:00",
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+          },
+          {
+            "event": "definitions_confirmed",
+            "at": "2026-10-27T14:10:50.013770+00:00",
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：数据负责人",
+            "scope": "definitions_and_declared_completeness"
+          },
+          {
+            "event": "superseded",
+            "at": "2026-10-27T14:10:50.031758+00:00",
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "replacement": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
+          },
+          {
+            "event": "imported",
+            "at": "2026-10-27T14:10:50.031761+00:00",
+            "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
+          }
+        ],
+        "human_review": null,
+        "engine_version": "bundle-review-v1",
+        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675 · 评审卡：e6cf845e72a0276ecf58245c4838652bce951dd934ecb5fb5b8a3afe3982b391 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
+      },
+      "confirmed": {
+        "status": "REVIEW_READY",
+        "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+        "inspection": {
+          "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+          "valid": true,
+          "contract": {
+            "schema_version": 1,
+            "experiment_id": "synthetic-detail-page-001",
+            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+            "randomization_unit": "user",
+            "expected_control_ratio": 0.5,
+            "enrollment_start": "2026-09-01T00:00:00+08:00",
+            "enrollment_end": "2026-09-08T00:00:00+08:00",
+            "observation_days": 7,
+            "timezone": "Asia/Shanghai",
+            "currency": "CNY",
+            "conversion_event": "paid_order",
+            "denominator": "all_assigned_users",
+            "zero_policy": "after_watermark_only",
+            "refunds": "not_deducted",
+            "alpha": 0.05,
+            "analysis_mode": "fixed_horizon",
+            "policy": {
+              "intent": "conversion_guarded",
+              "max_gmv_loss_per_user": "0.02",
+              "declared_at": "2026-08-31T10:00:00+08:00"
+            }
+          },
+          "manifest": {
+            "snapshot_at": "2026-09-16T13:00:00+08:00",
+            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+            "orders_complete_through": "2026-09-15T00:00:00+08:00",
+            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+            "origin": "synthetic"
+          },
+          "counts": {
+            "required_complete_through": "2026-09-15T00:00:00+08:00",
+            "raw_assignments": 4000,
+            "raw_orders": 500,
+            "assigned_users": 4000,
+            "control_users": 2000,
+            "treatment_users": 2000,
+            "unique_orders": 500,
+            "included_orders": 500,
+            "duplicate_orders": 0,
+            "duplicate_assignments": 0,
+            "excluded_orders": 0,
+            "late_arriving_orders": 0
+          },
+          "issues": []
+        },
+        "decision": {
+          "core_ci": [
+            0.029560855038664492,
+            0.07043914496133549
+          ],
+          "gmv_ci": [
+            -0.016326154309639837,
+            0.017326154309639838
+          ],
+          "allowed_gmv_loss": 0.02,
+          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+          "status": "REVIEW_READY",
+          "label": "可进入人工发布评审",
+          "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+        },
+        "owner": "业务负责人",
+        "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+        "report": {
+          "status": "DONE",
+          "task_type": "release_recommendation",
+          "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+          "review_gate": {
+            "status": "READY",
+            "checks": {
+              "quality_check": "PASS",
+              "metric_analysis": "PASS",
+              "result_validation": "PASS"
+            },
+            "blockers": [],
+            "owner": "实验分析负责人",
+            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+          },
+          "plan": [
+            {
+              "name": "确认输入",
+              "purpose": "确认核心指标、护栏指标和发布标准"
+            },
+            {
+              "name": "质量检查",
+              "purpose": "若实验质量异常则降低建议强度"
+            },
+            {
+              "name": "指标判断",
+              "purpose": "综合核心指标、护栏指标和风险"
+            },
+            {
+              "name": "发布建议",
+              "purpose": "给出不发布 / 灰度 / 可发布建议"
+            }
+          ],
+          "missing_inputs": [],
+          "warnings": [],
+          "report_scope": {
+            "source": "csv_bundle",
+            "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+            "input_counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "definition_confirmation": {
+              "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
+              "by": "合成回放：数据负责人",
+              "at": "2026-10-27T14:10:50.040812+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -426,3048 +3435,39 @@ window.EXPERIMENT_REVIEW_DATA = {
           ]
         },
         "confirmation": {
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.246943+00:00",
-          "scope": "definitions_and_declared_completeness"
-        },
-        "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.238081+00:00",
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-          },
-          {
-            "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.246943+00:00",
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "by": "合成回放：数据负责人",
-            "scope": "definitions_and_declared_completeness"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "recovery": null
-    },
-    {
-      "id": "immature",
-      "name": "等待数据 → 修复重跑",
-      "description": "水位未覆盖完整窗口时暂停；替换完整数据包后重新确认。",
-      "inspection": {
-        "status": "BLOCKED",
-        "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
-        "inspection": {
-          "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
-          "valid": false,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-12T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00"
-          },
-          "issues": [
-            {
-              "code": "DATA_NOT_MATURE",
-              "message": "上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。",
-              "next_action": "等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。",
-              "blocking": true,
-              "owner": "数据负责人"
-            }
-          ]
-        },
-        "decision": {
-          "status": "BLOCKED",
-          "label": "数据包需要修复",
-          "reason": "上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。"
-        },
-        "owner": "数据负责人",
-        "next_action": "等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "6b3eac5ca1cf994bc7888c9af884630039926642bac5d93d1a594839141c7d11",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.260309+00:00",
-            "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 数据包需要修复\n\n上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-12T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- 上游水位尚未覆盖入组区间及完整 7 天观察窗口，不能将无订单用户计零。 接管：数据负责人。等待上游完整性水位覆盖 2026-09-15T00:00:00+08:00，重新导出完整数据包。\n\n版本：c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98 · 评审卡：6b3eac5ca1cf994bc7888c9af884630039926642bac5d93d1a594839141c7d11 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": null,
-      "recovery": {
-        "inspection": {
-          "status": "NEEDS_CONFIRMATION",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "status": "NEEDS_CONFIRMATION",
-            "label": "请先确认口径与水位",
-            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-          },
-          "owner": "数据负责人",
-          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-          "report": null,
-          "confirmation": null,
-          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.260309+00:00",
-              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.273115+00:00",
-              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.273117+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        },
-        "confirmed": {
-          "status": "REVIEW_READY",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "core_ci": [
-              0.029560855038664492,
-              0.07043914496133549
-            ],
-            "gmv_ci": [
-              -0.016326154309639837,
-              0.017326154309639838
-            ],
-            "allowed_gmv_loss": 0.02,
-            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-            "status": "REVIEW_READY",
-            "label": "可进入人工发布评审",
-            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-          },
-          "owner": "业务负责人",
-          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
-          "report": {
-            "status": "DONE",
-            "task_type": "release_recommendation",
-            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
-            "review_gate": {
-              "status": "READY",
-              "checks": {
-                "quality_check": "PASS",
-                "metric_analysis": "PASS",
-                "result_validation": "PASS"
-              },
-              "blockers": [],
-              "owner": "实验分析负责人",
-              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-            },
-            "plan": [
-              {
-                "name": "确认输入",
-                "purpose": "确认核心指标、护栏指标和发布标准"
-              },
-              {
-                "name": "质量检查",
-                "purpose": "若实验质量异常则降低建议强度"
-              },
-              {
-                "name": "指标判断",
-                "purpose": "综合核心指标、护栏指标和风险"
-              },
-              {
-                "name": "发布建议",
-                "purpose": "给出不发布 / 灰度 / 可发布建议"
-              }
-            ],
-            "missing_inputs": [],
-            "warnings": [],
-            "report_scope": {
-              "source": "csv_bundle",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "input_counts": {
-                "required_complete_through": "2026-09-15T00:00:00+08:00",
-                "raw_assignments": 4000,
-                "raw_orders": 500,
-                "assigned_users": 4000,
-                "control_users": 2000,
-                "treatment_users": 2000,
-                "unique_orders": 500,
-                "included_orders": 500,
-                "duplicate_orders": 0,
-                "duplicate_assignments": 0,
-                "excluded_orders": 0,
-                "late_arriving_orders": 0
-              },
-              "definition_confirmation": {
-                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-                "by": "合成回放：修复负责人",
-                "at": "2026-10-23T08:08:06.282078+00:00",
-                "scope": "definitions_and_declared_completeness"
-              },
-              "predeclared_policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "registry_entries": [],
-            "quality_issues": [],
-            "metric_results": [
-              {
-                "metric_name": "paid_user_cvr",
-                "metric_kind": "conversion",
-                "metric_role": "core",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.15,
-                "delta_abs": 0.04999999999999999,
-                "delta_rel": 0.4999999999999999,
-                "p_value": 1.7449962508738146e-06,
-                "ci_low": 0.029560855038664492,
-                "ci_high": 0.07043914496133549,
-                "significant": true,
-                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-                "interpretation": "实验组相对对照组显著提升。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              },
-              {
-                "metric_name": "paid_gmv_per_user",
-                "metric_kind": "continuous",
-                "metric_role": "guardrail",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.1005,
-                "delta_abs": 0.0005000000000000004,
-                "delta_rel": 0.0050000000000000044,
-                "p_value": 0.953544503361986,
-                "ci_low": -0.016326154309639837,
-                "ci_high": 0.017326154309639838,
-                "significant": false,
-                "statistical_method": "welch_t_test; df=3809.35",
-                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              }
-            ],
-            "segment_findings": [],
-            "facts": [
-              {
-                "label": "paid_user_cvr 指标结果",
-                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-                "strength": "事实"
-              },
-              {
-                "label": "paid_gmv_per_user 指标结果",
-                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
-                "strength": "事实"
-              }
-            ],
-            "inferences": [
-              {
-                "label": "paid_user_cvr 方向判断",
-                "evidence": "实验组相对对照组显著提升。",
-                "strength": "合理推断"
-              }
-            ],
-            "hypotheses": [],
-            "recommendations": [
-              {
-                "label": "可进入人工发布评审",
-                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-              }
-            ],
-            "selected_skills": [
-              "quality_check",
-              "experiment_recap",
-              "release_recommendation"
-            ],
-            "agent_trace": [
-              {
-                "tool_name": "check_quality",
-                "input": {
-                  "request": {
-                    "type": "ExperimentRequest"
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.01,
-                "error": ""
-              },
-              {
-                "tool_name": "analyze_metric",
-                "input": {
-                  "metrics": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "alpha": 0.05
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.14,
-                "error": ""
-              },
-              {
-                "tool_name": "make_recommendation",
-                "input": {
-                  "metric_results": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "quality_issues": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.0,
-                "error": ""
-              }
-            ],
-            "workflow_trace": [
-              {
-                "stage": "planner",
-                "status": "ok",
-                "detail": {
-                  "skills": [
-                    "quality_check",
-                    "experiment_recap",
-                    "release_recommendation"
-                  ],
-                  "tools": [
-                    "check_quality",
-                    "analyze_metric",
-                    "make_recommendation"
-                  ]
-                }
-              },
-              {
-                "stage": "input_validation",
-                "status": "ok",
-                "detail": {
-                  "missing_inputs": []
-                }
-              },
-              {
-                "stage": "skill:quality_check",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "skill:experiment_recap",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "result_validation",
-                "status": "ok",
-                "detail": {
-                  "check_status": "PASS",
-                  "warning_count": 0
-                }
-              },
-              {
-                "stage": "skill:release_recommendation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "guardrails",
-                "status": "ok",
-                "detail": {
-                  "review_status": "READY",
-                  "checks": {
-                    "quality_check": "PASS",
-                    "metric_analysis": "PASS",
-                    "result_validation": "PASS"
-                  }
-                }
-              },
-              {
-                "stage": "report_generation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "risk_policy",
-                "status": "REVIEW_READY",
-                "detail": {
-                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                  "intent": "conversion_guarded"
-                }
-              }
-            ]
-          },
-          "confirmation": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "by": "合成回放：修复负责人",
-            "at": "2026-10-23T08:08:06.282078+00:00",
-            "scope": "definitions_and_declared_completeness"
-          },
-          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.260309+00:00",
-              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.273115+00:00",
-              "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.273117+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "definitions_confirmed",
-              "at": "2026-10-23T08:08:06.282078+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "by": "合成回放：修复负责人",
-              "scope": "definitions_and_declared_completeness"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        }
-      }
-    },
-    {
-      "id": "cross_group",
-      "name": "跨组用户 → 人工接管",
-      "description": "随机化单位被污染时不猜测分组；修复关联链路后重跑。",
-      "inspection": {
-        "status": "BLOCKED",
-        "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
-        "inspection": {
-          "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
-          "valid": false,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4001,
-            "raw_orders": 500
-          },
-          "issues": [
-            {
-              "code": "CROSS_GROUP_USER",
-              "message": "assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。",
-              "next_action": "修复数据包后重新导入并确认口径。",
-              "blocking": true,
-              "owner": "数据负责人"
-            }
-          ]
-        },
-        "decision": {
-          "status": "BLOCKED",
-          "label": "数据包需要修复",
-          "reason": "assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。"
-        },
-        "owner": "数据负责人",
-        "next_action": "修复数据包后重新导入并确认口径。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "6cb334f9b270b162a78c9e68f0880da3e60b63d0d1c9635fd172ec8648b15a7c",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.301710+00:00",
-            "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 数据包需要修复\n\nassignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。\n\n**接管角色：** 数据负责人\n\n**下一步：** 修复数据包后重新导入并确认口径。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- assignments.csv 第 4002 行出现同一用户的冲突入组；不能静默选择一组。 接管：数据负责人。修复数据包后重新导入并确认口径。\n\n版本：05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6 · 评审卡：6cb334f9b270b162a78c9e68f0880da3e60b63d0d1c9635fd172ec8648b15a7c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": null,
-      "recovery": {
-        "inspection": {
-          "status": "NEEDS_CONFIRMATION",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "status": "NEEDS_CONFIRMATION",
-            "label": "请先确认口径与水位",
-            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-          },
-          "owner": "数据负责人",
-          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-          "report": null,
-          "confirmation": null,
-          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.301710+00:00",
-              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.314381+00:00",
-              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.314382+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        },
-        "confirmed": {
-          "status": "REVIEW_READY",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "core_ci": [
-              0.029560855038664492,
-              0.07043914496133549
-            ],
-            "gmv_ci": [
-              -0.016326154309639837,
-              0.017326154309639838
-            ],
-            "allowed_gmv_loss": 0.02,
-            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-            "status": "REVIEW_READY",
-            "label": "可进入人工发布评审",
-            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-          },
-          "owner": "业务负责人",
-          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
-          "report": {
-            "status": "DONE",
-            "task_type": "release_recommendation",
-            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
-            "review_gate": {
-              "status": "READY",
-              "checks": {
-                "quality_check": "PASS",
-                "metric_analysis": "PASS",
-                "result_validation": "PASS"
-              },
-              "blockers": [],
-              "owner": "实验分析负责人",
-              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-            },
-            "plan": [
-              {
-                "name": "确认输入",
-                "purpose": "确认核心指标、护栏指标和发布标准"
-              },
-              {
-                "name": "质量检查",
-                "purpose": "若实验质量异常则降低建议强度"
-              },
-              {
-                "name": "指标判断",
-                "purpose": "综合核心指标、护栏指标和风险"
-              },
-              {
-                "name": "发布建议",
-                "purpose": "给出不发布 / 灰度 / 可发布建议"
-              }
-            ],
-            "missing_inputs": [],
-            "warnings": [],
-            "report_scope": {
-              "source": "csv_bundle",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "input_counts": {
-                "required_complete_through": "2026-09-15T00:00:00+08:00",
-                "raw_assignments": 4000,
-                "raw_orders": 500,
-                "assigned_users": 4000,
-                "control_users": 2000,
-                "treatment_users": 2000,
-                "unique_orders": 500,
-                "included_orders": 500,
-                "duplicate_orders": 0,
-                "duplicate_assignments": 0,
-                "excluded_orders": 0,
-                "late_arriving_orders": 0
-              },
-              "definition_confirmation": {
-                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-                "by": "合成回放：修复负责人",
-                "at": "2026-10-23T08:08:06.323276+00:00",
-                "scope": "definitions_and_declared_completeness"
-              },
-              "predeclared_policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "registry_entries": [],
-            "quality_issues": [],
-            "metric_results": [
-              {
-                "metric_name": "paid_user_cvr",
-                "metric_kind": "conversion",
-                "metric_role": "core",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.15,
-                "delta_abs": 0.04999999999999999,
-                "delta_rel": 0.4999999999999999,
-                "p_value": 1.7449962508738146e-06,
-                "ci_low": 0.029560855038664492,
-                "ci_high": 0.07043914496133549,
-                "significant": true,
-                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-                "interpretation": "实验组相对对照组显著提升。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              },
-              {
-                "metric_name": "paid_gmv_per_user",
-                "metric_kind": "continuous",
-                "metric_role": "guardrail",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.1005,
-                "delta_abs": 0.0005000000000000004,
-                "delta_rel": 0.0050000000000000044,
-                "p_value": 0.953544503361986,
-                "ci_low": -0.016326154309639837,
-                "ci_high": 0.017326154309639838,
-                "significant": false,
-                "statistical_method": "welch_t_test; df=3809.35",
-                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              }
-            ],
-            "segment_findings": [],
-            "facts": [
-              {
-                "label": "paid_user_cvr 指标结果",
-                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-                "strength": "事实"
-              },
-              {
-                "label": "paid_gmv_per_user 指标结果",
-                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
-                "strength": "事实"
-              }
-            ],
-            "inferences": [
-              {
-                "label": "paid_user_cvr 方向判断",
-                "evidence": "实验组相对对照组显著提升。",
-                "strength": "合理推断"
-              }
-            ],
-            "hypotheses": [],
-            "recommendations": [
-              {
-                "label": "可进入人工发布评审",
-                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-              }
-            ],
-            "selected_skills": [
-              "quality_check",
-              "experiment_recap",
-              "release_recommendation"
-            ],
-            "agent_trace": [
-              {
-                "tool_name": "check_quality",
-                "input": {
-                  "request": {
-                    "type": "ExperimentRequest"
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.01,
-                "error": ""
-              },
-              {
-                "tool_name": "analyze_metric",
-                "input": {
-                  "metrics": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "alpha": 0.05
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.14,
-                "error": ""
-              },
-              {
-                "tool_name": "make_recommendation",
-                "input": {
-                  "metric_results": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "quality_issues": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.0,
-                "error": ""
-              }
-            ],
-            "workflow_trace": [
-              {
-                "stage": "planner",
-                "status": "ok",
-                "detail": {
-                  "skills": [
-                    "quality_check",
-                    "experiment_recap",
-                    "release_recommendation"
-                  ],
-                  "tools": [
-                    "check_quality",
-                    "analyze_metric",
-                    "make_recommendation"
-                  ]
-                }
-              },
-              {
-                "stage": "input_validation",
-                "status": "ok",
-                "detail": {
-                  "missing_inputs": []
-                }
-              },
-              {
-                "stage": "skill:quality_check",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "skill:experiment_recap",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "result_validation",
-                "status": "ok",
-                "detail": {
-                  "check_status": "PASS",
-                  "warning_count": 0
-                }
-              },
-              {
-                "stage": "skill:release_recommendation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "guardrails",
-                "status": "ok",
-                "detail": {
-                  "review_status": "READY",
-                  "checks": {
-                    "quality_check": "PASS",
-                    "metric_analysis": "PASS",
-                    "result_validation": "PASS"
-                  }
-                }
-              },
-              {
-                "stage": "report_generation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "risk_policy",
-                "status": "REVIEW_READY",
-                "detail": {
-                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                  "intent": "conversion_guarded"
-                }
-              }
-            ]
-          },
-          "confirmation": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "by": "合成回放：修复负责人",
-            "at": "2026-10-23T08:08:06.323276+00:00",
-            "scope": "definitions_and_declared_completeness"
-          },
-          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.301710+00:00",
-              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.314381+00:00",
-              "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.314382+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "definitions_confirmed",
-              "at": "2026-10-23T08:08:06.323276+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "by": "合成回放：修复负责人",
-              "scope": "definitions_and_declared_completeness"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        }
-      }
-    },
-    {
-      "id": "missing_definition",
-      "name": "分母歧义 → 补充定义",
-      "description": "缺少指标分母时停下，不把曝光次数当作入组人数。",
-      "inspection": {
-        "status": "BLOCKED",
-        "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
-        "inspection": {
-          "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
-          "valid": false,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {},
-          "issues": [
-            {
-              "code": "MISSING_DEFINITION",
-              "message": "口径尚不完整：denominator。",
-              "next_action": "请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。",
-              "blocking": true,
-              "owner": "数据负责人"
-            }
-          ]
-        },
-        "decision": {
-          "status": "BLOCKED",
-          "label": "数据包需要修复",
-          "reason": "口径尚不完整：denominator。"
-        },
-        "owner": "数据负责人",
-        "next_action": "请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "3c796ec659af8281637264852bcf7ad555d253ffc01b186a547194d9ff0a8a38",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.336559+00:00",
-            "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 数据包需要修复\n\n口径尚不完整：denominator。\n\n**接管角色：** 数据负责人\n\n**下一步：** 请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 数据处理与待办\n\n- 口径尚不完整：denominator。 接管：数据负责人。请数据负责人补齐上述定义；系统不会猜测分母、事件或单位。\n\n版本：9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd · 评审卡：3c796ec659af8281637264852bcf7ad555d253ffc01b186a547194d9ff0a8a38 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": null,
-      "recovery": {
-        "inspection": {
-          "status": "NEEDS_CONFIRMATION",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "status": "NEEDS_CONFIRMATION",
-            "label": "请先确认口径与水位",
-            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-          },
-          "owner": "数据负责人",
-          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-          "report": null,
-          "confirmation": null,
-          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.336559+00:00",
-              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.349424+00:00",
-              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.349428+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        },
-        "confirmed": {
-          "status": "REVIEW_READY",
-          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-          "inspection": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "valid": true,
-            "contract": {
-              "schema_version": 1,
-              "experiment_id": "synthetic-detail-page-001",
-              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-              "randomization_unit": "user",
-              "expected_control_ratio": 0.5,
-              "enrollment_start": "2026-09-01T00:00:00+08:00",
-              "enrollment_end": "2026-09-08T00:00:00+08:00",
-              "observation_days": 7,
-              "timezone": "Asia/Shanghai",
-              "currency": "CNY",
-              "conversion_event": "paid_order",
-              "denominator": "all_assigned_users",
-              "zero_policy": "after_watermark_only",
-              "refunds": "not_deducted",
-              "alpha": 0.05,
-              "analysis_mode": "fixed_horizon",
-              "policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "manifest": {
-              "snapshot_at": "2026-09-16T12:00:00+08:00",
-              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-              "orders_complete_through": "2026-09-15T00:00:00+08:00",
-              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-              "origin": "synthetic"
-            },
-            "counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "issues": []
-          },
-          "decision": {
-            "core_ci": [
-              0.029560855038664492,
-              0.07043914496133549
-            ],
-            "gmv_ci": [
-              -0.016326154309639837,
-              0.017326154309639838
-            ],
-            "allowed_gmv_loss": 0.02,
-            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-            "status": "REVIEW_READY",
-            "label": "可进入人工发布评审",
-            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-          },
-          "owner": "业务负责人",
-          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
-          "report": {
-            "status": "DONE",
-            "task_type": "release_recommendation",
-            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
-            "review_gate": {
-              "status": "READY",
-              "checks": {
-                "quality_check": "PASS",
-                "metric_analysis": "PASS",
-                "result_validation": "PASS"
-              },
-              "blockers": [],
-              "owner": "实验分析负责人",
-              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-            },
-            "plan": [
-              {
-                "name": "确认输入",
-                "purpose": "确认核心指标、护栏指标和发布标准"
-              },
-              {
-                "name": "质量检查",
-                "purpose": "若实验质量异常则降低建议强度"
-              },
-              {
-                "name": "指标判断",
-                "purpose": "综合核心指标、护栏指标和风险"
-              },
-              {
-                "name": "发布建议",
-                "purpose": "给出不发布 / 灰度 / 可发布建议"
-              }
-            ],
-            "missing_inputs": [],
-            "warnings": [],
-            "report_scope": {
-              "source": "csv_bundle",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "input_counts": {
-                "required_complete_through": "2026-09-15T00:00:00+08:00",
-                "raw_assignments": 4000,
-                "raw_orders": 500,
-                "assigned_users": 4000,
-                "control_users": 2000,
-                "treatment_users": 2000,
-                "unique_orders": 500,
-                "included_orders": 500,
-                "duplicate_orders": 0,
-                "duplicate_assignments": 0,
-                "excluded_orders": 0,
-                "late_arriving_orders": 0
-              },
-              "definition_confirmation": {
-                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-                "by": "合成回放：修复负责人",
-                "at": "2026-10-23T08:08:06.358062+00:00",
-                "scope": "definitions_and_declared_completeness"
-              },
-              "predeclared_policy": {
-                "intent": "conversion_guarded",
-                "max_gmv_loss_per_user": "0.02",
-                "declared_at": "2026-08-31T10:00:00+08:00"
-              }
-            },
-            "registry_entries": [],
-            "quality_issues": [],
-            "metric_results": [
-              {
-                "metric_name": "paid_user_cvr",
-                "metric_kind": "conversion",
-                "metric_role": "core",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.15,
-                "delta_abs": 0.04999999999999999,
-                "delta_rel": 0.4999999999999999,
-                "p_value": 1.7449962508738146e-06,
-                "ci_low": 0.029560855038664492,
-                "ci_high": 0.07043914496133549,
-                "significant": true,
-                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-                "interpretation": "实验组相对对照组显著提升。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              },
-              {
-                "metric_name": "paid_gmv_per_user",
-                "metric_kind": "continuous",
-                "metric_role": "guardrail",
-                "direction": "increase",
-                "control_n": 2000,
-                "treatment_n": 2000,
-                "control_value": 0.1,
-                "treatment_value": 0.1005,
-                "delta_abs": 0.0005000000000000004,
-                "delta_rel": 0.0050000000000000044,
-                "p_value": 0.953544503361986,
-                "ci_low": -0.016326154309639837,
-                "ci_high": 0.017326154309639838,
-                "significant": false,
-                "statistical_method": "welch_t_test; df=3809.35",
-                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
-                "statistical_source": "computed",
-                "source_summary": "",
-                "notes": ""
-              }
-            ],
-            "segment_findings": [],
-            "facts": [
-              {
-                "label": "paid_user_cvr 指标结果",
-                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-                "strength": "事实"
-              },
-              {
-                "label": "paid_gmv_per_user 指标结果",
-                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
-                "strength": "事实"
-              }
-            ],
-            "inferences": [
-              {
-                "label": "paid_user_cvr 方向判断",
-                "evidence": "实验组相对对照组显著提升。",
-                "strength": "合理推断"
-              }
-            ],
-            "hypotheses": [],
-            "recommendations": [
-              {
-                "label": "可进入人工发布评审",
-                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-              }
-            ],
-            "selected_skills": [
-              "quality_check",
-              "experiment_recap",
-              "release_recommendation"
-            ],
-            "agent_trace": [
-              {
-                "tool_name": "check_quality",
-                "input": {
-                  "request": {
-                    "type": "ExperimentRequest"
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.01,
-                "error": ""
-              },
-              {
-                "tool_name": "analyze_metric",
-                "input": {
-                  "metrics": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "alpha": 0.05
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.12,
-                "error": ""
-              },
-              {
-                "tool_name": "make_recommendation",
-                "input": {
-                  "metric_results": {
-                    "type": "list",
-                    "count": 2
-                  },
-                  "quality_issues": {
-                    "type": "list",
-                    "count": 0
-                  }
-                },
-                "output": {
-                  "summary": {
-                    "type": "list",
-                    "count": 2
-                  }
-                },
-                "status": "ok",
-                "latency_ms": 0.0,
-                "error": ""
-              }
-            ],
-            "workflow_trace": [
-              {
-                "stage": "planner",
-                "status": "ok",
-                "detail": {
-                  "skills": [
-                    "quality_check",
-                    "experiment_recap",
-                    "release_recommendation"
-                  ],
-                  "tools": [
-                    "check_quality",
-                    "analyze_metric",
-                    "make_recommendation"
-                  ]
-                }
-              },
-              {
-                "stage": "input_validation",
-                "status": "ok",
-                "detail": {
-                  "missing_inputs": []
-                }
-              },
-              {
-                "stage": "skill:quality_check",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "skill:experiment_recap",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "result_validation",
-                "status": "ok",
-                "detail": {
-                  "check_status": "PASS",
-                  "warning_count": 0
-                }
-              },
-              {
-                "stage": "skill:release_recommendation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "guardrails",
-                "status": "ok",
-                "detail": {
-                  "review_status": "READY",
-                  "checks": {
-                    "quality_check": "PASS",
-                    "metric_analysis": "PASS",
-                    "result_validation": "PASS"
-                  }
-                }
-              },
-              {
-                "stage": "report_generation",
-                "status": "ok",
-                "detail": {}
-              },
-              {
-                "stage": "risk_policy",
-                "status": "REVIEW_READY",
-                "detail": {
-                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                  "intent": "conversion_guarded"
-                }
-              }
-            ]
-          },
-          "confirmation": {
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "by": "合成回放：修复负责人",
-            "at": "2026-10-23T08:08:06.358062+00:00",
-            "scope": "definitions_and_declared_completeness"
-          },
-          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
-          "history": [
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.336559+00:00",
-              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
-            },
-            {
-              "event": "superseded",
-              "at": "2026-10-23T08:08:06.349424+00:00",
-              "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
-              "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "imported",
-              "at": "2026-10-23T08:08:06.349428+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-            },
-            {
-              "event": "definitions_confirmed",
-              "at": "2026-10-23T08:08:06.358062+00:00",
-              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-              "by": "合成回放：修复负责人",
-              "scope": "definitions_and_declared_completeness"
-            }
-          ],
-          "human_review": null,
-          "engine_version": "bundle-review-v1",
-          "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：修复负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-        }
-      }
-    },
-    {
-      "id": "guardrail_harm",
-      "name": "收益与护栏冲突",
-      "description": "主指标提升，也不能越过事先约定的支付 GMV 损失边界。",
-      "inspection": {
-        "status": "NEEDS_CONFIRMATION",
-        "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-        "inspection": {
-          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "status": "NEEDS_CONFIRMATION",
-          "label": "请先确认口径与水位",
-          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-        },
-        "owner": "数据负责人",
-        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "f567f80e17acf010137548811099aba45e2163e69050f0e539f023c348de2349",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.379824+00:00",
-            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093 · 评审卡：f567f80e17acf010137548811099aba45e2163e69050f0e539f023c348de2349 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": {
-        "status": "DO_NOT_SHIP",
-        "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-        "inspection": {
-          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "core_ci": [
-            0.029560855038664492,
-            0.07043914496133549
-          ],
-          "gmv_ci": [
-            -0.05457169269846474,
-            -0.02542830730153526
-          ],
-          "allowed_gmv_loss": 0.02,
-          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-          "status": "DO_NOT_SHIP",
-          "label": "不支持推进发布",
-          "reason": "主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。"
-        },
-        "owner": "业务负责人",
-        "next_action": "停止推进当前方案，修订设计后建立新实验，不通过修改阈值覆盖当前结果。",
-        "report": {
-          "status": "DONE_WITH_CONCERNS",
-          "task_type": "release_recommendation",
-          "summary": "不支持推进发布：主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。",
-          "review_gate": {
-            "status": "READY",
-            "checks": {
-              "quality_check": "PASS",
-              "metric_analysis": "PASS",
-              "result_validation": "PASS"
-            },
-            "blockers": [],
-            "owner": "实验分析负责人",
-            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-          },
-          "plan": [
-            {
-              "name": "确认输入",
-              "purpose": "确认核心指标、护栏指标和发布标准"
-            },
-            {
-              "name": "质量检查",
-              "purpose": "若实验质量异常则降低建议强度"
-            },
-            {
-              "name": "指标判断",
-              "purpose": "综合核心指标、护栏指标和风险"
-            },
-            {
-              "name": "发布建议",
-              "purpose": "给出不发布 / 灰度 / 可发布建议"
-            }
-          ],
-          "missing_inputs": [],
-          "warnings": [],
-          "report_scope": {
-            "source": "csv_bundle",
-            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-            "input_counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "definition_confirmation": {
-              "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-              "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.388773+00:00",
-              "scope": "definitions_and_declared_completeness"
-            },
-            "predeclared_policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "registry_entries": [],
-          "quality_issues": [],
-          "metric_results": [
-            {
-              "metric_name": "paid_user_cvr",
-              "metric_kind": "conversion",
-              "metric_role": "core",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.15,
-              "delta_abs": 0.04999999999999999,
-              "delta_rel": 0.4999999999999999,
-              "p_value": 1.7449962508738146e-06,
-              "ci_low": 0.029560855038664492,
-              "ci_high": 0.07043914496133549,
-              "significant": true,
-              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-              "interpretation": "实验组相对对照组显著提升。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            },
-            {
-              "metric_name": "paid_gmv_per_user",
-              "metric_kind": "continuous",
-              "metric_role": "guardrail",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.060000000000000005,
-              "delta_abs": -0.04,
-              "delta_rel": -0.39999999999999997,
-              "p_value": 7.941528750250561e-08,
-              "ci_low": -0.05457169269846474,
-              "ci_high": -0.02542830730153526,
-              "significant": true,
-              "statistical_method": "welch_t_test; df=2860.93",
-              "interpretation": "实验组出现显著变化，但方向不符合预期。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            }
-          ],
-          "segment_findings": [],
-          "facts": [
-            {
-              "label": "paid_user_cvr 指标结果",
-              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-              "strength": "事实"
-            },
-            {
-              "label": "paid_gmv_per_user 指标结果",
-              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.0600，绝对变化 -0.0400，p=0.0000",
-              "strength": "事实"
-            }
-          ],
-          "inferences": [
-            {
-              "label": "paid_user_cvr 方向判断",
-              "evidence": "实验组相对对照组显著提升。",
-              "strength": "合理推断"
-            },
-            {
-              "label": "paid_gmv_per_user 方向判断",
-              "evidence": "实验组出现显著变化，但方向不符合预期。",
-              "strength": "合理推断"
-            }
-          ],
-          "hypotheses": [],
-          "recommendations": [
-            {
-              "label": "不支持推进发布",
-              "reason": "主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。"
-            }
-          ],
-          "selected_skills": [
-            "quality_check",
-            "experiment_recap",
-            "release_recommendation"
-          ],
-          "agent_trace": [
-            {
-              "tool_name": "check_quality",
-              "input": {
-                "request": {
-                  "type": "ExperimentRequest"
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.01,
-              "error": ""
-            },
-            {
-              "tool_name": "analyze_metric",
-              "input": {
-                "metrics": {
-                  "type": "list",
-                  "count": 2
-                },
-                "alpha": 0.05
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.12,
-              "error": ""
-            },
-            {
-              "tool_name": "make_recommendation",
-              "input": {
-                "metric_results": {
-                  "type": "list",
-                  "count": 2
-                },
-                "quality_issues": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.0,
-              "error": ""
-            }
-          ],
-          "workflow_trace": [
-            {
-              "stage": "planner",
-              "status": "ok",
-              "detail": {
-                "skills": [
-                  "quality_check",
-                  "experiment_recap",
-                  "release_recommendation"
-                ],
-                "tools": [
-                  "check_quality",
-                  "analyze_metric",
-                  "make_recommendation"
-                ]
-              }
-            },
-            {
-              "stage": "input_validation",
-              "status": "ok",
-              "detail": {
-                "missing_inputs": []
-              }
-            },
-            {
-              "stage": "skill:quality_check",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "skill:experiment_recap",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "result_validation",
-              "status": "ok",
-              "detail": {
-                "check_status": "PASS",
-                "warning_count": 0
-              }
-            },
-            {
-              "stage": "skill:release_recommendation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "guardrails",
-              "status": "ok",
-              "detail": {
-                "review_status": "READY",
-                "checks": {
-                  "quality_check": "PASS",
-                  "metric_analysis": "PASS",
-                  "result_validation": "PASS"
-                }
-              }
-            },
-            {
-              "stage": "report_generation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "risk_policy",
-              "status": "DO_NOT_SHIP",
-              "detail": {
-                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                "intent": "conversion_guarded"
-              }
-            }
-          ]
-        },
-        "confirmation": {
-          "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-          "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.388773+00:00",
-          "scope": "definitions_and_declared_completeness"
-        },
-        "card_id": "1c4135a30fd0253e13e5481ff060af446875ac7cca65c7766815ba62890aabae",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.379824+00:00",
-            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
-          },
-          {
-            "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.388773+00:00",
-            "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
-            "by": "合成回放：数据负责人",
-            "scope": "definitions_and_declared_completeness"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 不支持推进发布\n\n主指标有明确损害，或 GMV 损失区间超过预先约定的允许边界。\n\n**接管角色：** 业务负责人\n\n**下一步：** 停止推进当前方案，修订设计后建立新实验，不通过修改阈值覆盖当前结果。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.0600 | ¥-0.0400 | [-0.0546, -0.0254] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093 · 评审卡：1c4135a30fd0253e13e5481ff060af446875ac7cca65c7766815ba62890aabae · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "recovery": null
-    },
-    {
-      "id": "guardrail_uncertain",
-      "name": "护栏证据不足",
-      "description": "没有显著恶化，不等于已经证明损失可接受。",
-      "inspection": {
-        "status": "NEEDS_CONFIRMATION",
-        "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-        "inspection": {
-          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "status": "NEEDS_CONFIRMATION",
-          "label": "请先确认口径与水位",
-          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-        },
-        "owner": "数据负责人",
-        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "b16281b642d0aefe2b8ddeee3d774b25bff83998237e57e8a4f66c38e443a803",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.410540+00:00",
-            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c · 评审卡：b16281b642d0aefe2b8ddeee3d774b25bff83998237e57e8a4f66c38e443a803 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": {
-        "status": "INCONCLUSIVE",
-        "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-        "inspection": {
-          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T12:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "core_ci": [
-            0.029560855038664492,
-            0.07043914496133549
-          ],
-          "gmv_ci": [
-            -0.03322396070377115,
-            -0.0017760392962288506
-          ],
-          "allowed_gmv_loss": 0.02,
-          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-          "status": "INCONCLUSIVE",
-          "label": "护栏证据不足",
-          "reason": "尚不能排除超出允许损失；未显著恶化不等于安全。"
-        },
-        "owner": "业务负责人",
-        "next_action": "记录证据不足，按预设计划结束本次判断；如需新实验，重新制定样本与风险计划。",
-        "report": {
-          "status": "DONE_WITH_CONCERNS",
-          "task_type": "release_recommendation",
-          "summary": "护栏证据不足：尚不能排除超出允许损失；未显著恶化不等于安全。",
-          "review_gate": {
-            "status": "READY",
-            "checks": {
-              "quality_check": "PASS",
-              "metric_analysis": "PASS",
-              "result_validation": "PASS"
-            },
-            "blockers": [],
-            "owner": "实验分析负责人",
-            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-          },
-          "plan": [
-            {
-              "name": "确认输入",
-              "purpose": "确认核心指标、护栏指标和发布标准"
-            },
-            {
-              "name": "质量检查",
-              "purpose": "若实验质量异常则降低建议强度"
-            },
-            {
-              "name": "指标判断",
-              "purpose": "综合核心指标、护栏指标和风险"
-            },
-            {
-              "name": "发布建议",
-              "purpose": "给出不发布 / 灰度 / 可发布建议"
-            }
-          ],
-          "missing_inputs": [],
-          "warnings": [],
-          "report_scope": {
-            "source": "csv_bundle",
-            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-            "input_counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "definition_confirmation": {
-              "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-              "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.419421+00:00",
-              "scope": "definitions_and_declared_completeness"
-            },
-            "predeclared_policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "registry_entries": [],
-          "quality_issues": [],
-          "metric_results": [
-            {
-              "metric_name": "paid_user_cvr",
-              "metric_kind": "conversion",
-              "metric_role": "core",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.15,
-              "delta_abs": 0.04999999999999999,
-              "delta_rel": 0.4999999999999999,
-              "p_value": 1.7449962508738146e-06,
-              "ci_low": 0.029560855038664492,
-              "ci_high": 0.07043914496133549,
-              "significant": true,
-              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-              "interpretation": "实验组相对对照组显著提升。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            },
-            {
-              "metric_name": "paid_gmv_per_user",
-              "metric_kind": "continuous",
-              "metric_role": "guardrail",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.0825,
-              "delta_abs": -0.0175,
-              "delta_rel": -0.17500000000000002,
-              "p_value": 0.029168690136794212,
-              "ci_low": -0.03322396070377115,
-              "ci_high": -0.0017760392962288506,
-              "significant": true,
-              "statistical_method": "welch_t_test; df=3446.48",
-              "interpretation": "实验组出现显著变化，但方向不符合预期。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            }
-          ],
-          "segment_findings": [],
-          "facts": [
-            {
-              "label": "paid_user_cvr 指标结果",
-              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-              "strength": "事实"
-            },
-            {
-              "label": "paid_gmv_per_user 指标结果",
-              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.0825，绝对变化 -0.0175，p=0.0292",
-              "strength": "事实"
-            }
-          ],
-          "inferences": [
-            {
-              "label": "paid_user_cvr 方向判断",
-              "evidence": "实验组相对对照组显著提升。",
-              "strength": "合理推断"
-            },
-            {
-              "label": "paid_gmv_per_user 方向判断",
-              "evidence": "实验组出现显著变化，但方向不符合预期。",
-              "strength": "合理推断"
-            }
-          ],
-          "hypotheses": [],
-          "recommendations": [
-            {
-              "label": "护栏证据不足",
-              "reason": "尚不能排除超出允许损失；未显著恶化不等于安全。"
-            }
-          ],
-          "selected_skills": [
-            "quality_check",
-            "experiment_recap",
-            "release_recommendation"
-          ],
-          "agent_trace": [
-            {
-              "tool_name": "check_quality",
-              "input": {
-                "request": {
-                  "type": "ExperimentRequest"
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.01,
-              "error": ""
-            },
-            {
-              "tool_name": "analyze_metric",
-              "input": {
-                "metrics": {
-                  "type": "list",
-                  "count": 2
-                },
-                "alpha": 0.05
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.16,
-              "error": ""
-            },
-            {
-              "tool_name": "make_recommendation",
-              "input": {
-                "metric_results": {
-                  "type": "list",
-                  "count": 2
-                },
-                "quality_issues": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.0,
-              "error": ""
-            }
-          ],
-          "workflow_trace": [
-            {
-              "stage": "planner",
-              "status": "ok",
-              "detail": {
-                "skills": [
-                  "quality_check",
-                  "experiment_recap",
-                  "release_recommendation"
-                ],
-                "tools": [
-                  "check_quality",
-                  "analyze_metric",
-                  "make_recommendation"
-                ]
-              }
-            },
-            {
-              "stage": "input_validation",
-              "status": "ok",
-              "detail": {
-                "missing_inputs": []
-              }
-            },
-            {
-              "stage": "skill:quality_check",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "skill:experiment_recap",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "result_validation",
-              "status": "ok",
-              "detail": {
-                "check_status": "PASS",
-                "warning_count": 0
-              }
-            },
-            {
-              "stage": "skill:release_recommendation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "guardrails",
-              "status": "ok",
-              "detail": {
-                "review_status": "READY",
-                "checks": {
-                  "quality_check": "PASS",
-                  "metric_analysis": "PASS",
-                  "result_validation": "PASS"
-                }
-              }
-            },
-            {
-              "stage": "report_generation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "risk_policy",
-              "status": "INCONCLUSIVE",
-              "detail": {
-                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                "intent": "conversion_guarded"
-              }
-            }
-          ]
-        },
-        "confirmation": {
-          "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-          "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.419421+00:00",
-          "scope": "definitions_and_declared_completeness"
-        },
-        "card_id": "dc086121979548c2266f8a99bca47acbfcdbc3b0fc0f42acfc2bfe580e58d4d5",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.410540+00:00",
-            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
-          },
-          {
-            "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.419421+00:00",
-            "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
-            "by": "合成回放：数据负责人",
-            "scope": "definitions_and_declared_completeness"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 护栏证据不足\n\n尚不能排除超出允许损失；未显著恶化不等于安全。\n\n**接管角色：** 业务负责人\n\n**下一步：** 记录证据不足，按预设计划结束本次判断；如需新实验，重新制定样本与风险计划。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.0825 | ¥-0.0175 | [-0.0332, -0.0018] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c · 评审卡：dc086121979548c2266f8a99bca47acbfcdbc3b0fc0f42acfc2bfe580e58d4d5 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "recovery": null
-    },
-    {
-      "id": "stale_confirmation",
-      "name": "旧确认自动失效",
-      "description": "数据快照更新后，上一版评审卡及确认不再沿用。",
-      "inspection": {
-        "status": "NEEDS_CONFIRMATION",
-        "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-        "inspection": {
-          "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T13:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "status": "NEEDS_CONFIRMATION",
-          "label": "请先确认口径与水位",
-          "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
-        },
-        "owner": "数据负责人",
-        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
-        "report": null,
-        "confirmation": null,
-        "card_id": "e6cf845e72a0276ecf58245c4838652bce951dd934ecb5fb5b8a3afe3982b391",
-        "history": [
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.440953+00:00",
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
-          },
-          {
-            "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.440956+00:00",
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "by": "合成回放：数据负责人",
-            "scope": "definitions_and_declared_completeness"
-          },
-          {
-            "event": "superseded",
-            "at": "2026-10-23T08:08:06.458662+00:00",
-            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "replacement": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
-          },
-          {
-            "event": "imported",
-            "at": "2026-10-23T08:08:06.458664+00:00",
-            "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
-          }
-        ],
-        "human_review": null,
-        "engine_version": "bundle-review-v1",
-        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675 · 评审卡：e6cf845e72a0276ecf58245c4838652bce951dd934ecb5fb5b8a3afe3982b391 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。"
-      },
-      "confirmed": {
-        "status": "REVIEW_READY",
-        "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-        "inspection": {
-          "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-          "valid": true,
-          "contract": {
-            "schema_version": 1,
-            "experiment_id": "synthetic-detail-page-001",
-            "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
-            "randomization_unit": "user",
-            "expected_control_ratio": 0.5,
-            "enrollment_start": "2026-09-01T00:00:00+08:00",
-            "enrollment_end": "2026-09-08T00:00:00+08:00",
-            "observation_days": 7,
-            "timezone": "Asia/Shanghai",
-            "currency": "CNY",
-            "conversion_event": "paid_order",
-            "denominator": "all_assigned_users",
-            "zero_policy": "after_watermark_only",
-            "refunds": "not_deducted",
-            "alpha": 0.05,
-            "analysis_mode": "fixed_horizon",
-            "policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "manifest": {
-            "snapshot_at": "2026-09-16T13:00:00+08:00",
-            "assignments_complete_through": "2026-09-08T00:00:00+08:00",
-            "orders_complete_through": "2026-09-15T00:00:00+08:00",
-            "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
-            "origin": "synthetic"
-          },
-          "counts": {
-            "required_complete_through": "2026-09-15T00:00:00+08:00",
-            "raw_assignments": 4000,
-            "raw_orders": 500,
-            "assigned_users": 4000,
-            "control_users": 2000,
-            "treatment_users": 2000,
-            "unique_orders": 500,
-            "included_orders": 500,
-            "duplicate_orders": 0,
-            "duplicate_assignments": 0,
-            "excluded_orders": 0,
-            "late_arriving_orders": 0
-          },
-          "issues": []
-        },
-        "decision": {
-          "core_ci": [
-            0.029560855038664492,
-            0.07043914496133549
-          ],
-          "gmv_ci": [
-            -0.016326154309639837,
-            0.017326154309639838
-          ],
-          "allowed_gmv_loss": 0.02,
-          "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-          "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
-          "status": "REVIEW_READY",
-          "label": "可进入人工发布评审",
-          "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-        },
-        "owner": "业务负责人",
-        "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
-        "report": {
-          "status": "DONE",
-          "task_type": "release_recommendation",
-          "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
-          "review_gate": {
-            "status": "READY",
-            "checks": {
-              "quality_check": "PASS",
-              "metric_analysis": "PASS",
-              "result_validation": "PASS"
-            },
-            "blockers": [],
-            "owner": "实验分析负责人",
-            "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
-          },
-          "plan": [
-            {
-              "name": "确认输入",
-              "purpose": "确认核心指标、护栏指标和发布标准"
-            },
-            {
-              "name": "质量检查",
-              "purpose": "若实验质量异常则降低建议强度"
-            },
-            {
-              "name": "指标判断",
-              "purpose": "综合核心指标、护栏指标和风险"
-            },
-            {
-              "name": "发布建议",
-              "purpose": "给出不发布 / 灰度 / 可发布建议"
-            }
-          ],
-          "missing_inputs": [],
-          "warnings": [],
-          "report_scope": {
-            "source": "csv_bundle",
-            "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-            "input_counts": {
-              "required_complete_through": "2026-09-15T00:00:00+08:00",
-              "raw_assignments": 4000,
-              "raw_orders": 500,
-              "assigned_users": 4000,
-              "control_users": 2000,
-              "treatment_users": 2000,
-              "unique_orders": 500,
-              "included_orders": 500,
-              "duplicate_orders": 0,
-              "duplicate_assignments": 0,
-              "excluded_orders": 0,
-              "late_arriving_orders": 0
-            },
-            "definition_confirmation": {
-              "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
-              "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.467365+00:00",
-              "scope": "definitions_and_declared_completeness"
-            },
-            "predeclared_policy": {
-              "intent": "conversion_guarded",
-              "max_gmv_loss_per_user": "0.02",
-              "declared_at": "2026-08-31T10:00:00+08:00"
-            }
-          },
-          "registry_entries": [],
-          "quality_issues": [],
-          "metric_results": [
-            {
-              "metric_name": "paid_user_cvr",
-              "metric_kind": "conversion",
-              "metric_role": "core",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.15,
-              "delta_abs": 0.04999999999999999,
-              "delta_rel": 0.4999999999999999,
-              "p_value": 1.7449962508738146e-06,
-              "ci_low": 0.029560855038664492,
-              "ci_high": 0.07043914496133549,
-              "significant": true,
-              "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
-              "interpretation": "实验组相对对照组显著提升。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            },
-            {
-              "metric_name": "paid_gmv_per_user",
-              "metric_kind": "continuous",
-              "metric_role": "guardrail",
-              "direction": "increase",
-              "control_n": 2000,
-              "treatment_n": 2000,
-              "control_value": 0.1,
-              "treatment_value": 0.1005,
-              "delta_abs": 0.0005000000000000004,
-              "delta_rel": 0.0050000000000000044,
-              "p_value": 0.953544503361986,
-              "ci_low": -0.016326154309639837,
-              "ci_high": 0.017326154309639838,
-              "significant": false,
-              "statistical_method": "welch_t_test; df=3809.35",
-              "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
-              "statistical_source": "computed",
-              "source_summary": "",
-              "notes": ""
-            }
-          ],
-          "segment_findings": [],
-          "facts": [
-            {
-              "label": "paid_user_cvr 指标结果",
-              "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
-              "strength": "事实"
-            },
-            {
-              "label": "paid_gmv_per_user 指标结果",
-              "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
-              "strength": "事实"
-            }
-          ],
-          "inferences": [
-            {
-              "label": "paid_user_cvr 方向判断",
-              "evidence": "实验组相对对照组显著提升。",
-              "strength": "合理推断"
-            }
-          ],
-          "hypotheses": [],
-          "recommendations": [
-            {
-              "label": "可进入人工发布评审",
-              "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
-            }
-          ],
-          "selected_skills": [
-            "quality_check",
-            "experiment_recap",
-            "release_recommendation"
-          ],
-          "agent_trace": [
-            {
-              "tool_name": "check_quality",
-              "input": {
-                "request": {
-                  "type": "ExperimentRequest"
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.01,
-              "error": ""
-            },
-            {
-              "tool_name": "analyze_metric",
-              "input": {
-                "metrics": {
-                  "type": "list",
-                  "count": 2
-                },
-                "alpha": 0.05
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.1,
-              "error": ""
-            },
-            {
-              "tool_name": "make_recommendation",
-              "input": {
-                "metric_results": {
-                  "type": "list",
-                  "count": 2
-                },
-                "quality_issues": {
-                  "type": "list",
-                  "count": 0
-                }
-              },
-              "output": {
-                "summary": {
-                  "type": "list",
-                  "count": 2
-                }
-              },
-              "status": "ok",
-              "latency_ms": 0.0,
-              "error": ""
-            }
-          ],
-          "workflow_trace": [
-            {
-              "stage": "planner",
-              "status": "ok",
-              "detail": {
-                "skills": [
-                  "quality_check",
-                  "experiment_recap",
-                  "release_recommendation"
-                ],
-                "tools": [
-                  "check_quality",
-                  "analyze_metric",
-                  "make_recommendation"
-                ]
-              }
-            },
-            {
-              "stage": "input_validation",
-              "status": "ok",
-              "detail": {
-                "missing_inputs": []
-              }
-            },
-            {
-              "stage": "skill:quality_check",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "skill:experiment_recap",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "result_validation",
-              "status": "ok",
-              "detail": {
-                "check_status": "PASS",
-                "warning_count": 0
-              }
-            },
-            {
-              "stage": "skill:release_recommendation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "guardrails",
-              "status": "ok",
-              "detail": {
-                "review_status": "READY",
-                "checks": {
-                  "quality_check": "PASS",
-                  "metric_analysis": "PASS",
-                  "result_validation": "PASS"
-                }
-              }
-            },
-            {
-              "stage": "report_generation",
-              "status": "ok",
-              "detail": {}
-            },
-            {
-              "stage": "risk_policy",
-              "status": "REVIEW_READY",
-              "detail": {
-                "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
-                "intent": "conversion_guarded"
-              }
-            }
-          ]
-        },
-        "confirmation": {
           "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.467365+00:00",
+          "at": "2026-10-27T14:10:50.040812+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "caffe7d201e7b1db668ce3e16ddba341ecc04bf1a81c2ca3806d1e1d38dccf76",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.440953+00:00",
+            "at": "2026-10-27T14:10:50.013767+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.440956+00:00",
+            "at": "2026-10-27T14:10:50.013770+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "superseded",
-            "at": "2026-10-23T08:08:06.458662+00:00",
+            "at": "2026-10-27T14:10:50.031758+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "replacement": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           },
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.458664+00:00",
+            "at": "2026-10-27T14:10:50.031761+00:00",
             "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.467365+00:00",
+            "at": "2026-10-27T14:10:50.040812+00:00",
             "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -3548,19 +3548,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.489303+00:00",
+            "at": "2026-10-27T14:10:50.063174+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.489306+00:00",
+            "at": "2026-10-27T14:10:50.063177+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "withdrawn",
-            "at": "2026-10-23T08:08:06.498272+00:00",
+            "at": "2026-10-27T14:10:50.072406+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：复核人",
             "reason": "示例：需要重新检查口径",
@@ -3696,7 +3696,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.515713+00:00",
+              "at": "2026-10-27T14:10:50.090163+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -3817,7 +3817,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.11,
+              "latency_ms": 0.18,
               "error": ""
             },
             {
@@ -3920,26 +3920,26 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.515713+00:00",
+          "at": "2026-10-27T14:10:50.090163+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.489303+00:00",
+            "at": "2026-10-27T14:10:50.063174+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.489306+00:00",
+            "at": "2026-10-27T14:10:50.063177+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "withdrawn",
-            "at": "2026-10-23T08:08:06.498272+00:00",
+            "at": "2026-10-27T14:10:50.072406+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：复核人",
             "reason": "示例：需要重新检查口径",
@@ -3947,7 +3947,7 @@ window.EXPERIMENT_REVIEW_DATA = {
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.515713+00:00",
+            "at": "2026-10-27T14:10:50.090163+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4043,7 +4043,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.537414+00:00",
+            "at": "2026-10-27T14:10:50.112052+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9"
           }
         ],
@@ -4191,7 +4191,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.546090+00:00",
+              "at": "2026-10-27T14:10:50.121057+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -4312,7 +4312,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.11,
+              "latency_ms": 0.14,
               "error": ""
             },
             {
@@ -4415,19 +4415,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.546090+00:00",
+          "at": "2026-10-27T14:10:50.121057+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "eeb2e34616aab7aaf69386da706d7fe8217d1a8cc8853f590e70aed986518a7a",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.537414+00:00",
+            "at": "2026-10-27T14:10:50.112052+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.546090+00:00",
+            "at": "2026-10-27T14:10:50.121057+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4516,7 +4516,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.567819+00:00",
+            "at": "2026-10-27T14:10:50.143079+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff"
           }
         ],
@@ -4657,7 +4657,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.576640+00:00",
+              "at": "2026-10-27T14:10:50.151930+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -4778,7 +4778,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.1,
+              "latency_ms": 0.14,
               "error": ""
             },
             {
@@ -4881,19 +4881,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.576640+00:00",
+          "at": "2026-10-27T14:10:50.151930+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "b868097e7fa9b7149928889dbc8dc45c272db0d0d00f346365ab8fcb7da93db4",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.567819+00:00",
+            "at": "2026-10-27T14:10:50.143079+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.576640+00:00",
+            "at": "2026-10-27T14:10:50.151930+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4974,7 +4974,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.598474+00:00",
+            "at": "2026-10-27T14:10:50.173996+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6"
           }
         ],
@@ -5107,7 +5107,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-23T08:08:06.607297+00:00",
+              "at": "2026-10-27T14:10:50.182947+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -5228,7 +5228,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.09,
+              "latency_ms": 0.16,
               "error": ""
             },
             {
@@ -5331,19 +5331,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-23T08:08:06.607297+00:00",
+          "at": "2026-10-27T14:10:50.182947+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "73bfc8328de6cff584d8834a5ff670b976b3faa8a6b3747ba293c34c64581c80",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-23T08:08:06.598474+00:00",
+            "at": "2026-10-27T14:10:50.173996+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-23T08:08:06.607297+00:00",
+            "at": "2026-10-27T14:10:50.182947+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -7549,6 +7549,649 @@ window.EXPERIMENT_REVIEW_DATA = {
       "total": 6,
       "passed": 6
     }
+  },
+  "agent_demo": {
+    "mode": "offline_material_workflow",
+    "description": "合成文本、离线规则执行；没有真实模型调用。",
+    "documents": {
+      "实验说明": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。",
+      "指标字典": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+    },
+    "stages": [
+      {
+        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+        "status": "WAITING_FOR_CLARIFICATION",
+        "label": "先核对一个关键口径",
+        "message": "指标分母与契约不一致。是否已核对并以契约中的“全部唯一入组用户”为准？",
+        "owner": "数据负责人",
+        "next_action": "核对材料原文后确认契约；若契约有误，请修订数据包后重新导入。",
+        "pending": {
+          "field": "denominator",
+          "question": "指标分母与契约不一致。是否已核对并以契约中的“全部唯一入组用户”为准？",
+          "claims": [
+            {
+              "field": "denominator",
+              "value": "exposed_users",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            }
+          ],
+          "contract_value": "all_assigned_users"
+        },
+        "card": {
+          "status": "NEEDS_CONFIRMATION",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "status": "NEEDS_CONFIRMATION",
+            "label": "请先确认口径与水位",
+            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+          },
+          "owner": "数据负责人",
+          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+          "report": null,
+          "confirmation": null,
+          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:50.205339+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1"
+        },
+        "markdown": "# 先核对一个关键口径\n\n指标分母与契约不一致。是否已核对并以契约中的“全部唯一入组用户”为准？\n\n接管：数据负责人。核对材料原文后确认契约；若契约有误，请修订数据包后重新导入。\n\n- 指标字典：指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。\n\n材料版本：f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+        "mode": "offline",
+        "trace": [
+          {
+            "tool": "inspect_bundle",
+            "status": "ok",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+          },
+          {
+            "tool": "review_materials",
+            "status": "offline",
+            "claims": 6,
+            "prompt_version": "material-claims-v1"
+          }
+        ]
+      },
+      {
+        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+        "status": "NEEDS_CONFIRMATION",
+        "label": "请先确认口径与水位",
+        "message": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。",
+        "owner": "数据负责人",
+        "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+        "pending": null,
+        "card": {
+          "status": "NEEDS_CONFIRMATION",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "status": "NEEDS_CONFIRMATION",
+            "label": "请先确认口径与水位",
+            "reason": "分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。"
+          },
+          "owner": "数据负责人",
+          "next_action": "核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。",
+          "report": null,
+          "confirmation": null,
+          "card_id": "d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:50.205339+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1"
+        },
+        "markdown": "# 请先确认口径与水位\n\n分母为全部唯一入组用户；按每人入组后 7 天支付计算，只有完整性声明成立时才计零。\n\n**接管角色：** 数据负责人\n\n**下一步：** 核对口径、上游完整性证据和去重记录，署名确认当前数据包版本。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：d5bd79d189179625f1f011b292e95dc1d4849e5d8656b0c5c625ae09942827a2 · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。",
+        "mode": "offline",
+        "trace": [
+          {
+            "tool": "inspect_bundle",
+            "status": "ok",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+          },
+          {
+            "tool": "review_materials",
+            "status": "offline",
+            "claims": 6,
+            "prompt_version": "material-claims-v1"
+          },
+          {
+            "tool": "resolve_definition",
+            "status": "confirmed",
+            "field": "denominator",
+            "by": "合成回放：数据负责人"
+          },
+          {
+            "tool": "review_gate",
+            "status": "NEEDS_CONFIRMATION"
+          }
+        ]
+      },
+      {
+        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+        "status": "REVIEW_READY",
+        "label": "可进入人工发布评审",
+        "message": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+        "owner": "业务负责人",
+        "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+        "pending": null,
+        "card": {
+          "status": "REVIEW_READY",
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+          "inspection": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "valid": true,
+            "contract": {
+              "schema_version": 1,
+              "experiment_id": "synthetic-detail-page-001",
+              "objective": "提升详情页 7 天支付转化率，同时限制每用户支付 GMV 损失",
+              "randomization_unit": "user",
+              "expected_control_ratio": 0.5,
+              "enrollment_start": "2026-09-01T00:00:00+08:00",
+              "enrollment_end": "2026-09-08T00:00:00+08:00",
+              "observation_days": 7,
+              "timezone": "Asia/Shanghai",
+              "currency": "CNY",
+              "conversion_event": "paid_order",
+              "denominator": "all_assigned_users",
+              "zero_policy": "after_watermark_only",
+              "refunds": "not_deducted",
+              "alpha": 0.05,
+              "analysis_mode": "fixed_horizon",
+              "policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "manifest": {
+              "snapshot_at": "2026-09-16T12:00:00+08:00",
+              "assignments_complete_through": "2026-09-08T00:00:00+08:00",
+              "orders_complete_through": "2026-09-15T00:00:00+08:00",
+              "source_evidence": "SYNTHETIC-WATERMARK-001：仅用于验证数据规则的合成完整性声明",
+              "origin": "synthetic"
+            },
+            "counts": {
+              "required_complete_through": "2026-09-15T00:00:00+08:00",
+              "raw_assignments": 4000,
+              "raw_orders": 500,
+              "assigned_users": 4000,
+              "control_users": 2000,
+              "treatment_users": 2000,
+              "unique_orders": 500,
+              "included_orders": 500,
+              "duplicate_orders": 0,
+              "duplicate_assignments": 0,
+              "excluded_orders": 0,
+              "late_arriving_orders": 0
+            },
+            "issues": []
+          },
+          "decision": {
+            "core_ci": [
+              0.029560855038664492,
+              0.07043914496133549
+            ],
+            "gmv_ci": [
+              -0.016326154309639837,
+              0.017326154309639838
+            ],
+            "allowed_gmv_loss": 0.02,
+            "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+            "method": "predeclared absolute margin with two-sided 95% difference CI; one core and one guardrail",
+            "status": "REVIEW_READY",
+            "label": "可进入人工发布评审",
+            "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+          },
+          "owner": "业务负责人",
+          "next_action": "核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。",
+          "report": {
+            "status": "DONE",
+            "task_type": "release_recommendation",
+            "summary": "可进入人工发布评审：主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。",
+            "review_gate": {
+              "status": "READY",
+              "checks": {
+                "quality_check": "PASS",
+                "metric_analysis": "PASS",
+                "result_validation": "PASS"
+              },
+              "blockers": [],
+              "owner": "实验分析负责人",
+              "next_action": "必检已完成；由业务负责人结合证据与风险，确认是否进入发布评审。"
+            },
+            "plan": [
+              {
+                "name": "确认输入",
+                "purpose": "确认核心指标、护栏指标和发布标准"
+              },
+              {
+                "name": "质量检查",
+                "purpose": "若实验质量异常则降低建议强度"
+              },
+              {
+                "name": "指标判断",
+                "purpose": "综合核心指标、护栏指标和风险"
+              },
+              {
+                "name": "发布建议",
+                "purpose": "给出不发布 / 灰度 / 可发布建议"
+              }
+            ],
+            "missing_inputs": [],
+            "warnings": [],
+            "report_scope": {
+              "source": "csv_bundle",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "input_counts": {
+                "required_complete_through": "2026-09-15T00:00:00+08:00",
+                "raw_assignments": 4000,
+                "raw_orders": 500,
+                "assigned_users": 4000,
+                "control_users": 2000,
+                "treatment_users": 2000,
+                "unique_orders": 500,
+                "included_orders": 500,
+                "duplicate_orders": 0,
+                "duplicate_assignments": 0,
+                "excluded_orders": 0,
+                "late_arriving_orders": 0
+              },
+              "definition_confirmation": {
+                "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+                "by": "合成回放：数据负责人",
+                "at": "2026-10-27T14:10:50.258759+00:00",
+                "scope": "definitions_and_declared_completeness"
+              },
+              "predeclared_policy": {
+                "intent": "conversion_guarded",
+                "max_gmv_loss_per_user": "0.02",
+                "declared_at": "2026-08-31T10:00:00+08:00"
+              }
+            },
+            "registry_entries": [],
+            "quality_issues": [],
+            "metric_results": [
+              {
+                "metric_name": "paid_user_cvr",
+                "metric_kind": "conversion",
+                "metric_role": "core",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.15,
+                "delta_abs": 0.04999999999999999,
+                "delta_rel": 0.4999999999999999,
+                "p_value": 1.7449962508738146e-06,
+                "ci_low": 0.029560855038664492,
+                "ci_high": 0.07043914496133549,
+                "significant": true,
+                "statistical_method": "two_proportion_z_test_pooled; wald_ci_unpooled",
+                "interpretation": "实验组相对对照组显著提升。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              },
+              {
+                "metric_name": "paid_gmv_per_user",
+                "metric_kind": "continuous",
+                "metric_role": "guardrail",
+                "direction": "increase",
+                "control_n": 2000,
+                "treatment_n": 2000,
+                "control_value": 0.1,
+                "treatment_value": 0.1005,
+                "delta_abs": 0.0005000000000000004,
+                "delta_rel": 0.0050000000000000044,
+                "p_value": 0.953544503361986,
+                "ci_low": -0.016326154309639837,
+                "ci_high": 0.017326154309639838,
+                "significant": false,
+                "statistical_method": "welch_t_test; df=3809.35",
+                "interpretation": "统计上未达到显著，当前更适合表述为未形成足够证据。",
+                "statistical_source": "computed",
+                "source_summary": "",
+                "notes": ""
+              }
+            ],
+            "segment_findings": [],
+            "facts": [
+              {
+                "label": "paid_user_cvr 指标结果",
+                "evidence": "paid_user_cvr 对照 0.1000，实验 0.1500，绝对变化 0.0500，p=0.0000",
+                "strength": "事实"
+              },
+              {
+                "label": "paid_gmv_per_user 指标结果",
+                "evidence": "paid_gmv_per_user 对照 0.1000，实验 0.1005，绝对变化 0.0005，p=0.9535",
+                "strength": "事实"
+              }
+            ],
+            "inferences": [
+              {
+                "label": "paid_user_cvr 方向判断",
+                "evidence": "实验组相对对照组显著提升。",
+                "strength": "合理推断"
+              }
+            ],
+            "hypotheses": [],
+            "recommendations": [
+              {
+                "label": "可进入人工发布评审",
+                "reason": "主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。"
+              }
+            ],
+            "selected_skills": [
+              "quality_check",
+              "experiment_recap",
+              "release_recommendation"
+            ],
+            "agent_trace": [
+              {
+                "tool_name": "check_quality",
+                "input": {
+                  "request": {
+                    "type": "ExperimentRequest"
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.01,
+                "error": ""
+              },
+              {
+                "tool_name": "analyze_metric",
+                "input": {
+                  "metrics": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "alpha": 0.05
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.17,
+                "error": ""
+              },
+              {
+                "tool_name": "make_recommendation",
+                "input": {
+                  "metric_results": {
+                    "type": "list",
+                    "count": 2
+                  },
+                  "quality_issues": {
+                    "type": "list",
+                    "count": 0
+                  }
+                },
+                "output": {
+                  "summary": {
+                    "type": "list",
+                    "count": 2
+                  }
+                },
+                "status": "ok",
+                "latency_ms": 0.0,
+                "error": ""
+              }
+            ],
+            "workflow_trace": [
+              {
+                "stage": "planner",
+                "status": "ok",
+                "detail": {
+                  "skills": [
+                    "quality_check",
+                    "experiment_recap",
+                    "release_recommendation"
+                  ],
+                  "tools": [
+                    "check_quality",
+                    "analyze_metric",
+                    "make_recommendation"
+                  ]
+                }
+              },
+              {
+                "stage": "input_validation",
+                "status": "ok",
+                "detail": {
+                  "missing_inputs": []
+                }
+              },
+              {
+                "stage": "skill:quality_check",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "skill:experiment_recap",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "result_validation",
+                "status": "ok",
+                "detail": {
+                  "check_status": "PASS",
+                  "warning_count": 0
+                }
+              },
+              {
+                "stage": "skill:release_recommendation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "guardrails",
+                "status": "ok",
+                "detail": {
+                  "review_status": "READY",
+                  "checks": {
+                    "quality_check": "PASS",
+                    "metric_analysis": "PASS",
+                    "result_validation": "PASS"
+                  }
+                }
+              },
+              {
+                "stage": "report_generation",
+                "status": "ok",
+                "detail": {}
+              },
+              {
+                "stage": "risk_policy",
+                "status": "REVIEW_READY",
+                "detail": {
+                  "policy_id": "423074f31e9d66431a31cacc03364458ded356468d43137edc678309e325f0de",
+                  "intent": "conversion_guarded"
+                }
+              }
+            ]
+          },
+          "confirmation": {
+            "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "by": "合成回放：数据负责人",
+            "at": "2026-10-27T14:10:50.258759+00:00",
+            "scope": "definitions_and_declared_completeness"
+          },
+          "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
+          "history": [
+            {
+              "event": "imported",
+              "at": "2026-10-27T14:10:50.205339+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+            },
+            {
+              "event": "definitions_confirmed",
+              "at": "2026-10-27T14:10:50.258759+00:00",
+              "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+              "by": "合成回放：数据负责人",
+              "scope": "definitions_and_declared_completeness"
+            }
+          ],
+          "human_review": null,
+          "engine_version": "bundle-review-v1"
+        },
+        "markdown": "# 可进入人工发布评审\n\n主指标形成正向证据，GMV 区间处于预设损失边界内；仍需业务负责人确认。\n\n**接管角色：** 业务负责人\n\n**下一步：** 核对收益、预设风险边界与实施成本后，由业务负责人记录人工复核；系统不执行上线。\n\n## 口径与数据\n\n- 用户级随机；分母为全部唯一入组用户。\n- 每人入组后连续 168 小时，左闭右开；支付 GMV 未扣退款，单位 CNY。\n- 数据来源声明：synthetic。\n- 订单完整性水位：2026-09-15T00:00:00+08:00。\n- 水位由上游声明并由本地负责人确认，系统不认证其真实性。\n\n## 核心证据\n\n| 指标 | 对照 | 实验 | 绝对差值 | 差值 95% 区间 |\n| --- | ---: | ---: | ---: | --- |\n| 7 天支付用户转化率 | 10.00% | 15.00% | +5.00 个百分点 | [2.9561, 7.0439] 个百分点 |\n| 7 天支付 GMV / 用户 | ¥0.1000 | ¥0.1005 | ¥+0.0005 | [-0.0163, 0.0173] 元 / 用户 |\n\n## 预设风险边界\n\n- 每用户 GMV 最多允许损失 ¥0.0200。\n- 使用双侧 95% 差值区间保守判断；跨越允许损失边界时返回证据不足。\n- 本次只处理一个主指标与一个护栏；不等同于完整实验平台风险控制。\n\n口径确认：合成回放：数据负责人；仅为本地署名记录，不是企业身份认证或上线批准。\n\n版本：4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7 · 评审卡：406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c · bundle-review-v1\n\n本卡不执行上线。撤回或数据更新后，需要重新确认当前版本。",
+        "mode": "offline",
+        "trace": [
+          {
+            "tool": "inspect_bundle",
+            "status": "ok",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+          },
+          {
+            "tool": "review_materials",
+            "status": "offline",
+            "claims": 6,
+            "prompt_version": "material-claims-v1"
+          },
+          {
+            "tool": "resolve_definition",
+            "status": "confirmed",
+            "field": "denominator",
+            "by": "合成回放：数据负责人"
+          },
+          {
+            "tool": "review_gate",
+            "status": "NEEDS_CONFIRMATION"
+          },
+          {
+            "tool": "confirm_definitions",
+            "status": "confirmed",
+            "by": "合成回放：数据负责人"
+          },
+          {
+            "tool": "run_review",
+            "status": "REVIEW_READY"
+          }
+        ]
+      }
+    ]
   },
   "limits": [
     "合成数据与本地回放",
