@@ -11,11 +11,24 @@ from pathlib import Path
 from experimentos.demo_data import make_bundle
 from experimentos.intake import snapshot_id
 from experimentos.review import ReviewWorkspace
+from experimentos.agent.review_task import ReviewAgent, DEMO_QUESTION, DEMO_BRIEF, DEMO_DICTIONARY
 from evals.bundle_cases import apply_mutations
 from evals.runner import EvalRunner
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def agent_replay():
+    agent = ReviewAgent()
+    files = make_bundle()
+    documents = {"实验说明": DEMO_BRIEF, "指标字典": DEMO_DICTIONARY}
+    stages = [agent.step(files, question=DEMO_QUESTION, documents=documents)]
+    agent.resolve(field="denominator", by="合成回放：数据负责人", expected_version=stages[0]["version"])
+    stages.append(agent.step(files, question=DEMO_QUESTION, documents=documents))
+    agent.confirm(files, question=DEMO_QUESTION, documents=documents, by="合成回放：数据负责人", expected_version=stages[1]["version"])
+    stages.append(agent.step(files, question=DEMO_QUESTION, documents=documents))
+    return {"mode": "offline_material_workflow", "description": "合成文本、离线规则执行；没有真实模型调用。", "documents": documents, "stages": stages}
 
 
 def _card_payload(card) -> dict:
@@ -76,7 +89,7 @@ def main() -> None:
         categories[category]["passed"] += int(case["passed"])
     data = {
         "mode": "synthetic_python_replay", "engine_version": "bundle-review-v1",
-        "scenarios": scenarios, "evaluation": summary, "categories": dict(categories),
+        "scenarios": scenarios, "evaluation": summary, "categories": dict(categories), "agent_demo": agent_replay(),
         "limits": ["合成数据与本地回放", "全部为回归案例，尚无独立冻结验收集", "不调用真实模型，不证明 Agent 相对基线的收益", "确认是本地署名，不认证企业身份，也不执行上线"],
     }
     output = ROOT / "docs/data"
@@ -91,6 +104,7 @@ def main() -> None:
     (report_dir / "step2.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (report_dir / "step2.md").write_text(runner._markdown(summary) + "\n", encoding="utf-8")
     (report_dir / "sample_review_card.md").write_text(scenarios[0]["confirmed"]["markdown"] + "\n", encoding="utf-8")
+    (report_dir / "agent_loop.json").write_text(json.dumps(data["agent_demo"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     output.mkdir(parents=True, exist_ok=True)
     (output / "replays.js").write_text("window.EXPERIMENT_REVIEW_DATA = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n", encoding="utf-8")
     print(f"已导出 {len(scenarios)} 条 Python 回放，Eval {summary['passed_cases']}/{summary['total_cases']}。")
@@ -98,7 +112,7 @@ def main() -> None:
 
 def _semantic(value):
     if isinstance(value, dict):
-        return {key: _semantic(item) for key, item in value.items() if key not in {"at", "latency_ms", "card_id", "reviewed_card_id"}}
+        return {key: _semantic(item) for key, item in value.items() if key not in {"at", "latency_ms", "card_id", "reviewed_card_id", "task_id"}}
     if isinstance(value, list):
         return [_semantic(item) for item in value]
     if isinstance(value, float):

@@ -19,3 +19,4 @@ examples/generated_bundle/
 # Generated offline evaluation reports
 evals/reports/latest.json
 evals/reports/latest.md
+evals/reports/model-local.json

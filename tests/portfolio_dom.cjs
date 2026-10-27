@@ -22,6 +22,7 @@ class Element {
   querySelectorAll(selector) { return this.children.filter(child => child.tag === selector); }
   click() { this.trigger('click'); }
   remove() {}
+  setAttribute(name,value) { this[name]=value; }
 }
 
 function page() {
@@ -38,14 +39,15 @@ function page() {
   return {
     get,
     select(scenario) { get('scenario').value = scenario; get('scenario').trigger('change'); },
-    confirm() { get('acknowledge').checked = true; get('acknowledge').trigger('change'); get('confirmButton').trigger('click'); },
+    confirm() { get('confirmButton').trigger('click'); },
   };
 }
 
 test('no result or false quality pass before confirmation', () => {
   const p = page();
+  p.get('resetTask').trigger('click');
   assert.equal(p.get('decisionTitle').textContent, '请先确认口径与水位');
-  assert.equal(p.get('confirmButton').disabled, true);
+  assert.equal(p.get('confirmButton').disabled, false);
   assert.equal(p.get('metricGrid').hidden, true);
   assert.match(p.get('checkList').textContent, /未确认 \/ 未执行/);
 });
@@ -64,7 +66,6 @@ test('new dirty source clears old metrics and cannot be confirmed', () => {
   assert.equal(p.get('decisionTitle').textContent, '数据包需要修复');
   assert.equal(p.get('confirmButton').disabled, true);
   assert.equal(p.get('repairButton').hidden, false);
-  assert.equal(p.get('acknowledge').checked, false);
 });
 
 test('repair requires a new confirmation before returning to review', () => {
@@ -92,7 +93,7 @@ test('stale or withdrawn confirmation never displays an approved result', () => 
     assert.equal(p.get('decisionTitle').textContent, '请先确认口径与水位');
     assert.equal(p.get('metricGrid').hidden, true);
   }
-  assert.match(p.get('historyList').textContent, /撤回本地评审卡/);
+  assert.match(p.get('historyList').textContent, /撤回.*评审卡/);
 });
 
 test('evaluation filters reflect the published case evidence', () => {
@@ -103,4 +104,34 @@ test('evaluation filters reflect the published case evidence', () => {
   assert.ok(p.get('caseRows').children.length >= 5);
   assert.match(p.get('caseRows').textContent, /C014/);
   assert.ok(!p.get('caseRows').textContent.includes('C002'));
+});
+
+
+test('saved normal result is visible without a replay confirmation ceremony', () => {
+  const p = page();
+  assert.equal(p.get('decisionTitle').textContent, '可进入人工发布评审');
+  assert.equal(p.get('metricGrid').hidden, false);
+  assert.match(p.get('decisionKicker').textContent, /已保存/);
+});
+
+test('material clarification proceeds through real exported Python stages', () => {
+  const p = page(); p.get('caseConflict').trigger('click');
+  assert.equal(p.get('decisionTitle').textContent, '先核对一个关键口径');
+  assert.equal(p.get('metricGrid').hidden, true);
+  assert.equal(p.get('clarificationBox').hidden, false);
+  assert.match(p.get('sourceQuotes').textContent, /曝光用户/);
+  p.get('clarifyButton').trigger('click');
+  assert.equal(p.get('decisionTitle').textContent, '请先确认口径与水位');
+  p.confirm();
+  assert.equal(p.get('decisionTitle').textContent, '可进入人工发布评审');
+  assert.match(p.get('historyList').textContent, /负责人核对冲突/);
+});
+
+test('switching from a completed replay to conflict clears previous metrics', () => {
+  const p = page(); p.get('caseConflict').trigger('click');
+  p.confirm();
+  assert.equal(p.get('metricGrid').hidden, true);
+  p.get('caseRisk').trigger('click');
+  assert.equal(p.get('decisionTitle').textContent, '不支持推进发布');
+  assert.equal(p.get('gmvTag').textContent, '损失越界');
 });

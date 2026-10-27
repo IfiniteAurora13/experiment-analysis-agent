@@ -91,7 +91,9 @@ class OpenAICompatibleBackend:
                 "openai 包未安装。请执行 pip install openai 或设置 EXPERIMENTOS_LLM_PROVIDER=mock。"
             ) from exc
 
-        kwargs: dict[str, Any] = {}
+        # Keep a demo or human-facing task bounded; a failed call falls back
+        # at the material-review layer rather than silently retrying for minutes.
+        kwargs: dict[str, Any] = {"timeout": 20.0, "max_retries": 0}
         if self._config.base_url:
             kwargs["base_url"] = self._config.base_url
         if self._config.api_key:
