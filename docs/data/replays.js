@@ -71,7 +71,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.808170+00:00",
+            "at": "2026-10-27T17:39:57.633544+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           }
         ],
@@ -204,7 +204,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:49.817120+00:00",
+              "at": "2026-10-27T17:39:57.650720+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -306,7 +306,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.02,
               "error": ""
             },
             {
@@ -325,7 +325,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.18,
+              "latency_ms": 0.27,
               "error": ""
             },
             {
@@ -347,7 +347,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -428,19 +428,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:49.817120+00:00",
+          "at": "2026-10-27T17:39:57.650720+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.808170+00:00",
+            "at": "2026-10-27T17:39:57.633544+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:49.817120+00:00",
+            "at": "2026-10-27T17:39:57.650720+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -518,7 +518,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.830616+00:00",
+            "at": "2026-10-27T17:39:57.676414+00:00",
             "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
           }
         ],
@@ -593,18 +593,18 @@ window.EXPERIMENT_REVIEW_DATA = {
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.830616+00:00",
+              "at": "2026-10-27T17:39:57.676414+00:00",
               "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.843579+00:00",
+              "at": "2026-10-27T17:39:57.701308+00:00",
               "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.843581+00:00",
+              "at": "2026-10-27T17:39:57.701313+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             }
           ],
@@ -737,7 +737,7 @@ window.EXPERIMENT_REVIEW_DATA = {
               "definition_confirmation": {
                 "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
                 "by": "合成回放：修复负责人",
-                "at": "2026-10-27T14:10:49.852441+00:00",
+                "at": "2026-10-27T17:39:57.718428+00:00",
                 "scope": "definitions_and_declared_completeness"
               },
               "predeclared_policy": {
@@ -839,7 +839,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.01,
+                "latency_ms": 0.02,
                 "error": ""
               },
               {
@@ -858,7 +858,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.18,
+                "latency_ms": 0.33,
                 "error": ""
               },
               {
@@ -880,7 +880,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.0,
+                "latency_ms": 0.01,
                 "error": ""
               }
             ],
@@ -961,30 +961,30 @@ window.EXPERIMENT_REVIEW_DATA = {
           "confirmation": {
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：修复负责人",
-            "at": "2026-10-27T14:10:49.852441+00:00",
+            "at": "2026-10-27T17:39:57.718428+00:00",
             "scope": "definitions_and_declared_completeness"
           },
           "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.830616+00:00",
+              "at": "2026-10-27T17:39:57.676414+00:00",
               "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.843579+00:00",
+              "at": "2026-10-27T17:39:57.701308+00:00",
               "snapshot_id": "c0d9038619459dfba2b962e10f410f99c812ceeafd1458077a02a3638e4bfc98",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.843581+00:00",
+              "at": "2026-10-27T17:39:57.701313+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "definitions_confirmed",
-              "at": "2026-10-27T14:10:49.852441+00:00",
+              "at": "2026-10-27T17:39:57.718428+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：修复负责人",
               "scope": "definitions_and_declared_completeness"
@@ -1064,7 +1064,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.872446+00:00",
+            "at": "2026-10-27T17:39:57.762359+00:00",
             "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
           }
         ],
@@ -1139,18 +1139,18 @@ window.EXPERIMENT_REVIEW_DATA = {
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.872446+00:00",
+              "at": "2026-10-27T17:39:57.762359+00:00",
               "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.885502+00:00",
+              "at": "2026-10-27T17:39:57.791016+00:00",
               "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.885504+00:00",
+              "at": "2026-10-27T17:39:57.791021+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             }
           ],
@@ -1283,7 +1283,7 @@ window.EXPERIMENT_REVIEW_DATA = {
               "definition_confirmation": {
                 "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
                 "by": "合成回放：修复负责人",
-                "at": "2026-10-27T14:10:49.894519+00:00",
+                "at": "2026-10-27T17:39:57.810581+00:00",
                 "scope": "definitions_and_declared_completeness"
               },
               "predeclared_policy": {
@@ -1385,7 +1385,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.01,
+                "latency_ms": 0.02,
                 "error": ""
               },
               {
@@ -1404,7 +1404,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.14,
+                "latency_ms": 0.29,
                 "error": ""
               },
               {
@@ -1426,7 +1426,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.0,
+                "latency_ms": 0.01,
                 "error": ""
               }
             ],
@@ -1507,30 +1507,30 @@ window.EXPERIMENT_REVIEW_DATA = {
           "confirmation": {
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：修复负责人",
-            "at": "2026-10-27T14:10:49.894519+00:00",
+            "at": "2026-10-27T17:39:57.810581+00:00",
             "scope": "definitions_and_declared_completeness"
           },
           "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.872446+00:00",
+              "at": "2026-10-27T17:39:57.762359+00:00",
               "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.885502+00:00",
+              "at": "2026-10-27T17:39:57.791016+00:00",
               "snapshot_id": "05fb577dababc0b234f241ff6272d07caa7f0b172b0c8e842fccde1bdb8e70a6",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.885504+00:00",
+              "at": "2026-10-27T17:39:57.791021+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "definitions_confirmed",
-              "at": "2026-10-27T14:10:49.894519+00:00",
+              "at": "2026-10-27T17:39:57.810581+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：修复负责人",
               "scope": "definitions_and_declared_completeness"
@@ -1605,7 +1605,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.907899+00:00",
+            "at": "2026-10-27T17:39:57.839865+00:00",
             "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
           }
         ],
@@ -1680,18 +1680,18 @@ window.EXPERIMENT_REVIEW_DATA = {
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.907899+00:00",
+              "at": "2026-10-27T17:39:57.839865+00:00",
               "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.920743+00:00",
+              "at": "2026-10-27T17:39:57.868022+00:00",
               "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.920745+00:00",
+              "at": "2026-10-27T17:39:57.868027+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             }
           ],
@@ -1824,7 +1824,7 @@ window.EXPERIMENT_REVIEW_DATA = {
               "definition_confirmation": {
                 "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
                 "by": "合成回放：修复负责人",
-                "at": "2026-10-27T14:10:49.929481+00:00",
+                "at": "2026-10-27T17:39:57.888071+00:00",
                 "scope": "definitions_and_declared_completeness"
               },
               "predeclared_policy": {
@@ -1926,7 +1926,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.01,
+                "latency_ms": 0.02,
                 "error": ""
               },
               {
@@ -1945,7 +1945,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.15,
+                "latency_ms": 0.29,
                 "error": ""
               },
               {
@@ -1967,7 +1967,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.0,
+                "latency_ms": 0.01,
                 "error": ""
               }
             ],
@@ -2048,30 +2048,30 @@ window.EXPERIMENT_REVIEW_DATA = {
           "confirmation": {
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：修复负责人",
-            "at": "2026-10-27T14:10:49.929481+00:00",
+            "at": "2026-10-27T17:39:57.888071+00:00",
             "scope": "definitions_and_declared_completeness"
           },
           "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.907899+00:00",
+              "at": "2026-10-27T17:39:57.839865+00:00",
               "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd"
             },
             {
               "event": "superseded",
-              "at": "2026-10-27T14:10:49.920743+00:00",
+              "at": "2026-10-27T17:39:57.868022+00:00",
               "snapshot_id": "9ef1921c10827503c279a9b2bde1c40a76779ff13c65d2d94b690155b9fcd1cd",
               "replacement": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:49.920745+00:00",
+              "at": "2026-10-27T17:39:57.868027+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "definitions_confirmed",
-              "at": "2026-10-27T14:10:49.929481+00:00",
+              "at": "2026-10-27T17:39:57.888071+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：修复负责人",
               "scope": "definitions_and_declared_completeness"
@@ -2152,7 +2152,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.951659+00:00",
+            "at": "2026-10-27T17:39:57.936756+00:00",
             "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
           }
         ],
@@ -2285,7 +2285,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:49.960639+00:00",
+              "at": "2026-10-27T17:39:57.956338+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -2392,7 +2392,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.02,
               "error": ""
             },
             {
@@ -2411,7 +2411,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.16,
+              "latency_ms": 0.26,
               "error": ""
             },
             {
@@ -2433,7 +2433,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -2514,19 +2514,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:49.960639+00:00",
+          "at": "2026-10-27T17:39:57.956338+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "1c4135a30fd0253e13e5481ff060af446875ac7cca65c7766815ba62890aabae",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.951659+00:00",
+            "at": "2026-10-27T17:39:57.936756+00:00",
             "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:49.960639+00:00",
+            "at": "2026-10-27T17:39:57.956338+00:00",
             "snapshot_id": "1db2bb7885009bb275aa5ffa558cafbc9e41204e67ff95b76b31d34816565093",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -2607,7 +2607,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.982718+00:00",
+            "at": "2026-10-27T17:39:58.004635+00:00",
             "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
           }
         ],
@@ -2740,7 +2740,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:49.991714+00:00",
+              "at": "2026-10-27T17:39:58.024097+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -2847,7 +2847,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.02,
               "error": ""
             },
             {
@@ -2866,7 +2866,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.14,
+              "latency_ms": 0.3,
               "error": ""
             },
             {
@@ -2888,7 +2888,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -2969,19 +2969,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:49.991714+00:00",
+          "at": "2026-10-27T17:39:58.024097+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "dc086121979548c2266f8a99bca47acbfcdbc3b0fc0f42acfc2bfe580e58d4d5",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:49.982718+00:00",
+            "at": "2026-10-27T17:39:58.004635+00:00",
             "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:49.991714+00:00",
+            "at": "2026-10-27T17:39:58.024097+00:00",
             "snapshot_id": "1490d897c9728a1b83186f87f165a249e4eed928c9db91b0befd94d085115c5c",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -3062,25 +3062,25 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.013767+00:00",
+            "at": "2026-10-27T17:39:58.072660+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.013770+00:00",
+            "at": "2026-10-27T17:39:58.072665+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "superseded",
-            "at": "2026-10-27T14:10:50.031758+00:00",
+            "at": "2026-10-27T17:39:58.112342+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "replacement": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           },
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.031761+00:00",
+            "at": "2026-10-27T17:39:58.112347+00:00",
             "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           }
         ],
@@ -3213,7 +3213,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:50.040812+00:00",
+              "at": "2026-10-27T17:39:58.131900+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -3315,7 +3315,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.02,
               "error": ""
             },
             {
@@ -3334,7 +3334,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.17,
+              "latency_ms": 0.28,
               "error": ""
             },
             {
@@ -3356,7 +3356,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -3437,37 +3437,37 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:50.040812+00:00",
+          "at": "2026-10-27T17:39:58.131900+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "caffe7d201e7b1db668ce3e16ddba341ecc04bf1a81c2ca3806d1e1d38dccf76",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.013767+00:00",
+            "at": "2026-10-27T17:39:58.072660+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.013770+00:00",
+            "at": "2026-10-27T17:39:58.072665+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "superseded",
-            "at": "2026-10-27T14:10:50.031758+00:00",
+            "at": "2026-10-27T17:39:58.112342+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "replacement": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           },
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.031761+00:00",
+            "at": "2026-10-27T17:39:58.112347+00:00",
             "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.040812+00:00",
+            "at": "2026-10-27T17:39:58.131900+00:00",
             "snapshot_id": "6583a2134e15ac3650f4e93e3c92fa0bb4648ca63ad6ed11fec3b628cf437675",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -3548,19 +3548,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.063174+00:00",
+            "at": "2026-10-27T17:39:58.180614+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.063177+00:00",
+            "at": "2026-10-27T17:39:58.180620+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "withdrawn",
-            "at": "2026-10-27T14:10:50.072406+00:00",
+            "at": "2026-10-27T17:39:58.200684+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：复核人",
             "reason": "示例：需要重新检查口径",
@@ -3696,7 +3696,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:50.090163+00:00",
+              "at": "2026-10-27T17:39:58.241868+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -3798,7 +3798,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.03,
               "error": ""
             },
             {
@@ -3817,7 +3817,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.18,
+              "latency_ms": 0.34,
               "error": ""
             },
             {
@@ -3839,7 +3839,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -3920,26 +3920,26 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:50.090163+00:00",
+          "at": "2026-10-27T17:39:58.241868+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.063174+00:00",
+            "at": "2026-10-27T17:39:58.180614+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.063177+00:00",
+            "at": "2026-10-27T17:39:58.180620+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
           },
           {
             "event": "withdrawn",
-            "at": "2026-10-27T14:10:50.072406+00:00",
+            "at": "2026-10-27T17:39:58.200684+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：复核人",
             "reason": "示例：需要重新检查口径",
@@ -3947,7 +3947,7 @@ window.EXPERIMENT_REVIEW_DATA = {
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.090163+00:00",
+            "at": "2026-10-27T17:39:58.241868+00:00",
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4043,7 +4043,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.112052+00:00",
+            "at": "2026-10-27T17:39:58.297055+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9"
           }
         ],
@@ -4191,7 +4191,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:50.121057+00:00",
+              "at": "2026-10-27T17:39:58.319207+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -4293,7 +4293,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.02,
               "error": ""
             },
             {
@@ -4312,7 +4312,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.14,
+              "latency_ms": 0.3,
               "error": ""
             },
             {
@@ -4334,7 +4334,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -4415,19 +4415,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:50.121057+00:00",
+          "at": "2026-10-27T17:39:58.319207+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "eeb2e34616aab7aaf69386da706d7fe8217d1a8cc8853f590e70aed986518a7a",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.112052+00:00",
+            "at": "2026-10-27T17:39:58.297055+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.121057+00:00",
+            "at": "2026-10-27T17:39:58.319207+00:00",
             "snapshot_id": "fd5ba5cfe587c53ed206c4dfd48bc4a95f961e4222909729d692f4457105caa9",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4516,7 +4516,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.143079+00:00",
+            "at": "2026-10-27T17:39:58.374136+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff"
           }
         ],
@@ -4657,7 +4657,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:50.151930+00:00",
+              "at": "2026-10-27T17:39:58.396827+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -4759,7 +4759,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.03,
               "error": ""
             },
             {
@@ -4778,7 +4778,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.14,
+              "latency_ms": 0.34,
               "error": ""
             },
             {
@@ -4800,7 +4800,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -4881,19 +4881,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:50.151930+00:00",
+          "at": "2026-10-27T17:39:58.396827+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "b868097e7fa9b7149928889dbc8dc45c272db0d0d00f346365ab8fcb7da93db4",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.143079+00:00",
+            "at": "2026-10-27T17:39:58.374136+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.151930+00:00",
+            "at": "2026-10-27T17:39:58.396827+00:00",
             "snapshot_id": "9c625a11d27e405ab24fedc6855094b1fb844400bdcc3ab02a371dca715a69ff",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -4974,7 +4974,7 @@ window.EXPERIMENT_REVIEW_DATA = {
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.173996+00:00",
+            "at": "2026-10-27T17:39:58.449580+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6"
           }
         ],
@@ -5107,7 +5107,7 @@ window.EXPERIMENT_REVIEW_DATA = {
             "definition_confirmation": {
               "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
               "by": "合成回放：数据负责人",
-              "at": "2026-10-27T14:10:50.182947+00:00",
+              "at": "2026-10-27T17:39:58.469105+00:00",
               "scope": "definitions_and_declared_completeness"
             },
             "predeclared_policy": {
@@ -5209,7 +5209,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.01,
+              "latency_ms": 0.03,
               "error": ""
             },
             {
@@ -5228,7 +5228,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.16,
+              "latency_ms": 0.34,
               "error": ""
             },
             {
@@ -5250,7 +5250,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                 }
               },
               "status": "ok",
-              "latency_ms": 0.0,
+              "latency_ms": 0.01,
               "error": ""
             }
           ],
@@ -5331,19 +5331,19 @@ window.EXPERIMENT_REVIEW_DATA = {
         "confirmation": {
           "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
           "by": "合成回放：数据负责人",
-          "at": "2026-10-27T14:10:50.182947+00:00",
+          "at": "2026-10-27T17:39:58.469105+00:00",
           "scope": "definitions_and_declared_completeness"
         },
         "card_id": "73bfc8328de6cff584d8834a5ff670b976b3faa8a6b3747ba293c34c64581c80",
         "history": [
           {
             "event": "imported",
-            "at": "2026-10-27T14:10:50.173996+00:00",
+            "at": "2026-10-27T17:39:58.449580+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6"
           },
           {
             "event": "definitions_confirmed",
-            "at": "2026-10-27T14:10:50.182947+00:00",
+            "at": "2026-10-27T17:39:58.469105+00:00",
             "snapshot_id": "039b2dd2beae028d81ff9951d07ca254b871238272672512fd9ee2cd7a93cfd6",
             "by": "合成回放：数据负责人",
             "scope": "definitions_and_declared_completeness"
@@ -7559,7 +7559,7 @@ window.EXPERIMENT_REVIEW_DATA = {
     },
     "stages": [
       {
-        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "task_id": "fabe9b07-cd49-4751-b216-b4e6884c563b",
         "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
         "status": "WAITING_FOR_CLARIFICATION",
         "label": "先核对一个关键口径",
@@ -7644,7 +7644,7 @@ window.EXPERIMENT_REVIEW_DATA = {
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:50.205339+00:00",
+              "at": "2026-10-27T17:39:58.522625+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             }
           ],
@@ -7657,19 +7657,69 @@ window.EXPERIMENT_REVIEW_DATA = {
           {
             "tool": "inspect_bundle",
             "status": "ok",
-            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "tool": "review_materials",
             "status": "offline",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "claims": 6,
             "prompt_version": "material-claims-v1"
           }
-        ]
+        ],
+        "inputs": {
+          "question": "商品详情页改版能否进入人工发布评审？",
+          "documents": {
+            "实验说明": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。",
+            "指标字典": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+          },
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+        },
+        "material_evidence": {
+          "claims": [
+            {
+              "field": "denominator",
+              "value": "all_assigned_users",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "currency",
+              "value": "CNY",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "refunds",
+              "value": "not_deducted",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "denominator",
+              "value": "exposed_users",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            }
+          ],
+          "resolutions": {}
+        }
       },
       {
-        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "task_id": "fabe9b07-cd49-4751-b216-b4e6884c563b",
         "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
         "status": "NEEDS_CONFIRMATION",
         "label": "请先确认口径与水位",
@@ -7742,7 +7792,7 @@ window.EXPERIMENT_REVIEW_DATA = {
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:50.205339+00:00",
+              "at": "2026-10-27T17:39:58.522625+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             }
           ],
@@ -7755,29 +7805,87 @@ window.EXPERIMENT_REVIEW_DATA = {
           {
             "tool": "inspect_bundle",
             "status": "ok",
-            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "tool": "review_materials",
             "status": "offline",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "claims": 6,
             "prompt_version": "material-claims-v1"
           },
           {
             "tool": "resolve_definition",
             "status": "confirmed",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "field": "denominator",
             "by": "合成回放：数据负责人"
           },
           {
             "tool": "review_gate",
-            "status": "NEEDS_CONFIRMATION"
+            "status": "NEEDS_CONFIRMATION",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
           }
-        ]
+        ],
+        "inputs": {
+          "question": "商品详情页改版能否进入人工发布评审？",
+          "documents": {
+            "实验说明": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。",
+            "指标字典": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+          },
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+        },
+        "material_evidence": {
+          "claims": [
+            {
+              "field": "denominator",
+              "value": "all_assigned_users",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "currency",
+              "value": "CNY",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "refunds",
+              "value": "not_deducted",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "denominator",
+              "value": "exposed_users",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            }
+          ],
+          "resolutions": {
+            "denominator": {
+              "by": "合成回放：数据负责人",
+              "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+              "resolution": "verified_contract"
+            }
+          }
+        }
       },
       {
-        "task_id": "76d2cb21-57ed-4f67-8075-b2a90e0580d5",
+        "task_id": "fabe9b07-cd49-4751-b216-b4e6884c563b",
         "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
         "status": "REVIEW_READY",
         "label": "可进入人工发布评审",
@@ -7910,7 +8018,7 @@ window.EXPERIMENT_REVIEW_DATA = {
               "definition_confirmation": {
                 "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
                 "by": "合成回放：数据负责人",
-                "at": "2026-10-27T14:10:50.258759+00:00",
+                "at": "2026-10-27T17:39:58.650750+00:00",
                 "scope": "definitions_and_declared_completeness"
               },
               "predeclared_policy": {
@@ -8012,7 +8120,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.01,
+                "latency_ms": 0.02,
                 "error": ""
               },
               {
@@ -8031,7 +8139,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.17,
+                "latency_ms": 0.29,
                 "error": ""
               },
               {
@@ -8053,7 +8161,7 @@ window.EXPERIMENT_REVIEW_DATA = {
                   }
                 },
                 "status": "ok",
-                "latency_ms": 0.0,
+                "latency_ms": 0.01,
                 "error": ""
               }
             ],
@@ -8134,19 +8242,19 @@ window.EXPERIMENT_REVIEW_DATA = {
           "confirmation": {
             "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
             "by": "合成回放：数据负责人",
-            "at": "2026-10-27T14:10:50.258759+00:00",
+            "at": "2026-10-27T17:39:58.650750+00:00",
             "scope": "definitions_and_declared_completeness"
           },
           "card_id": "406b823086adb9b34b08bd1b483cabf85514a450c8ecfa3ca066056c1fa2a27c",
           "history": [
             {
               "event": "imported",
-              "at": "2026-10-27T14:10:50.205339+00:00",
+              "at": "2026-10-27T17:39:58.522625+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
             },
             {
               "event": "definitions_confirmed",
-              "at": "2026-10-27T14:10:50.258759+00:00",
+              "at": "2026-10-27T17:39:58.650750+00:00",
               "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
               "by": "合成回放：数据负责人",
               "scope": "definitions_and_declared_completeness"
@@ -8161,35 +8269,95 @@ window.EXPERIMENT_REVIEW_DATA = {
           {
             "tool": "inspect_bundle",
             "status": "ok",
-            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7",
-            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+            "snapshot": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
           },
           {
             "tool": "review_materials",
             "status": "offline",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "claims": 6,
             "prompt_version": "material-claims-v1"
           },
           {
             "tool": "resolve_definition",
             "status": "confirmed",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "field": "denominator",
             "by": "合成回放：数据负责人"
           },
           {
             "tool": "review_gate",
-            "status": "NEEDS_CONFIRMATION"
+            "status": "NEEDS_CONFIRMATION",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
           },
           {
             "tool": "confirm_definitions",
             "status": "confirmed",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
             "by": "合成回放：数据负责人"
           },
           {
             "tool": "run_review",
-            "status": "REVIEW_READY"
+            "status": "REVIEW_READY",
+            "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef"
           }
-        ]
+        ],
+        "inputs": {
+          "question": "商品详情页改版能否进入人工发布评审？",
+          "documents": {
+            "实验说明": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。",
+            "指标字典": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+          },
+          "snapshot_id": "4cf9db0851fa2e0b72678f42565a8dec14fff5c9954dcac89493a6a105a63cb7"
+        },
+        "material_evidence": {
+          "claims": [
+            {
+              "field": "denominator",
+              "value": "all_assigned_users",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "currency",
+              "value": "CNY",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "refunds",
+              "value": "not_deducted",
+              "source": "实验说明",
+              "quote": "实验说明：用户级随机。主指标分母为全部唯一入组用户；观察窗口为入组后 7 天。币种 CNY，支付 GMV 未扣退款。"
+            },
+            {
+              "field": "denominator",
+              "value": "exposed_users",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            },
+            {
+              "field": "observation_days",
+              "value": "7",
+              "source": "指标字典",
+              "quote": "指标字典：支付转化率的分母为曝光用户；观察窗口为 7 天。"
+            }
+          ],
+          "resolutions": {
+            "denominator": {
+              "by": "合成回放：数据负责人",
+              "version": "f6b042fd75aa74c54409e1b346378d3a40ed9d8413e7b17221a4b52443c595ef",
+              "resolution": "verified_contract"
+            }
+          }
+        }
       }
     ]
   },
