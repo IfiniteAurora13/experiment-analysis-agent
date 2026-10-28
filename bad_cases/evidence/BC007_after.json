@@ -1,0 +1,27 @@
+{
+  "origin": "synthetic_offline_ui_replay",
+  "scenario": "guardrail_harm_with_custom_dictionary",
+  "expected_dictionary": "指标字典：支付转化率的分母为曝光用户；观察窗口为7天。",
+  "before_new_session": {
+    "dictionary": "指标字典：支付转化率的分母为曝光用户；观察窗口为7天。",
+    "version": "996561ef3e08bb3aeeefc3294098875a72730552073e27733c6755054de9ed19",
+    "status": "DO_NOT_SHIP",
+    "resolved_fields": [
+      "denominator"
+    ]
+  },
+  "after_new_session": {
+    "dictionary": "指标字典：支付转化率的分母为曝光用户；观察窗口为7天。",
+    "version": "996561ef3e08bb3aeeefc3294098875a72730552073e27733c6755054de9ed19",
+    "status": "DO_NOT_SHIP",
+    "resolved_fields": [
+      "denominator"
+    ]
+  },
+  "checks": {
+    "material_retained": true,
+    "same_input_version": true,
+    "confirmed_result_retained": true,
+    "resolution_retained": true
+  }
+}

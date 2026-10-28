@@ -107,7 +107,7 @@ class ReviewAgent:
             temporary.replace(self.path)
 
     def event(self, tool: str, status: str, **detail):
-        self.state["trace"].append({"tool": tool, "status": status, **detail})
+        self.state["trace"].append({"tool": tool, "status": status, "version": self.state.get("version"), **detail})
 
     def _sync(self, files, question, documents):
         if not isinstance(question, str) or not question.strip() or len(question) > 2000:
@@ -192,6 +192,8 @@ class ReviewAgent:
             status, label, message = card["status"], card["decision"]["label"], card["decision"]["reason"]
             owner, action = card["owner"], card["next_action"]
         view = {"task_id": self.state["task_id"], "version": version, "status": status, "label": label, "message": message, "owner": owner, "next_action": action, "pending": pending, "card": card, "markdown": markdown, "mode": self.state.get("mode", "offline"), "trace": copy.deepcopy(self.state["trace"])}
+        view["inputs"] = {"question": question, "documents": copy.deepcopy(documents), "snapshot_id": inspection.snapshot_id}
+        view["material_evidence"] = {"claims": copy.deepcopy(self.state.get("claims") or []), "resolutions": copy.deepcopy(self.state["resolved"])}
         self.state["last_view"] = copy.deepcopy(view)
         self.save()
         return view

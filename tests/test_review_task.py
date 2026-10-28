@@ -199,3 +199,17 @@ def test_source_instructions_cannot_approve_or_change_threshold():
     view = finish(agent, make_bundle("srm"), documents=docs)
     assert view["status"] == "BLOCKED"
     assert float(agent.workspace.state["current"]["card"]["inspection"]["contract"]["policy"]["max_gmv_loss_per_user"]) == .02
+
+
+def test_exported_record_contains_current_inputs_sources_and_bound_resolution():
+    agent = ReviewAgent()
+    view = finish(agent)
+    assert view["inputs"]["question"] == DEMO_QUESTION
+    assert view["inputs"]["documents"]["指标字典"] == DEMO_DICTIONARY
+    assert view["inputs"]["snapshot_id"] == view["card"]["snapshot_id"]
+    assert view["material_evidence"]["resolutions"]["denominator"]["version"] == view["version"]
+    assert any(c["source"] == "指标字典" for c in view["material_evidence"]["claims"])
+    assert all(event["version"] == view["version"] for event in view["trace"])
+    view["inputs"]["documents"]["指标字典"] = "changed after export"
+    assert agent.state["documents"]["指标字典"] == DEMO_DICTIONARY
+    assert agent.state["last_view"]["inputs"]["documents"]["指标字典"] == DEMO_DICTIONARY

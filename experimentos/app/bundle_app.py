@@ -20,6 +20,12 @@ def demo_files(scenario):
     return make_bundle("clean" if scenario == "material_conflict" else scenario)
 
 
+def save_material_draft(agent, scope, field, widget_key):
+    """Widget state is temporary; persist edits before a rerun can remove it."""
+    agent.state["ui"]["material_drafts"][scope][field] = st.session_state[widget_key]
+    agent.save()
+
+
 def render_bundle_workspace():
     path = Path(os.environ.get("EXPERIMENTOS_TASK_STORE", ".review_state/task.json"))
     if "review_agent" not in st.session_state:
@@ -30,6 +36,7 @@ def render_bundle_workspace():
             return
     agent = st.session_state.review_agent
     ui = agent.state["ui"]
+    previous_source, previous_scenario = ui.get("source"), ui.get("scenario", "clean")
     if "agent_source" not in st.session_state:
         st.session_state.agent_source = ui.get("source", "演示案例")
     source = st.radio("数据来源", ["演示案例", "本地导出包"], horizontal=True, key="agent_source")
@@ -55,12 +62,34 @@ def render_bundle_workspace():
             st.info("重新导入同一数据包可以恢复上次任务。文件在本地统计，模型只接收你填写的文本材料。")
             agent.save()
             return
+    scope = source + ":" + (scenario if source == "演示案例" else "upload")
+    drafts = ui.setdefault("material_drafts", {})
+    if scope not in drafts:
+        same_context = previous_source == source and (source != "演示案例" or previous_scenario == scenario)
+        documents = agent.state.get("documents", {}) if same_context else {}
+        drafts[scope] = {
+            "question": agent.state.get("question", DEMO_QUESTION) if same_context else DEMO_QUESTION,
+            "brief": documents.get("实验说明", DEMO_BRIEF if source == "演示案例" else ""),
+            "dictionary": documents.get("指标字典", DEMO_DICTIONARY if scenario == "material_conflict" else ""),
+            "use_model": False,
+        }
+    draft = drafts[scope]
+    keys = {field: "material:" + scope + ":" + field for field in draft}
+    for field, key in keys.items():
+        if key not in st.session_state:
+            st.session_state[key] = draft[field]
     with st.expander("问题与口径材料", expanded=scenario == "material_conflict"):
-        question = st.text_input("这次要判断什么", value=agent.state.get("question") or DEMO_QUESTION, key="agent_question")
-        brief = st.text_area("实验说明", DEMO_BRIEF if source == "演示案例" else "", key=f"brief_{source}")
-        dictionary = st.text_area("指标字典 / 补充材料", DEMO_DICTIONARY if scenario == "material_conflict" else "", key=f"dictionary_{source}_{scenario}")
-        use_model = st.toggle("使用本地环境已配置的模型辅助核对", value=False)
+        question = st.text_input("这次要判断什么", key=keys["question"], on_change=save_material_draft,
+                                 args=(agent, scope, "question", keys["question"]))
+        brief = st.text_area("实验说明", key=keys["brief"], on_change=save_material_draft,
+                             args=(agent, scope, "brief", keys["brief"]))
+        dictionary = st.text_area("指标字典 / 补充材料", key=keys["dictionary"], on_change=save_material_draft,
+                                  args=(agent, scope, "dictionary", keys["dictionary"]))
+        use_model = st.toggle("使用本地环境已配置的模型辅助核对", key=keys["use_model"], on_change=save_material_draft,
+                              args=(agent, scope, "use_model", keys["use_model"]))
+        st.caption("材料随当前案例自动保存，刷新或重新打开后继续保留。")
         st.caption("启用后只发送上述问题和文本。每个输入版本最多调用一次；不返回自由形式的统计结论。")
+    draft.update(question=question, brief=brief, dictionary=dictionary, use_model=use_model)
     assessor = None
     assessor_key = "offline"
     if use_model:
@@ -141,12 +170,12 @@ def render_bundle_workspace():
                     except ValueError as exc:
                         st.error(str(exc))
     if not view["pending"]:
-        st.download_button("下载评审卡", view["markdown"], file_name="experiment-review.md", mime="text/markdown")
+        st.download_button("下载评审卡", view["markdown"], file_name=f"experiment-review-{view['version'][:8]}.md", mime="text/markdown")
     with st.expander("证据与任务记录"):
         st.caption(f"任务 {view['task_id'][:8]} · {view['mode']} · 已自动保存在本地；上传文件刷新后需重新导入。")
         st.dataframe(view["trace"], hide_index=True)
         st.json(card["inspection"])
-        st.download_button("下载完整记录", json.dumps(view, ensure_ascii=False, indent=2), "review-task.json", mime="application/json")
+        st.download_button("下载完整记录", json.dumps(view, ensure_ascii=False, indent=2), f"review-task-{view['version'][:8]}.json", mime="application/json")
     if card.get("confirmation") and not view["pending"]:
         with st.expander("撤回当前评审"):
             with st.form("withdraw_review"):
